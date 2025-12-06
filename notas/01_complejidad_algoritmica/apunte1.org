@@ -1,0 +1,97 @@
+#+Title: Complejidad Computacional
+#+Author: Victor Torres
+
+* Introduccion
+
+El concepto de *algoritmo* es el mas importante en todo el mundo de computacion, en computer science, un algoritmo es un procedimiento *finito*, *preciso* y *efectivo* para resolver un problema. Este algoritmo procesa un conjunto de valores no vacios (entrada) para poder transformarlo en la salida el cual es el resultado obetenido despues de la ejecucion de las instrucciones.
+
+Vamos a expandir un poco el porque nos importan estos 3 conceptos:
+- *Finito*: Todo algoritmo debe terminar despues de un numero finito de pasos
+- *Preciso*: Cada instruccion del algoritmo debe describir una accion bien especificada, sin ser ambiguo.
+- *Efectivo*: Cada operacion debe ejecutarse en un tiempo razonable.
+
+Un algoritmo no implica necesariamente eficiencia, hay problemas que pueden resolverse pero cuyo tiempo de ejecucion crece tanto que es impractico gastar recursos computacionales en ello. Por ejemplo buscar todas entre todas las rutas de un punto A a un punto B implica probar cada combinacion de cada camino, lo cual es muy tardado, lo cual seria una perdida de tiempo intentar resolver, sin embargo si tenemos un algoritmo que nos tome menos tiempo, como se va a ver mas adelante, entonces si vale la pena resolver ese problema, es ahi donde entra la importancia de la complejidad.
+
+* Eficiencia
+Cuando evaluamos la eficiencia de un algoritmo consideramos 2 recursos principales:
+- *Tiempo*: numero de operaciones elementales realizadas
+- *Espacio*: cantidad de memoria utilizada
+
+Algo que nos servira mucho a partir de aqui es pensar en terminos de *n* el cual sera el tamaño de la entrada, siempre conviene imaginar que *n* sea millones o miles de millones, eso nos dara una perspectiva de que complejidad es mejor que otra. Aqui no nos va a importar en que hardware esta corriendo el algoritmo, puede ser la computadora mas potente del mundo o la de batalla de la uni, lo que importa es la complejidad del algoritmo.
+* Operaciones elementales
+Antes de analizar el tiempo de ejecucion debemos comprender que es una operacion elemental:
+- Comparaciones
+- Asignaciones
+- Operaciones Aritmeticas elementales
+- Acceso a memoria
+
+* Complejidad temporal
+El analisis asintotico busca describir el comportamiento de una funcion de tiempo cuando $n$ tiende a $\infty$. Cuando hablamos de complejidad siempre vamos a tener en cuenta 3 casos, peor caso, mejor caso y caso promedio.
+
+** Peor caso
+Mide el mayor tiempo posible para una entrada de tamaño n. Esta notacion es la mas importante porque le da una nocion de limite superior a los algoritmos, siempre pensemos en el peor caso como siempre buscar que el algoritmo haga las mayores iteraciones posibles, por ejemplo
+#+begin_src java
+  for(int i = 0; i < size; i++){
+      if (i < y){
+  	int x = 10
+      }
+  }
+#+end_src
+En este codigo para analizar su complejidad en el peor caso siempre vamos a asumir que entra al =if=, en lugar de no entrar, de igual manera si tuvieramos una condicion que tiene un =break= o =return=, vamos a asumir que nunca entra y acaba el bucle externo, es decir siempre vamos a buscar que haga los mayores pasos.
+
+La vamos a denotar como notacion: *O(f(n))* donde f(n) va a ser la funcion que describe el comportamiento del algoritmo.
+** Caso promedio
+Este caso es como el que mas se repite, para determinar si usarlo como cota tiene que ver con la distribucion de las entradas, generalmente no tiene mucho sentido porque siempre nos importara el peor caso, pero hay excepciones como QuickSort (algoritmo que se vera mas adelante) en el cual el peor caso se da muy pocas veces, en ese caso entonces si importa el caso promedio.
+
+
+** Mejor caso
+Generalmente este es irrelevante ya que no nos representa el comportamiento real, pero es el caso en el que el algoritmo acaba mas rapido, por ejemplo en una busqueda, si el elemento que buscamos esta al inicio, ya acabamos. Pero de nuevo, este caso es el menos importante en la vida real.
+
+
+
+* Notacion asintotica
+** Cota superior asintotica: O(g(n))
+$f(n) = O(g(n))$ si existen constantes $c$ y $n_0$ tales que:
+
+ $f(n) < c \cdot g(n)$ para todo $n \geq n_0$
+
+ Esto es que f(n) queda delimitado por g(n), es decir a partir de $n_0$ siempre la grafica g(n) va a estar por encima de f(n) el cual es el comportamiento real del algoritmo.
+* Conteo de Operaciones: Ejemplo
+
+#+begin_src java
+int sum = 0;          // 1 operacion
+for(int i = 0; i < n; i++){  // n veces itera
+    sum++;            // 1 operacion, pero al repetirse n veces, son n operaciones
+}
+return sum;           // 1 operación
+#+end_src
+
+El total es:
+
+T(n) = 2 + 2n ⇒ O(n)
+* Analisis de funciones de complejidad
+Ahora como ya vimos el concepto de notacion asintotica veamos distintos tipos de notacion comun con las cuales vamos a describir a ciertos algoritmos:
+- O(1): se le conoce como constante, esto es decir no importa si nuestra n vale 1 o mil millones, esta operacion va a tomar el mismo tiempo, es la complejidad mas rapida que vamos a encontrar, estas son las operaciones elementales.
+- O(log n): se le conoce como logaritmica, es muy deseada en muchos algoritmos ya que reduce drasticamente el tiempo, el algoritmo logaritmico mas conocido es la busqueda binaria.
+- O(n): se le conoce como lineal, basicamente nuestro algoritmo hara tantos pasos como el tamaño de n sea, se puede entender muy facil si por ejemplo estamos buscando linealmente en un arreglo y el elemento no esta, tenemos que verificar todas las posiciones del arreglo, por lo que el algoritmo ejecutara tantos pasos como posiciones el arreglo tenga
+- O(n log n): esta complejidad es la ultima eficiente, ya que aun asi si tenemos millones de entradas, no tardara tanto, encontraremos esta complejidad en algoritmos de ordenamiento o en varias estructuras de datos que se veran mas adelante en el curso. Recuerden las palabras heaps y arboles.
+- O($n^2$): se le conoce como cuadratico, por lo regular las soluciones de fuerza bruta tienen esta complejidad, sirve cuando sabemos que las entradas no seran tam grandes, las operaciones con matrices tienen esta complejidad, por lo que a veces tenemos que usarla porque no hay de otra.
+- O(($n^k$): se le conoce como polinomial, esta ya no es aceptable como complejidad, ya que por ejemplo si tenemos una entrada de un millon, que tarde un millon a la cuarta potencia pues ya no es muy util.
+- O($2^n$): si la anterior no la queriamos, menos esta, es la complejidad exponencial, por lo regular problemas de fuerza bruta igual tienen esta complejidad, si tu algoritmo tiene esta complejidad, probablemente hay algo a mejorar.
+- O(n!): la peor de todas, la factorial, basicamente es cuando tienes que combinar todos contra todos, no usarla.
+
+  
+* Comparación de Crecimientos
+
+| n         | log n |    n | n log n | $n^2$ | $2^n$      |
+|-----------+-------+------+---------+-------+------------|
+| 10        |     3 |   10 |      30 |   100 | 1024       |
+| 100       |     6 |  100 |     600 |   10k | $10^{30}$  |
+| 1,000     |    10 | 1000 |     10k |   1e6 | $10^{302}$ |
+| 1,000,000 |    20 |  1e6 |     2e7 |  1e12 | imposible  |
+
+Aqui vemos el importante concepto de complejidad computacional y que tanto se diferencia ya que por ejemplo cuando estamos en 10, 30 vs 1024 computacionalmente es nada, pero ya cuando se vuelven entradas de millones entonces si importa
+
+* Complejidad Espacial
+Por ultimo vamos a hablar de complejidad espacial, basicamente cada que creamos una variable estamos usando espacio de memoria de nuestra computadora, complejidad espacial es cuanta memoria vamos a usar, esta complejidad es mas facil ya que por ejemplo variables solo ocupan O(1), mientras que arreglos y otras estructuras que se veran mas adelante ocupan O(n), una matriz por ejemplo ocupa O(nm) siendo n numero de filas y m numero de columnas, fuera de estas 3 complejidades no se ven muchas mas a menudo. Esto luego es importante porque por ejemplo que pasa si tenemos un algoritmo de complejidad constante pero de complejidad espacial O(nm), si tenemos entradas de millones tal vez saturemos nuestra memoria, por lo que a veces valdria la pena reconsiderar que algoritmo usamos.
+
