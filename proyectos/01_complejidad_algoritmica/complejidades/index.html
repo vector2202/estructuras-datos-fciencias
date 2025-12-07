@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparacion de complejidades</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1>Complejidades simulador</h1>
+        </header>
+
+        <main class="dashboard">
+            <section class="controls-panel">
+                
+                <div class="card input-group">
+                    <label for="algoSelect">Selecciona Complejidad</label>
+                    <select id="algoSelect">
+                        <option value="o1">O(1) Constante</option>
+                        <option value="ologn">O(log n) logaritmica</option>
+                        <option value="on" selected>O(n) lineal</option>
+                        <option value="onlogn">O(n log n) </option>
+                        <option value="on2">O(n²) cuadratica</option>
+                        <option value="onk">O(nᵏ) polinomial</option>
+                        <option value="o2n">O(2ⁿ) exponencial</option>
+                        <option value="onfact">O(n!) factorial</option>
+                    </select>
+                </div>
+
+                <div class="card input-group">
+                    <div class="slider-header">
+                        <label>Tamaño de entrada (n)</label>
+                        <span id="nValue" class="mono-value">10</span>
+                    </div>
+                    <input type="range" id="nSlider" min="1" max="1000" value="10" step="1">
+                    <p class="slider-hint">Desliza para simular más datos</p>
+                </div>
+
+                <div class="card info-card">
+                    <div class="complexity-badge" id="complexityBadge">O(n²)</div>
+                    <h3 id="algoTitle">Cuadrática</h3>
+                    <p id="algoDesc">
+                        Aquí aparecerá la descripción detallada seleccionada.
+                    </p>
+                </div>
+            </section>
+
+            <section class="visual-panel">
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <span class="label">Operaciones Estimadas</span>
+                        <span class="value" id="opsValue">100</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="label">Estado</span>
+                        <span class="value" id="statusValue" style="color: #4ade80">Aceptable</span>
+                    </div>
+                </div>
+
+                <div class="chart-wrapper">
+                    <canvas id="complexityChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Búsqueda — Algoritmos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">Menu Principal</a>
+    <a href="sorting.html">Ordenamiento</a>
+    <a href="searching.html" class="active">Busqueda</a>
+  </nav>
+
+  <header>
+    <h1>Algoritmos de busqueda</h1>
+    <p class="subtitle">Busqueda lineal vs busqueda binaria</p>
+  </header>
+
+  <main>
+    <section class="controls">
+      <div class="control-row">
+        <label> Tamaño del arreglo: <span id="sizeLabel">60</span> </label>
+        <input id="size" type="range" min="10" max="160" value="60" />
+      </div>
+      <div class="control-row">
+        <button id="generate">Generar arreglo aleatorio</button>
+        <button id="reset">Reset</button>
+        <button id="startSearching">Iniciar simulacion</button>
+      </div>
+      <div class="control-row">
+        <label><input id="darkMode" type="checkbox" /> Modo oscuro</label>
+      </div>
+    </section>
+
+    <section class="visualization">
+      <div class="search-panel" id="search-race">
+        <div class="search-visuals">
+          <div class="search-box" id="linear-box">
+            <div class="alg-name">Busqueda lineal</div>
+            <div class="array-canvas" id="canvas-linear"></div>
+            <div class="status" id="linear-status"></div>
+          </div>
+          <div class="search-box" id="binary-box">
+            <div class="alg-name">Busqueda binaria</div>
+            <div class="array-canvas" id="canvas-binary"></div>
+            <div class="status" id="binary-status"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary" id="summary">
+      <h3>Resumen</h3>
+      <div id="results"></div>
+    </section>
+
+    <footer>
+      <small>Visualizador educativo</small>
+    </footer>
+  </main>
+
+  <script src="js/searching.js"></script>
+</body>
+</html>

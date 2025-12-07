@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Complejidad de ordenamiento</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Menu Principal</a>
+    <a href="sorting.html" class="active">Ordenamiento</a>
+    <a href="searching.html">Búsqueda</a>
+  </nav>
+
+  <header>
+    <h1>Carrera de Ordenamiento</h1>
+    <p class="subtitle">Bubble vs Merge vs Quick vs Radix</p>
+  </header>
+
+  <main>
+
+    <section class="controls">
+      <div class="control-row">
+        <label> Tamaño del arreglo: <span id="sizeLabel">60</span> </label>
+        <input id="size" type="range" min="10" max="160" value="60" />
+      </div>
+
+      <div class="control-row">
+        <button id="generate">Generar arreglo</button>
+        <button id="reset">Reset</button>
+        <button id="startSorting">Iniciar carrera</button>
+      </div>
+
+      <div class="control-row">
+        <label><input id="darkMode" type="checkbox" /> Modo oscuro</label>
+      </div>
+    </section>
+
+    <section class="visualization">
+      <div class="race-track" id="sorting-race">
+
+        <div class="algorithms">
+          <div class="alg" id="alg-bubble">
+            <div class="alg-name">Bubble</div>
+            <div class="runner"></div>
+            <div class="ops">0 ops</div>
+          </div>
+
+          <div class="alg" id="alg-merge">
+            <div class="alg-name">Merge</div>
+            <div class="runner"></div>
+            <div class="ops">0 ops</div>
+          </div>
+
+          <div class="alg" id="alg-quick">
+            <div class="alg-name">Quick</div>
+            <div class="runner"></div>
+            <div class="ops">0 ops</div>
+          </div>
+
+          <div class="alg" id="alg-radix">
+            <div class="alg-name">Radix</div>
+            <div class="runner"></div>
+            <div class="ops">0 ops</div>
+          </div>
+        </div>
+
+        <div class="arrays">
+          <div class="array-canvas" id="canvas-bubble"></div>
+          <div class="array-canvas" id="canvas-merge"></div>
+          <div class="array-canvas" id="canvas-quick"></div>
+          <div class="array-canvas" id="canvas-radix"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="summary" id="summary">
+      <h3>Resumen</h3>
+      <div id="results"></div>
+    </section>
+
+    <footer>
+      <small>Visualizador educativo</small>
+    </footer>
+
+  </main>
+
+  <script src="js/sorting.js"></script>
+</body>
+</html>
