@@ -1,0 +1,335 @@
+/* =========================================================
+   VARIABLES, MODO OSCURO Y BASE
+   ========================================================= */
+:root {
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+    --header-bg: #fff;
+    --track-bg: #fff;
+    --control-bg: #eee;
+    --primary-color: #007bff;
+    --bar-color: #3f51b5;
+
+    --bar-compare: #ff9800; /* Orange */
+    --bar-swap: #f44336;    /* Red */
+    --bar-found: #4caf50;   /* Green */
+
+    --footer-color: #666;
+}
+
+/* Modo Oscuro */
+body.dark {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg: #1e1e1e;
+    --track-bg: #1e1e1e;
+    --control-bg: #2c2c2c;
+
+    --bar-color: #64b5f6;
+    --bar-compare: #ffb74d;
+    --bar-swap: #ef9a9a;
+    --bar-found: #81c784;
+
+    --footer-color: #aaa;
+}
+
+/* Reset */
+* {
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   TIPOGRAFÍA Y LAYOUT GENERAL
+   ========================================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    transition: background-color 0.3s;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+header {
+    background-color: var(--header-bg);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.8em;
+    color: var(--primary-color);
+}
+
+.subtitle {
+    margin-top: 5px;
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+/* =========================================================
+   NAV / MENÚ SUPERIOR
+   ========================================================= */
+nav {
+    padding: 10px;
+    background: var(--control-bg);
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+nav a {
+    margin: 0 15px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 5px 0;
+    transition: color 0.2s;
+}
+
+nav a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+nav a:hover {
+    color: var(--primary-color);
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL (sorting/searching)
+   ========================================================= */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =========================================================
+   CONTROLES DE ALGORITMOS
+   ========================================================= */
+.controls {
+    background-color: var(--control-bg);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.control-row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+label {
+    font-weight: 500;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    background-color: #003d80;
+}
+
+input[type="range"] {
+    flex-grow: 1;
+}
+
+/* =========================================================
+   PÁGINA INDEX → MENÚ PRINCIPAL
+   ========================================================= */
+.menu-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 50px;
+}
+
+.menu-container h1 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.menu-container a {
+    display: block;
+    margin: 15px 0;
+    padding: 15px 30px;
+    text-decoration: none;
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.menu-container a:hover {
+    background-color: #0056b3;
+}
+
+/* =========================================================
+   SORTING VISUALIZER
+   ========================================================= */
+.race-track {
+    background-color: var(--track-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.algorithms {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.alg {
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--control-bg);
+    padding-bottom: 10px;
+}
+
+.alg-name {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.ops {
+    font-size: 0.9em;
+    color: var(--footer-color);
+}
+
+.runner {
+    height: 5px;
+    background-color: var(--primary-color);
+    width: 0%;
+    transition: width 0.3s ease;
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+/* Arreglos/barras */
+.arrays {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.array-canvas {
+    height: 150px;
+    display: flex;
+    align-items: flex-end;
+    border: 1px solid #ccc;
+    background-color: var(--control-bg);
+    padding: 5px;
+    overflow: hidden;
+}
+
+.bar {
+    flex-grow: 1;
+    background-color: var(--bar-color);
+    margin: 0 0.5px;
+    min-width: 1px;
+    transition: background-color 0.1s;
+}
+
+.bar.compare {
+    background-color: var(--bar-compare) !important;
+}
+
+.bar.swap {
+    background-color: var(--bar-swap) !important;
+}
+
+.bar.found {
+    background-color: var(--bar-found) !important;
+}
+
+/* =========================================================
+   SEARCHING VISUALIZER
+   ========================================================= */
+.search-panel {
+    background-color: var(--track-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-visuals {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.search-box {
+    flex: 1;
+}
+
+.status {
+    margin-top: 10px;
+    font-style: italic;
+    color: var(--primary-color);
+}
+
+/* =========================================================
+   SUMMARY / FOOTER
+   ========================================================= */
+.summary {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--header-bg);
+    border-radius: 8px;
+    border: 1px dashed var(--footer-color);
+}
+
+.summary h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--footer-color);
+    font-size: 0.8em;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 768px) {
+    .algorithms,
+    .arrays,
+    .search-visuals {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+
+    .control-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
