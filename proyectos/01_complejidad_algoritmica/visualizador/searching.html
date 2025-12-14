@@ -3,64 +3,84 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Búsqueda — Algoritmos</title>
+  <title>Search Engine - Execution Context</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <nav>
-    <a href="index.html">Menu Principal</a>
-    <a href="sorting.html">Ordenamiento</a>
-    <a href="searching.html" class="active">Busqueda</a>
-  </nav>
 
-  <header>
-    <h1>Algoritmos de busqueda</h1>
-    <p class="subtitle">Busqueda lineal vs busqueda binaria</p>
-  </header>
+  <div class="app-container">
+    <header>
+      <div>
+        <h1>Engine <span class="highlight">Search</span></h1>
+        <p class="subtitle">Linear Search vs Binary Search</p>
+      </div>
+      <nav>
+        <a href="searching.html" class="active">Búsqueda</a>
+        <a href="sorting.html">Ordenamiento</a>
+      </nav>
+    </header>
 
-  <main>
-    <section class="controls">
-      <div class="control-row">
-        <label> Tamaño del arreglo: <span id="sizeLabel">60</span> </label>
-        <input id="size" type="range" min="10" max="160" value="60" />
-      </div>
-      <div class="control-row">
-        <button id="generate">Generar arreglo aleatorio</button>
-        <button id="reset">Reset</button>
-        <button id="startSearching">Iniciar simulacion</button>
-      </div>
-      <div class="control-row">
-        <label><input id="darkMode" type="checkbox" /> Modo oscuro</label>
-      </div>
-    </section>
-
-    <section class="visualization">
-      <div class="search-panel" id="search-race">
-        <div class="search-visuals">
-          <div class="search-box" id="linear-box">
-            <div class="alg-name">Busqueda lineal</div>
-            <div class="array-canvas" id="canvas-linear"></div>
-            <div class="status" id="linear-status"></div>
+    <div class="dashboard">
+      <aside>
+        <div class="card">
+          <label>Configuración</label>
+          
+          <div class="slider-header">
+            <span>Elements (N)</span>
+            <span id="sizeVal" class="mono-value">60</span>
           </div>
-          <div class="search-box" id="binary-box">
-            <div class="alg-name">Busqueda binaria</div>
-            <div class="array-canvas" id="canvas-binary"></div>
-            <div class="status" id="binary-status"></div>
+          <input id="sizeSlider" type="range" min="20" max="200" value="60" />
+
+          <div class="slider-header">
+            <span>Delay (ms)</span>
+            <span id="speedVal" class="mono-value">50</span>
+          </div>
+          <input id="speedSlider" type="range" min="10" max="500" value="50" />
+          
+          <div style="background:var(--bg-main); padding:10px; border-radius:8px; margin: 15px 0; border:1px solid var(--accent);">
+            <label style="margin-bottom:5px; color:var(--accent);">Target Value</label>
+            <div id="targetDisplay" class="mono-value" style="font-size:1.5rem; color: white;">?</div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button id="btnStart">Iniciar Búsqueda</button>
+            <button id="btnReset" class="secondary">Reset / Nuevo Target</button>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="summary" id="summary">
-      <h3>Resumen</h3>
-      <div id="results"></div>
-    </section>
+        <div class="card info-card">
+          <h3>Lógica de Ejecución</h3>
+          <p>Para una comparación visual justa, ambos algoritmos operan sobre el mismo <strong>arreglo ordenado</strong>.</p>
+          <div style="margin-top:10px">
+            <div style="color:var(--success)">■ Found (Match)</div>
+            <div style="color:var(--warning)">■ Compare</div>
+            <div style="color:var(--text-secondary); opacity:0.5">■ Discarded Range</div>
+          </div>
+        </div>
+      </aside>
 
-    <footer>
-      <small>Visualizador educativo</small>
-    </footer>
-  </main>
+      <main class="algorithms-grid" style="grid-template-columns: 1fr;"> <div class="algo-card">
+          <div class="algo-header">
+            <span>Linear Search <span class="complexity-badge" style="font-size:0.7em">O(n)</span></span>
+            <span id="stats-linear" class="algo-ops">0 ops</span>
+          </div>
+          <div id="chart-linear" class="chart-container"></div>
+          <div class="progress-bg"><div id="prog-linear" class="progress-fill"></div></div>
+        </div>
 
-  <script src="js/searching.js"></script>
+        <div class="algo-card">
+          <div class="algo-header">
+            <span>Binary Search <span class="complexity-badge" style="font-size:0.7em">O(log n)</span></span>
+            <span id="stats-binary" class="algo-ops">0 ops</span>
+          </div>
+          <div id="chart-binary" class="chart-container"></div>
+          <div class="progress-bg"><div id="prog-binary" class="progress-fill"></div></div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="js/searching.js"></script>
 </body>
 </html>
