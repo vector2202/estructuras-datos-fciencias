@@ -1,6 +1,3 @@
-/* =========================================
-   TU CSS BASE (SLATE THEME)
-   ========================================= */
 :root {
     --bg-main: #0f172a;       /* Slate 900 */
     --bg-card: #1e293b;       /* Slate 800 */
@@ -27,7 +24,7 @@ body {
     box-sizing: border-box;
 }
 
-.app-container { max-width: 1400px; width: 100%; } /* Aumenté un poco para la carrera */
+.app-container { max-width: 1400px; width: 100%; } 
 
 /* Header */
 header {
@@ -84,7 +81,7 @@ button:active { transform: translateY(1px); }
 button.secondary { background-color: var(--bg-main); border: 1px solid var(--border); color: var(--text-secondary); }
 button.secondary:hover { border-color: var(--text-primary); color: var(--text-primary); background-color: var(--bg-card); }
 
-/* Grid de Algoritmos (La pista de carrera) */
+/* Grid de Algoritmos */
 .algorithms-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; /* 2x2 grid */
@@ -101,7 +98,7 @@ button.secondary:hover { border-color: var(--text-primary); color: var(--text-pr
 .algo-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
 .algo-ops { font-family: monospace; color: var(--text-secondary); font-size: 0.85rem; }
 
-/* Visualización de Barras (Optimizado) */
+/* Visualización de Barras */
 .chart-container {
     height: 200px;
     display: flex;
@@ -117,7 +114,7 @@ button.secondary:hover { border-color: var(--text-primary); color: var(--text-pr
 }
 
 /* Estados de colores para las barras */
-.bar.compare { background-color: var(--accent) !important; }
+.bar.compare { background-color: var(--warning) !important; }
 .bar.swap { background-color: var(--accent) !important; }
 .bar.sorted { background-color: var(--accent) !important; }
 .bar.overwrite { background-color: var(--accent) !important; } /* Para Radix/Merge */
@@ -126,16 +123,15 @@ button.secondary:hover { border-color: var(--text-primary); color: var(--text-pr
 .progress-bg { height: 4px; background: var(--bg-main); border-radius: 2px; margin-top: 10px; overflow: hidden; }
 .progress-fill { height: 100%; background: var(--success); width: 0%; transition: width 0.1s linear; }
 
-/* --- Añadidos para Searching --- */
 
-/* Barra encontrada (Target match) */
+/* Barra encontrada  */
 .bar.found {
     background-color: var(--success) !important;
     box-shadow: 0 0 10px var(--success);
     z-index: 10;
 }
 
-/* Barra descartada (Rango fuera de búsqueda en Binaria) */
+/* Barra descartada */
 .bar.dim {
     background-color: var(--bg-main); /* Se funde con el fondo */
     opacity: 0.3;
