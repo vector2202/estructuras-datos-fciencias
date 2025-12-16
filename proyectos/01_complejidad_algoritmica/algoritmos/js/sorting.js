@@ -61,7 +61,7 @@ function quickSort(arr) {
         }
     }
     sort(0, array.length - 1);
-    return steps; // Quick sort visualmente es tricky para marcar "sorted" incrementalmente sin lógica extra
+    return steps;
 }
 
 function mergeSort(arr) {
@@ -76,19 +76,19 @@ function mergeSort(arr) {
         while (i < leftArr.length && j < rightArr.length) {
             steps.push({ type: 'compare', indices: [l + i, m + 1 + j] });
             if (leftArr[i] <= rightArr[j]) {
-                steps.push({ type: 'overwrite', index: k, value: leftArr[i] });
+                steps.push({ type: 'write', index: k, value: leftArr[i] });
                 array[k++] = leftArr[i++];
             } else {
-                steps.push({ type: 'overwrite', index: k, value: rightArr[j] });
+                steps.push({ type: 'write', index: k, value: rightArr[j] });
                 array[k++] = rightArr[j++];
             }
         }
         while (i < leftArr.length) {
-            steps.push({ type: 'overwrite', index: k, value: leftArr[i] });
+            steps.push({ type: 'write', index: k, value: leftArr[i] });
             array[k++] = leftArr[i++];
         }
         while (j < rightArr.length) {
-            steps.push({ type: 'overwrite', index: k, value: rightArr[j] });
+            steps.push({ type: 'write', index: k, value: rightArr[j] });
             array[k++] = rightArr[j++];
         }
     }
@@ -114,15 +114,15 @@ function radixSort(arr) {
     while (Math.floor(max / exp) > 0) {
         const buckets = Array.from({ length: 10 }, () => []);
         
-        // Bucketing phase
+        // Frequencies, bucket digits
         for (let i = 0; i < array.length; i++) {
             const digit = Math.floor((array[i] / exp) % 10);
             buckets[digit].push(array[i]);
-            // Visualmente mostramos qué "bucket" (dígito) estamos leyendo
+	    //Digito leido
             steps.push({ type: 'compare', indices: [i] }); 
         }
 
-        // Reconstruction phase
+        // Rewrite array
         let idx = 0;
         for (let i = 0; i < 10; i++) {
             for (let val of buckets[i]) {
@@ -163,6 +163,10 @@ async function runAlgo(id, steps) {
         else if (step.type === 'overwrite') {
             localArr[step.index] = step.value;
             highlights[step.index] = 'overwrite';
+        }
+	else if (step.type === 'write') {
+            localArr[step.index] = step.value;
+            highlights[step.index] = 'write';
         }
         else if (step.type === 'sorted') {
              step.indices.forEach(idx => highlights[idx] = 'sorted');

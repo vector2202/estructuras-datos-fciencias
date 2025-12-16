@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sorting Race - Execution Engine</title>
+  <title>Sorting algorithms</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -11,22 +11,22 @@
   <div class="app-container">
     <header>
       <div>
-        <h1>Engine <span class="highlight">Sort</span></h1>
+        <h1><span class="highlight">Sorting</span> algorithms</h1>
         <p class="subtitle">Bubble vs Merge vs Quick vs Radix</p>
       </div>
       <nav>
-        <a href="searching.html">Búsqueda</a>
-        <a href="sorting.html" class="active">Ordenamiento</a>
+        <a href="searching.html">Searching</a>
+        <a href="sorting.html" class="active">Sorting</a>
       </nav>
     </header>
 
     <div class="dashboard">
       <aside>
         <div class="card">
-          <label>Configuración</label>
+          <label>Configuration</label>
           
           <div class="slider-header">
-            <span>Elements (N)</span>
+            <span>Size of array (N)</span>
             <span id="sizeVal" class="mono-value">60</span>
           </div>
           <input id="sizeSlider" type="range" min="10" max="200" value="60" />
@@ -36,21 +36,20 @@
             <span id="speedVal" class="mono-value">20</span>
           </div>
           <input id="speedSlider" type="range" min="0" max="200" value="20" />
-          <div class="slider-hint">Menos es más rápido</div>
-
           <div style="margin-top: 20px;">
-            <button id="btnStart">Iniciar Ejecución</button>
-            <button id="btnReset" class="secondary">Reset / Generar</button>
+            <button id="btnStart">Sort</button>
+            <button id="btnReset" class="secondary">Reset</button>
           </div>
         </div>
 
         <div class="card info-card">
-          <h3>Detalles de Ejecución</h3>
-          <p>Comparativa visual de eficiencia algorítmica.</p>
+          <h3>Ejecucion</h3>
+          <p>Steps described in colors</p>
           <div style="margin-top:10px">
             <div style="color:var(--danger)">■ Swap / Write</div>
             <div style="color:var(--warning)">■ Compare</div>
             <div style="color:var(--purple)">■ Radix Bucket</div>
+	    <div style="color:var(--yellow)">■ Merge write</div>
           </div>
         </div>
       </aside>
@@ -86,7 +85,7 @@
 
         <div class="algo-card">
           <div class="algo-header">
-            <span>Radix Sort <span class="complexity-badge" style="font-size:0.7em">O(nk)</span></span>
+            <span>Radix Sort <span class="complexity-badge" style="font-size:0.7em">O(n)</span></span>
             <span id="stats-radix" class="algo-ops">0 ops</span>
           </div>
           <div id="chart-radix" class="chart-container"></div>

@@ -9,7 +9,8 @@
     --danger: #ef4444;
     --warning: #f59e0b;
     --success: #10b981;
-    --purple: #a855f7;        /* Purple 500 (Extra para Radix) */
+    --yellow: #f0f11f;
+    --purple: #a855f7;
 }
 
 body {
@@ -115,9 +116,10 @@ button.secondary:hover { border-color: var(--text-primary); color: var(--text-pr
 
 /* Estados de colores para las barras */
 .bar.compare { background-color: var(--warning) !important; }
-.bar.swap { background-color: var(--accent) !important; }
+.bar.swap { background-color: var(--danger) !important; }
 .bar.sorted { background-color: var(--accent) !important; }
-.bar.overwrite { background-color: var(--accent) !important; } /* Para Radix/Merge */
+.bar.overwrite { background-color: var(--purple) !important; }
+.bar.write { background-color: var(--yellow) !important; }
 
 /* Progress Line */
 .progress-bg { height: 4px; background: var(--bg-main); border-radius: 2px; margin-top: 10px; overflow: hidden; }

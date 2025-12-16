@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Search Engine - Execution Context</title>
+  <title>Search algorithms</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -11,31 +11,31 @@
   <div class="app-container">
     <header>
       <div>
-        <h1>Engine <span class="highlight">Search</span></h1>
+        <h1><span class="highlight">Search</span> algorithms</h1>
         <p class="subtitle">Linear Search vs Binary Search</p>
       </div>
       <nav>
-        <a href="searching.html" class="active">Búsqueda</a>
-        <a href="sorting.html">Ordenamiento</a>
+        <a href="searching.html" class="active">Searching</a>
+        <a href="sorting.html">Sorting</a>
       </nav>
     </header>
 
     <div class="dashboard">
       <aside>
         <div class="card">
-          <label>Configuración</label>
+          <label>Configuration</label>
           
           <div class="slider-header">
-            <span>Elements (N)</span>
+            <span>Size of array (N)</span>
             <span id="sizeVal" class="mono-value">60</span>
           </div>
           <input id="sizeSlider" type="range" min="20" max="200" value="60" />
 
           <div class="slider-header">
             <span>Delay (ms)</span>
-            <span id="speedVal" class="mono-value">50</span>
+            <span id="speedVal" class="mono-value">200</span>
           </div>
-          <input id="speedSlider" type="range" min="10" max="500" value="50" />
+          <input id="speedSlider" type="range" min="100" max="500" value="200" />
           
           <div style="background:var(--bg-main); padding:10px; border-radius:8px; margin: 15px 0; border:1px solid var(--accent);">
             <label style="margin-bottom:5px; color:var(--accent);">Target Value</label>
@@ -43,16 +43,16 @@
           </div>
 
           <div style="margin-top: 20px;">
-            <button id="btnStart">Iniciar Búsqueda</button>
-            <button id="btnReset" class="secondary">Reset / Nuevo Target</button>
+            <button id="btnStart">Search target</button>
+            <button id="btnReset" class="secondary">Reset</button>
           </div>
         </div>
 
         <div class="card info-card">
-          <h3>Lógica de Ejecución</h3>
+          <h3>Ejecucion</h3>
           <p>Para una comparación visual justa, ambos algoritmos operan sobre el mismo <strong>arreglo ordenado</strong>.</p>
           <div style="margin-top:10px">
-            <div style="color:var(--success)">■ Found (Match)</div>
+            <div style="color:var(--success)">■ Found</div>
             <div style="color:var(--warning)">■ Compare</div>
             <div style="color:var(--text-secondary); opacity:0.5">■ Discarded Range</div>
           </div>
