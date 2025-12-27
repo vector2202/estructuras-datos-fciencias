@@ -1,0 +1,138 @@
+#+Title: Listas
+
+* Introduccion
+Las listas son estructuras de datos lineales que permiten almacenar una coleccion ordenada de elementos, donde cada elemento ocupa una posicion logica dentro de la secuencia, a diferencia de los arreglos, las listas no ocupan memoria contigua y su tamaño si es dinamico, es decir puede decrecer o crecer dependiendo de las necesidades del programa.
+
+Esta flexibilidad es fundamental para la construccion de estructuras mas complejas, y como mencionamos anteriormente, cuando necesitamos insertar y eliminar constantemente, entonces si vale la pena priorizar este tipo de estructuras.
+
+* Definicion
+/Una coleccion finita y ordenada de elementos del mismo tipo, donde cada elemento, a esxcepcion del primero y ultimo, tiene un predecesor y sucesor/
+
+Podemos verla representada como:
+#+begin_src python
+L = (e1, e2, e3, ..., en)
+#+end_src
+
+- e1 es el primer elemento, denominado como *cabeza*
+- en es el ultimo elemento, denominado como *cola*
+- n es el numero de elementos en la lista, el tamaño de la lista
+
+Ademas vamos a introducir un concepto fundamental para listas y la mayoria de las estructuras de datos:
+
+*Nodo* se le va a llamar al objeto que va a encapsular al dato o valor guardado, por lo general los nodos tienen "flechas" (apuntadores o direccion de memoria o enlace) a otro nodo, un *apuntador* es una variable que almacena direcciones de memoria.
+
+Veamoslo de esta manera:
+#+begin_src java
+int variable = 1;
+#+end_src
+Esta variable almacena un tipo de dato entero, el cual su valor entre todos los enteros posibles es 1.
+
+#+begin_src java
+Objeto variable;
+#+end_src
+Ahora esta variable es de tipo objeto, que realmente por detras lo que hace es almacena una direccion de memoria, entonces sen variable esta la direccion de memoria donde realmente estan almacenado todo lo demas.
+#+begin_src java
+  public class Main {
+      static class MyObject{
+  	int x;
+      }
+      public static void main(String[] args) {
+   	MyObject variable = new MyObject();
+   	System.out.println(variable);
+      }
+  }
+#+end_src
+
+#+RESULTS:
+: Main$MyObject@15db9742
+
+Por ejemplo este es un codigo muy sencillo, vemos que si imprimimos variable, se imprime Main(la clase donde esta contenido) MyObject(clase que estamos instanciando) seguido de unos numeros: /15db9742/, esto en realidad es la direccion de memoria fisica donde esta guardada la instancia variable, entonces volviendo un poco al tema, un apuntador guarda este tipo de datos (direcciones de memoria) y nos va a ayudar a ver el siguiente nodo de la lista.
+
+Como fun fact, cuando declaramos un arreglo, la variable que nombramos es la direccion de memoria del primer indice:
+
+#+begin_src java
+  public class Main {
+      public static void main(String[] args) {
+   	int[] array = new int[10];
+   	System.out.println(array);
+      }
+  }
+#+end_src
+
+#+RESULTS:
+: [I@2a139a55
+
+Donde 2a139a55 es la direccion de memoria.
+
+Volviendo al concepto de nodo, un nodo entonces se va a componer por dos partes, el tipo de dato que almacena y el apuntador que nos va a ayudar a ir al siguiente nodo.
+
+[[./node.png]]
+
+Como vemos en la siguiente foto, que el nodo tiene dos partes, data que es el valor a guardar y next que es el apuntador, abstraigamos que el apuntador es una flecha que nos dice a donde ir 
+
+* Caracteristicas
+Las listas presentan las siguientes caracteristicas:
+- Estructura lineal: los elementos tienen una secuencia logica
+- Orden definido: el orden de insercion es relevante
+- Tamaño dinamico: no es necesario definir el tamaño cuando creamos la lista
+- Acceso secuencial: para llegar al i-esimo elemento hay que recorrer los anteriores
+
+Ya que sabemos que es una lista y un arreglo vamos armando una tabla comparativa la cual vamos a ir agrandando conforme cubramos mas estructuras de datos
+| caracteristica | arreglos       | listas          |
+| tamaño         | fijo           | dinamico        |
+| uso de memoria | contigua       | dispersa        |
+| acceso         | constante O(1) | secuencial O(n) |
+| insercion      | O(n) costoso   | eficiente       |
+| eliminacion    | O(n) costoso   | eficiente       |
+
+Al decir disperso en memoria es que recordemos que habiamos dicho que los arreglos ocupaban bloques de memoria contiguos en la memoria del programa, las listas cada elemento (nodo) ocupa una ubicacion de memoria y no necesariamente el nodo siguiente esta en la siguiente direccion de memoria.
+
+* Tipos de listas
+** Lista simplemente enlazada:
+Este es la lista mas basica, cada elemento contiene:
+- *value*: un dato
+- *next*: una referencia al siguiente elemento
+
+[[file:./node.png]]
+
+Caracteristicas importantes:
+- Recorrido en una sola direccion
+- menor consumo de memoria que otro tipo de listas
+- no permite regresar, es decir una vez que avanzamos al siguiente nodo, no podemos regresar al anterior a menos que iniciemos de nuevo el recorrido
+
+** Lista doblemente enlazada
+Cada nodo contiene:
+- *value*: un dato
+- *next*: una referencia al siguiente nodo
+- *prev*: una referencia al nodo previo
+
+Caracteristicas:
+- Podemnos recorrer en ambos sentidos
+- Es mas facil eliminar nodos intermedios
+- Consume mas memoria ya que agregamos una variable mas por cada nodo
+
+
+** Lista circular
+Cada nodo es igual que una lista simplemente enlazada, a diferencia que el ultimo nodo apunta al primero, por lo que no existe un null al final de la lista
+
+Al igual que las listas enlazadas, pueden ser simplemente circular (en un sentido) o doblemente circular.
+
+Son utiles en planificacion de procesos, turnos y estructuras ciclicas.
+
+* Operaciones fundamentales
+- Crear lista
+- Insertar elementos: en la i-esima posicion
+- Eliminar elementos: en la i-esima posicion, por su valor
+- Buscar un elemento
+- Recorrer la lista
+- Obtener tamaño
+- Preguntar si esta vacia
+
+Ahora veamos el costo de estas operaciones:
+| operacion                        | complejidad |
+| insercion al inicio y al final   | O(1)        |
+| insercio en la i-esima posicion  | O(n)        |
+| eliminacion                      | O(n)        |
+| eliminacion al inicio y al final | O(1)        |
+| busqueda                         | O(n)        |
+| preguntar si es vacia            | O(1)        |

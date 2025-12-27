@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Visualizador de Arreglos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>Visualizador de Arreglos</h1>
+
+  <div class="controls">
+    <input type="number" id="valueInput" placeholder="Valor" />
+    <input type="number" id="indexInput" placeholder="Índice" />
+
+    <button onclick="accessElement()">Acceder</button>
+    <button onclick="insertElement()">Insertar</button>
+    <button onclick="removeElement()">Eliminar</button>
+    <button onclick="linearSearch()">Buscar</button>
+    <button onclick="traverseArray()">Recorrer</button>
+    <button onclick="resetArray()">Reset</button>
+  </div>
+
+  <div class="info-panel">
+  <p><strong>Operación:</strong> <span id="operation">-</span></p>
+  <p><strong>Complejidad:</strong> <span id="complexity">-</span></p>
+  <p id="info"></p>
+</div>
+
+  <div class="array-container" id="arrayContainer"></div>
+
+  <script src="array.js"></script>
+</body>
+</html>
