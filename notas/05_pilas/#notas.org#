@@ -1,0 +1,118 @@
+#+Title:Pilas
+
+* Introduccion
+Las pilas son estructuras de datos lineales que modelan situaciones donde el acceso a los elementos tiene ciertas restricciones en comparacion a las estructuras de datos que estabamos viendo, en una pila no podemos acceder a cualquier posicion, sino colamente al elemento mas reciente.
+
+Una pila es una estructura que podemos ver en la vida real muy facilmente, el ejemplo mas comun es una pila de platos, una pila de libros o ya si nos vamos a un contexto mas aplicado, una pila de ejecucion de programas, donde las funciones que se van ejecutando se almacenan en un lugar y se liberan siguiendo un orden muy especifico.
+
+Las pilas resultan muy utiles cuando el problema a resolver requiere revertir operaciones, controlar flujos de ejecucion o mantener un historial ya que la insercion y eliminacion es muy rapida y controlada estrictamente.
+
+* Definicion
+/Una pila es una coleccion *finita* y *ordenada* de elementos *del mismo tipo*, en la cual las inserciones y eliminaciones se realizan desde un nodo, llamado tope o head, siguiendo el principio *LIFO*./
+
+Este concepto es importantisimo para el resto de la carrera, LIFO quiere decir *LAST IN FIRST OUT*, o sea el ultimo en haber sido insertado es el primero que va a salir.
+
+Formalmente vamos a representarla como:
+#+begin_src python
+S = (e1, e2, e3, ..., en)
+#+end_src
+
+Donde e1 es el primer elemento guardado, en es el ulitmo y n es el total de elementos, en este caso en es el unico al que podemos acceder directamente.
+
+Las operaciones en pilas y colas, van a cambiar de nombre un poco:
+- Insercion va a ser ahora push
+- Eliminacion va a ser pop
+- Busqueda va a ser contains
+
+Y se van a agregar operaciones como:
+- *isEmpty* que nos dice si es vacio
+- *top* o *peek* que es el primer elemento o tope de la pila
+
+Vamos un poco mas a fondo con LIFO, el porque nos sirve es que nos evita modificaciones arbitrarias, recordemos que en la lista podiamos insertar al inicio y al final, lo cual no habia un control unico.
+
+Supongamos que nosotros hacemos:
+#+begin_src python
+  pila.push(1)
+  pila.push(2)
+  pila.push(3)
+#+end_src
+
+La pila se va a ver de la siguiente manera:
+|    3 |<- tope
+|    2 |
+|    1 |
+| null |
+
+Asi que al ejecutar pila.pop() nos va a dar 3
+
+
+Al igual que las listas, las pilas se pueden implementar como nodos, donde cada nodo encapsula:
+- value (valor del tipo)
+- next (referencia al siguiente nodo)
+
+La diferencia entre una pila y una lista que es la que hemos visto, es que la unica referencia "publica" que tenemos es una referencia al nodo superior, es decir al tope de la pila.
+* Implementacion
+La complejidad de implementar una pila recae en como insertar y eliminar, la busqueda y el preguntar si esta vacia es en esencia recorrer la lista y el otro preuguntar si es null.
+
+Vamos a llamarle al tope: *head* que va a ser nuestro apuntador guia.
+** Push
+Para la insercion vamos a tener en cuenta 2 cosas:
+- El nuevo elemento sera el tope
+- El nuevo elemento tendra que apuntar a la pila actual
+
+Entonces para toda insercion se crea un nuevo nodo, el cual tiene el valor a insertar,
+#+begin_src java
+  Node new_node = new Node();
+  new_node.value = valor_a_insertar;
+#+end_src
+y ahora como el unico apuntador disponible es head, vamos a hacer que nuestro puntero next del nuevo nodo apunte al tope de la pila es decir al ultimo elemento
+#+begin_src java
+  new_node.next = head;
+#+end_src
+Por ultimo se actualiza la referencia a head al nuevo nodo creado y como next del nodo creado esta apuntando al tope de la pila, no vamos a perder nada:
+#+begin_src python
+  head = new_node;
+#+end_src
+** Pop
+Aqui hay que tener tal vez un poco mas de cuidado ya que podemos acceder a memoria vacia, por lo que siempre que se ejecute una eliminacion por seguridad de diseño se debe preguntar si la pila no es vacia, si lo es regresamos una Excepcion.
+
+Supongamos que no es vacia, por lo regular pop() va a regresar el valor del nodo eliminado, y lo que queremos en si es eliminar el ultimo nodo.
+
+Por lo que si sacamos el ultimo nodo ingresado ahora nuestro nodo head sera el penultimo nodo ingresado, o el siguiente nodo de nuestro head(ultimo nodo ingresado)
+
+Por lo que la eliminacion consiste en:
+#+begin_src java
+  NodeType value = head.value;
+  head = head.next;
+  return value;
+#+end_src
+** Recorridos
+Los recorridos van a ser fundamentales tanto en colas como en pilas y son de la misma forma que en una lista
+** Removedor de basura
+En java existe un sistema llamado recolector de basura, esto es decir cuando existen datos en la memoria a los cuales nadie esta haciendo referencia o esta apuntando, los elimina, por lo que en implementaciones en java no tenemos que preocuparnos por los nodos eliminados borrarlos.
+
+A diferencia de otros lenguajes como C o C++ donde ahi si tenemos que decir explicitamente borra esta localidad de memoria, pero de momento, no es una cosa de preocuparse o a tener en cuenta.
+* Caracteristicas
+- Las pilas tienen una estructura lineal, aqui no va a haber dobles enlaces ni bucles, desde el head o tope vamos a poder recorrer en una sola direccion toda la pila.
+- Tenemos el acceso restringido al tope meramente
+- Insercion y eliminacion son O(1) ya que solo hay que modificar el nodo de referencia del tope
+- No se permite el acceso aleatorio
+- LIFO
+
+* Operaciones
+| operacion       | complejidad |
+|-----------------+-------------|
+| push            | O(1)        |
+| pop             | O(1)        |
+| peek            | O(1)        |
+| obtener tamaño  | O(1)        |
+| preguntar vacia | O(1)        |
+
+* Recomendaciones y errores
+Un error muy comun en estas estructuras es hacer operaciones pop sin haber revisado si la pila es vacia
+
+No controlar el estado unicamente mediante el tope
+
+Las pilas son utiles en ejecucion de funciones ya que muchos sistemas operativos funcionan mediante interrupciones, donde la funcion que llego es mas importante por lo que debe ejecutarse primero o incluso pensemos en las funciones, donde si funcion1() llama a funcion2(), es evidente que funcion2() debe ejecutarse primero para que funcion1() termine correctamente, pero en el sistema operatvio primero se registro funcion1(), y luego funcion2(), entonces aqui es donde entra LIFO, la ultima funcion registrada es la primera en expresarse.
+
+Tambien pensemos en una funcionalidad des hacer re hacer, que por ejemplo cuando nosotros presionamos ctrl+Z, quitamos lo ultimo hecho, no el primer cambio al archivo, sino el ultimo cambio, entonces eso en concepto es una operacion LIFO.

@@ -1,0 +1,133 @@
+#+Title: Colas
+
+* Introduccion
+Las colas son estructuras de datos lineales que modelan de igual manera situaciones con acceso de manera controlada, en este caso vamos a poder acceder solo al elemento mas antiguo.
+
+Un ejemplo de cola clasico, es el ejemplo de cola de un banco, donde el primer cliente que llego es el primer cliente en ser atendido. En un contexto mas computacional, las colas se usan para procesos como peticiones, donde busca darse prioridad a las peticiones mas viejas, o en transacciones de lectura escritura donde igual se busca darle prioridad a lo primero que se pidio.
+
+Las colas de igual manera son utiles cuando se quiere controlar flujos de ejecucion, y sobre todo tener un orden de prioridad en cuanto a quien lleva mas esperando. De igual manera la eliminacion e insercion en ellas es muy eficiente.
+
+* Definiciomn
+/Una cola es una coleccion *finita y ordenada* que almacena un conjunto de elementos *del mismo tipo* en la cual las operaciones de insercion y eliminacion siguen el principio *FIFO*./
+
+El principio FIFO quiere decir *FIRST IN FIRST OUT*, el cual establece que dado un conjunto de elementos insertados, al obtener un elemento obtendremos el primer elemento. Esto nos da un orden de temporalidad.
+
+Definiremos como:
+
+#+begin_src python
+Q = (e1, e2, e3, ..., en)
+#+end_src
+
+Donde e1 es el primer elemento guardado, en es el ultimo y n el total de elementos, en este caso el elemento al que podemos tener acceso y visibilidad es e1.
+
+Las operaciones van a tener un nombre un poco distinto:
+- Insercion es *enqueue*
+- Eliminacion es *dequeue*
+- *front* es acceder al primer elemento de la pila
+
+De igual manera que con LIFO, ahora FIFO:
+
+#+begin_src python
+  cola.enqueue(1)
+  cola.enqueue(2)
+  cola.enqueue(3)
+#+end_src
+
+La pila se va a ver de la siguiente manera:
+|    1 |<- head
+|    2 |
+|    3 |<- cola
+
+
+Asi que al ejecutar dequeue() o front() nos va a dar 3.
+
+Al igual que las listas, cada pila se compone de nodos los cuales encapsula:
+- value (valor del tipo)
+- next (referencia al siguiente nodo)
+
+* Implementacion
+La complejidad de la cola es como implementar la insercion y eliminacion o enqueue y dequeue, la busqueda y el recorrido y el pregunntar si es vacia es el mismo que venimos trabajando.
+
+Ahora tendremos dos apuntadores guia: *head* y *tail*
+
+Tail va a tener referencia al ultimo elemento ingresado, notese que aunque para el publico tail nunca se mencione, es importante tener un apuntador del ultimo ingresado.
+
+** Enqueue
+Para la insercion vamos a tener en cuenta que:
+- No vamos a modificar el head o frente
+- Vamos a actualizar tail ya que ahora este va a ser el ultimo elemento ingresado
+- Que pasa si la cola es vacia
+  
+Primero crearemos nuestro nodo
+#+begin_src java
+  Node new_node = new Node();
+  new_node.value = valor_a_insertar;
+#+end_src
+
+Ahora antes de mover nuestros apuntadores, pensemos:
+*** Cola es vacia
+Si la cola es vacia entonces este elemento a ingresar es nuestro primer elemento, por lo que head apuntara a el
+#+begin_src java
+  head = new_node;
+#+end_src
+No hay ninguna referencia de tail que debamos actualizar ya que igual tail es null o vacio
+
+Y como este es igual el ultimo nodo ingresado, tail debe apuntar a el:
+#+begin_src java
+  tail = new_node;
+#+end_src
+*** Cola no es vacia
+En este caso entonces head no se actualiza, pero ahora el next del ultimo nodo, la flecha, debe apuntar a este nuevo nodo creado, y tail que apunta al ultimo nodo debe apuntar a este, entonces:
+#+begin_src java
+  tail.next = new_node;
+  tail = new_node
+#+end_src
+
+** Dequeue
+De igual manera, hay que cuidarnos que no queramos desencolar de una cola vacia, asi que por diseño hay que poner esas validaciones, ya que vamos a romper el programa, en caso de que si sea vacia la cola se regresa una excepcion.
+
+Si no es vacia la cola, dequeue debe regresar el valor desencolado, por lo que ahora pensemos, el valor a eliminar es el nodo al que apunta front, ya que vamos a sacar al primero, y ahora el nuevo primero sera el que ahora es el segundo (front.next)
+
+Por lo que entonces eliminaremos:
+#+begin_src java
+  NodeType value = head.value;
+  head = head.next;
+  return value;
+#+end_src
+
+Veamos que en este caso, tail no se mueve, pero si hay un caso importante a tener en cuenta, si la cola solo tiene un elemento y se desencola entonces se vuelve vacia, pero justo si tail no se modifica, antes del return hay que agregar una validacion:
+#+begin_src java
+  if (head == null){
+      tail = null;
+  }
+#+end_src
+
+Y de esta manera limpiamos tail tambien
+** Recorridos
+Se realizan de la misma manera que en pilas y lista
+* Variantes
+A diferencia de las pilas, las colas tienen ciertas variantes
+** Cola circular
+De las variaciones mas populares, en la cual tail.next en lugar de apuntar a null, apunta a head. Haciendo esto un ciclo, es lo mismo que una lista circular, pero de igual manera llevamos en cuenta quien es el primer elemento, esta es una implementacion estandar muy util en sistemas reales y su uso mas sencillo es en cifrados de rotacion: donde tenemos que rotar el alfabeto x veces para cifrar la letra, supongamos que la z queremos rotar a la derecha 3 veces, entonces pasamos a la A, B, C, por lo que ese es un ejemplo basico de donde se usa una lista circular.
+
+** Cola doble
+Una cola doble permite encolar y desencolar al frente y al final, y tiene dos punteros, next y prev, esto nos permite recorrer la cola de ambos sentidos y aunque pierde su propiedad FIFO, hay ciertos casos donde si se usa.
+
+** Cola de prioridad
+Una cola la cual requiere su seccion a parte, ya que su implementacion es un tanto diferente de una cola convencional.
+
+En lugar de tomar en cuenta quien llego primero, toma en cuenta prioridades dependiendo del valor del elemento, su ejemplo mas comun es un monticulo o heap, donde cada vez que hacemos dequeue queremos que salga el elemento mas pequeño, no importa si acaba de ser ingresado o fue el primero, queremos que siempre salga el mas pequeño.
+* Operaciones
+| operacion       | complejidad |
+|-----------------+-------------|
+| enqueue         | O(1)        |
+| dequeue         | O(1)        |
+| front           | O(1)        |
+| obtener tamaño  | O(1)        |
+| preguntar vacia | O(1)        |
+* Recomendaciones y errores
+De igual manera no podemos hacer dequeue sin haber revisado si la pila es vacia
+
+Las colas son muy utiles en muchos sistemas donde queremos mantener un orden temporal, por ejemplo un servidor el cual maneja peticiones, que la primera peticion que llego es la primera que debe de atender, de igual manera en sistemas concurrentes son de gran utilidad.
+
+Aqui hay mas variantes las cuales las circulares igual tienen su utilidad cuando se habla de rotaciones.

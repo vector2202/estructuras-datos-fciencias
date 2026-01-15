@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estructuras de Datos — Listas</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <main class="container">
+    <header>
+      <h1>Listas Enlazadas</h1>
+      <p class="subtitle">Visualizador interactivo de estructuras de datos lineales</p>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tabs">
+      <button class="tab-btn active" data-target="section-singly">Simple</button>
+      <button class="tab-btn" data-target="section-doubly">Doble</button>
+      <button class="tab-btn" data-target="section-circular">Circular</button>
+    </nav>
+
+    <section id="section-singly" class="section active">
+      <div class="glass-panel">
+
+        <div class="controls-group">
+          <div class="input-wrapper">
+            <input type="number" id="valueInput" placeholder="Valor" />
+          </div>
+          <button id="insertStart">Insertar Inicio</button>
+          <button id="insertEnd">Insertar Final</button>
+        </div>
+
+        <div class="controls-group">
+          <button id="searchBtn">Buscar</button>
+          <button id="removeBtn" class="danger">Eliminar</button>
+          <button id="traverse">Recorrer Todo ▶</button>
+        </div>
+
+      </div>
+
+      <div class="glass-panel">
+        <div id="canvas" class="canvas-container"></div>
+      </div>
+
+      <div class="glass-panel explanation-box">
+        <div>
+          <span id="explanation">La lista está vacía.</span>
+          <span id="steps" class="step-counter"></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-doubly" class="section">
+      <div class="glass-panel">
+        <div class="controls-group">
+          <input id="valueInputDL" type="number" placeholder="Valor" />
+          <button id="insertBeginDL">Insertar Inicio</button>
+          <button id="insertEndDL">Insertar Final</button>
+        </div>
+        <div class="controls-group">
+          <button id="searchDL">Buscar</button>
+          <button id="removeDL" class="danger">Eliminar</button>
+          <button id="forward">Recorrer →</button>
+          <button id="backward">Recorrer ←</button>
+        </div>
+      </div>
+
+      <div class="glass-panel">
+        <div id="canvasdll" class="canvas-container"></div>
+      </div>
+
+      <div class="glass-panel explanation-box">
+        <div id="explanationDL"></div>
+      </div>
+    </section>
+
+    <section id="section-circular" class="section">
+      <div class="glass-panel">
+        <div class="controls-group">
+          <input id="valueCircular" type="number" placeholder="Valor" />
+          <button id="insertStartCircular">Insertar Inicio</button>
+          <button id="insertEndCircular">Insertar Final</button>
+        </div>
+        <div class="controls-group">
+          <button id="searchCircular">Buscar</button>
+          <button id="removeCircular" class="danger">Eliminar</button>
+          <button id="nextTurn">Simular Turnos</button>
+        </div>
+      </div>
+
+      <div class="glass-panel">
+        <div class="canvas-wrapper-circular">
+          <svg id="circularArrow" viewBox="0 0 1000 200" preserveAspectRatio="none"
+            style="position:absolute; width:100%; height:100%; pointer-events:none; z-index:1;">
+            <defs>
+              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#38bdf8" />
+              </marker>
+            </defs>
+            <path id="circularPath" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+          </svg>
+          <div id="canvasCircular" class="canvas-container" style="position:relative; z-index:2;"></div>
+        </div>
+      </div>
+
+      <div class="glass-panel explanation-box">
+        <div>
+          <div id="explanationCircular"></div>
+          <div id="stepsCircular" class="step-counter"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/core/Node.js"></script>
+  <script type="module" src="js/core/DoubleLinkedNode.js"></script>
+  <script type="module" src="js/core/LinkedList.js"></script>
+  <script type="module" src="js/core/DoubleLinkedList.js"></script>
+  <script type="module" src="js/core/CircularList.js"></script>
+
+  <script type="module" src="js/render/renderer.js"></script>
+  <script type="module" src="js/render/renderer_double_linked_list.js"></script>
+  <script type="module" src="js/render/renderer_circular_list.js"></script>
+  <script type="module" src="js/render/arrows.js"></script>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/sections/singly_linked.js"></script>
+  <script type="module" src="js/sections/doubly_linked.js"></script>
+  <script type="module" src="js/sections/circular_linked.js"></script>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.section');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active class from all
+        tabs.forEach(t => t.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+
+        // Add to current
+        tab.classList.add('active');
+        const targetId = tab.getAttribute('data-target');
+        document.getElementById(targetId).classList.add('active');
+
+        // Trigger resize events if needed for canvas/arrows
+        window.dispatchEvent(new Event('resize'));
+      });
+    });
+  </script>
+
+</body>
+
+</html>
