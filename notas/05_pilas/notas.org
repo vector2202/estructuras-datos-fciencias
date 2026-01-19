@@ -109,7 +109,7 @@ A diferencia de otros lenguajes como C o C++ donde ahi si tenemos que decir expl
 | preguntar vacia | O(1)        |
 
 * Recomendaciones y errores
-Un error muy comun en estas estructuras es hacer operaciones pop sin haber revisado si la lista es vacia
+Un error muy comun en estas estructuras es hacer operaciones pop sin haber revisado si la pila es vacia
 
 No controlar el estado unicamente mediante el tope
 
