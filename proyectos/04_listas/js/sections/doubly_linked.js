@@ -1,11 +1,13 @@
 import DoubleLinkedList from "./../core/DoubleLinkedList.js";
-import { renderDoubleLinkedList } from "./../render/renderer_double_linked_list.js";
+import { renderDoubleLinkedList, renderFloatingNode } from "./../render/renderer_double_linked_list.js";
 import { Visualizer } from "./../utils/Visualizer.js";
 
 const dlist = new DoubleLinkedList();
 const viz = new Visualizer("explanationDL");
 
 const valueInput = document.getElementById("valueInputDL");
+
+const indexInput = document.getElementById("indexInputDL");
 
 let currentIndex = null;
 
@@ -16,28 +18,91 @@ function render(highlight = null) {
   renderDoubleLinkedList(dlist, currentIndex, highlight);
 }
 
-document.getElementById("insertEndDL").onclick = () => {
+document.getElementById("insertEndDL").onclick = async () => {
+  if (!viz.start()) return;
   const val = viz.getValue(valueInput);
-  if (val === null) return;
+  if (val === null) { viz.stop(); return; }
 
+  viz.log(`1. Creando nodo <strong>${val}</strong>...`, 0);
+  renderFloatingNode(val);
+  await viz.sleep(800);
+
+  const oldSize = dlist.toArray().length;
   dlist.insert(val);
   currentIndex = dlist.toArray().length - 1;
 
-  viz.log("Insertar requiere actualizar <strong>next</strong> y <strong>prev</strong>.");
+  const arrowIdx = oldSize > 0 ? oldSize - 1 : -1;
+  viz.log("2. Conectando al final (Next/Prev). O(1) con tail.", 1);
+  renderDoubleLinkedList(dlist, null, null, arrowIdx);
+  await viz.sleep(1000);
+
   render();
   valueInput.value = "";
+  viz.stop();
 };
 
-document.getElementById("insertBeginDL").onclick = () => {
+document.getElementById("insertBeginDL").onclick = async () => {
+  if (!viz.start()) return;
   const val = viz.getValue(valueInput);
-  if (val === null) return;
+  if (val === null) { viz.stop(); return; }
+
+  viz.log(`1. Creando nodo <strong>${val}</strong>...`, 0);
+  renderFloatingNode(val);
+  await viz.sleep(800);
 
   dlist.insertAtHead(val);
   currentIndex = 0;
 
-  viz.log("Insertar requiere actualizar <strong>next</strong> y <strong>prev</strong>.");
+  viz.log("2. Conectando al inicio (Next/Prev).", 1);
+  renderDoubleLinkedList(dlist, null, null, 0);
+  await viz.sleep(1000);
+
   render();
   valueInput.value = "";
+  viz.stop();
+};
+
+document.getElementById("insertAtDL").onclick = async () => {
+  if (!viz.start()) return;
+  const val = viz.getValue(valueInput);
+  const idx = viz.getValue(indexInput);
+
+  if (val === null || idx === null) {
+    viz.stop();
+    return;
+  }
+
+  const actualSize = dlist.toArray().length;
+  if (idx < 0 || idx > actualSize) {
+    viz.log(`<span style="color:var(--danger)">Error: Índice fuera de rango (0 - ${actualSize}).</span>`);
+    viz.stop();
+    return;
+  }
+
+  viz.log(`Insertando <strong>${val}</strong> en posición <strong>${idx}</strong>...`);
+
+  if (idx === 0) {
+    dlist.insertAtHead(val);
+    render(0);
+    viz.log("Insertado al inicio.");
+    viz.stop();
+    return;
+  }
+
+  const nodes = dlist.toArray();
+  for (let i = 0; i < Math.min(idx, nodes.length); i++) {
+    render(i);
+    viz.log(`Buscando posición ${idx}... actual: ${i}`);
+    await viz.sleep(600);
+  }
+
+  dlist.insertAt(idx, val);
+  render(idx);
+  viz.log(`Insertado <strong>${val}</strong> en posición ${idx}.`);
+
+  valueInput.value = "";
+  indexInput.value = "";
+  viz.stop();
 };
 
 

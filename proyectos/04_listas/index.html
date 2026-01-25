@@ -17,6 +17,12 @@
     <header>
       <h1>Listas Enlazadas</h1>
       <p class="subtitle">Visualizador interactivo de estructuras de datos lineales</p>
+
+      <div class="speed-control-header">
+        <label for="speedSlider">Velocidad:</label>
+        <input type="range" id="speedSlider" min="0.1" max="2" step="0.1" value="1" />
+        <span id="speedValue">1.0x</span>
+      </div>
     </header>
 
     <!-- Tab Navigation -->
@@ -33,8 +39,12 @@
           <div class="input-wrapper">
             <input type="number" id="valueInput" placeholder="Valor" />
           </div>
+          <div class="input-wrapper">
+            <input type="number" id="indexInput" placeholder="Índice i" />
+          </div>
           <button id="insertStart">Insertar Inicio</button>
           <button id="insertEnd">Insertar Final</button>
+          <button id="insertAtBtn">Insertar en i</button>
         </div>
 
         <div class="controls-group">
@@ -61,8 +71,10 @@
       <div class="glass-panel">
         <div class="controls-group">
           <input id="valueInputDL" type="number" placeholder="Valor" />
+          <input id="indexInputDL" type="number" placeholder="Índice i" />
           <button id="insertBeginDL">Insertar Inicio</button>
           <button id="insertEndDL">Insertar Final</button>
+          <button id="insertAtDL">Insertar en i</button>
         </div>
         <div class="controls-group">
           <button id="searchDL">Buscar</button>
@@ -85,8 +97,10 @@
       <div class="glass-panel">
         <div class="controls-group">
           <input id="valueCircular" type="number" placeholder="Valor" />
+          <input id="indexCircular" type="number" placeholder="Índice i" />
           <button id="insertStartCircular">Insertar Inicio</button>
           <button id="insertEndCircular">Insertar Final</button>
+          <button id="insertAtCircular">Insertar en i</button>
         </div>
         <div class="controls-group">
           <button id="searchCircular">Buscar</button>
@@ -141,11 +155,9 @@
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        // Remove active class from all
         tabs.forEach(t => t.classList.remove('active'));
         sections.forEach(s => s.classList.remove('active'));
 
-        // Add to current
         tab.classList.add('active');
         const targetId = tab.getAttribute('data-target');
         document.getElementById(targetId).classList.add('active');

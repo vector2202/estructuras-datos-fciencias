@@ -3,14 +3,19 @@ export class Visualizer {
         this.explanationEl = document.getElementById(explanationId);
         this.stepsEl = stepsId ? document.getElementById(stepsId) : null;
         this.isAnimating = false;
+        this.speedFactor = 1.0;
     }
 
     /**
-     * Pauses execution for a given number of milliseconds
+     * Pauses execution for a given number of milliseconds, affected by speedFactor
      * @param {number} ms 
      */
     async sleep(ms = 800) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        return new Promise(resolve => setTimeout(resolve, ms / this.speedFactor));
+    }
+
+    setSpeed(factor) {
+        this.speedFactor = factor;
     }
 
     /**

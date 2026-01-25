@@ -7,14 +7,14 @@ Un ejemplo de cola clasico, es el ejemplo de cola de un banco, donde el primer c
 
 Las colas de igual manera son utiles cuando se quiere controlar flujos de ejecucion, y sobre todo tener un orden de prioridad en cuanto a quien lleva mas esperando. De igual manera la eliminacion e insercion en ellas es muy eficiente.
 
-* Definiciomn
+* Definicion
 /Una cola es una coleccion *finita y ordenada* que almacena un conjunto de elementos *del mismo tipo* en la cual las operaciones de insercion y eliminacion siguen el principio *FIFO*./
 
 El principio FIFO quiere decir *FIRST IN FIRST OUT*, el cual establece que dado un conjunto de elementos insertados, al obtener un elemento obtendremos el primer elemento. Esto nos da un orden de temporalidad.
 
 Definiremos como:
 
-#+begin_src python
+#+begin_src java
 Q = (e1, e2, e3, ..., en)
 #+end_src
 
@@ -23,30 +23,30 @@ Donde e1 es el primer elemento guardado, en es el ultimo y n el total de element
 Las operaciones van a tener un nombre un poco distinto:
 - Insercion es *enqueue*
 - Eliminacion es *dequeue*
-- *front* es acceder al primer elemento de la pila
+- *front* es acceder al primer elemento de la cola
 
 De igual manera que con LIFO, ahora FIFO:
 
-#+begin_src python
+#+begin_src java
   cola.enqueue(1)
   cola.enqueue(2)
   cola.enqueue(3)
 #+end_src
 
-La pila se va a ver de la siguiente manera:
+La cola se va a ver de la siguiente manera:
 |    1 |<- head
 |    2 |
 |    3 |<- cola
 
 
-Asi que al ejecutar dequeue() o front() nos va a dar 3.
+Asi que al ejecutar dequeue() o front() nos va a dar 1.
 
-Al igual que las listas, cada pila se compone de nodos los cuales encapsula:
+Al igual que las listas, cada cola se compone de nodos los cuales encapsula:
 - value (valor del tipo)
 - next (referencia al siguiente nodo)
 
 * Implementacion
-La complejidad de la cola es como implementar la insercion y eliminacion o enqueue y dequeue, la busqueda y el recorrido y el pregunntar si es vacia es el mismo que venimos trabajando.
+La complejidad de la cola es como implementar la insercion y eliminacion o enqueue y dequeue, la busqueda y el recorrido y el preguntar si es vacia es el mismo que venimos trabajando.
 
 Ahora tendremos dos apuntadores guia: *head* y *tail*
 
@@ -126,8 +126,10 @@ En lugar de tomar en cuenta quien llego primero, toma en cuenta prioridades depe
 | obtener tamaño  | O(1)        |
 | preguntar vacia | O(1)        |
 * Recomendaciones y errores
-De igual manera no podemos hacer dequeue sin haber revisado si la pila es vacia
+De igual manera no podemos hacer dequeue sin haber revisado si la cola es vacia
 
 Las colas son muy utiles en muchos sistemas donde queremos mantener un orden temporal, por ejemplo un servidor el cual maneja peticiones, que la primera peticion que llego es la primera que debe de atender, de igual manera en sistemas concurrentes son de gran utilidad.
 
 Aqui hay mas variantes las cuales las circulares igual tienen su utilidad cuando se habla de rotaciones.
+
+Agregar scheduling, BFS, buffers E/S

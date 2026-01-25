@@ -1,18 +1,20 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sorting algorithms</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
   <div class="app-container">
     <header>
       <div>
         <h1><span class="highlight">Sorting</span> algorithms</h1>
-        <p class="subtitle">Bubble vs Merge vs Quick vs Radix</p>
+        <p class="subtitle">Bubble vs Insertion vs Selection vs Merge vs Quick vs Radix</p>
       </div>
       <nav>
         <a href="searching.html">Searching</a>
@@ -24,7 +26,7 @@
       <aside>
         <div class="card">
           <label>Configuration</label>
-          
+
           <div class="slider-header">
             <span>Size of array (N)</span>
             <span id="sizeVal" class="mono-value">60</span>
@@ -49,20 +51,44 @@
             <div style="color:var(--danger)">■ Swap / Write</div>
             <div style="color:var(--warning)">■ Compare</div>
             <div style="color:var(--purple)">■ Radix Bucket</div>
-	    <div style="color:var(--yellow)">■ Merge write</div>
+            <div style="color:var(--yellow)">■ Merge write</div>
           </div>
         </div>
       </aside>
 
       <main class="algorithms-grid">
-        
+
         <div class="algo-card">
           <div class="algo-header">
             <span>Bubble Sort <span class="complexity-badge" style="font-size:0.7em">O(n²)</span></span>
             <span id="stats-bubble" class="algo-ops">0 ops</span>
           </div>
           <div id="chart-bubble" class="chart-container"></div>
-          <div class="progress-bg"><div id="prog-bubble" class="progress-fill"></div></div>
+          <div class="progress-bg">
+            <div id="prog-bubble" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="algo-card">
+          <div class="algo-header">
+            <span>Insertion Sort <span class="complexity-badge" style="font-size:0.7em">O(n²)</span></span>
+            <span id="stats-insertion" class="algo-ops">0 ops</span>
+          </div>
+          <div id="chart-insertion" class="chart-container"></div>
+          <div class="progress-bg">
+            <div id="prog-insertion" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="algo-card">
+          <div class="algo-header">
+            <span>Selection Sort <span class="complexity-badge" style="font-size:0.7em">O(n²)</span></span>
+            <span id="stats-selection" class="algo-ops">0 ops</span>
+          </div>
+          <div id="chart-selection" class="chart-container"></div>
+          <div class="progress-bg">
+            <div id="prog-selection" class="progress-fill"></div>
+          </div>
         </div>
 
         <div class="algo-card">
@@ -71,7 +97,9 @@
             <span id="stats-merge" class="algo-ops">0 ops</span>
           </div>
           <div id="chart-merge" class="chart-container"></div>
-          <div class="progress-bg"><div id="prog-merge" class="progress-fill"></div></div>
+          <div class="progress-bg">
+            <div id="prog-merge" class="progress-fill"></div>
+          </div>
         </div>
 
         <div class="algo-card">
@@ -80,7 +108,9 @@
             <span id="stats-quick" class="algo-ops">0 ops</span>
           </div>
           <div id="chart-quick" class="chart-container"></div>
-          <div class="progress-bg"><div id="prog-quick" class="progress-fill"></div></div>
+          <div class="progress-bg">
+            <div id="prog-quick" class="progress-fill"></div>
+          </div>
         </div>
 
         <div class="algo-card">
@@ -89,7 +119,9 @@
             <span id="stats-radix" class="algo-ops">0 ops</span>
           </div>
           <div id="chart-radix" class="chart-container"></div>
-          <div class="progress-bg"><div id="prog-radix" class="progress-fill"></div></div>
+          <div class="progress-bg">
+            <div id="prog-radix" class="progress-fill"></div>
+          </div>
         </div>
 
       </main>
@@ -98,4 +130,5 @@
 
   <script type="module" src="js/sorting.js"></script>
 </body>
+
 </html>

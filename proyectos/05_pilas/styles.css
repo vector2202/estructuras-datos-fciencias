@@ -1,0 +1,425 @@
+:root {
+    --bg-main: #030712;
+    --primary: #38bdf8;
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #06b6d4;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-main);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    max-width: 1000px;
+    width: 95%;
+    padding: 40px 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.speed-control-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 5px 15px;
+    border-radius: 20px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.speed-control-header input[type="range"] {
+    width: 100px;
+}
+
+.speed-control-header span {
+    font-family: 'Fira Code', monospace;
+    min-width: 40px;
+}
+
+h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h1 span {
+    font-weight: 300;
+    opacity: 0.7;
+    font-size: 1.5rem;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Glass Panel */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+input {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+button {
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #030712;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-warning {
+    background: var(--warning);
+    color: #030712;
+}
+
+.explanation-box {
+    text-align: center;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+#explanation {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.step-counter {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-family: 'Fira Code', monospace;
+}
+
+/* Visualizer */
+.visualizer {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 30px;
+}
+
+.stack-section {
+    display: flex;
+    flex-direction: column;
+}
+
+h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 10px;
+}
+
+#stack-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    /* Bottom to top */
+    align-items: center;
+    padding: 20px;
+    min-height: 400px;
+    border: 2px dashed rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    position: relative;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#stack {
+    display: flex;
+    flex-direction: column;
+    /* Inverted from column-reverse to place First Child (Top) at the top */
+    gap: 0;
+    /* Removing gap, using arrow container for spacing */
+    width: 100%;
+    align-items: center;
+}
+
+.node {
+    width: 80%;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.node.top-element {
+    border-color: var(--primary);
+    background: rgba(56, 189, 248, 0.1);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+.node.top-element::after {
+    content: none;
+}
+
+.node.highlight-push {
+    border-color: var(--success);
+    background: rgba(34, 197, 94, 0.2);
+    transform: scale(1.05);
+}
+
+.node.highlight-pop {
+    border-color: var(--danger);
+    background: rgba(239, 68, 68, 0.2);
+    transform: translateX(100px);
+    opacity: 0;
+}
+
+.node.highlight-peek {
+    border-color: var(--warning);
+    background: rgba(245, 158, 11, 0.2);
+    transform: scale(1.1);
+}
+
+.code-block {
+    font-family: 'Fira Code', monospace;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+.keyword {
+    color: #c678dd;
+}
+
+.operator {
+    color: #56b6c2;
+}
+
+.value {
+    color: #98c379;
+}
+
+.null {
+    color: #e06c75;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .visualizer {
+        grid-template-columns: 1fr;
+    }
+
+    .controls-grid {
+        grid-template-columns: 1fr auto;
+    }
+
+    .node {
+        width: 95%;
+    }
+}
+
+.stack-arrow {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin: 5px 0;
+    animation: fadeInArrow 0.5s ease;
+}
+
+@keyframes fadeInArrow {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating Node Animation */
+.floating-node-container {
+    position: absolute;
+    top: 50%;
+    right: 15%;
+    /* Side floating */
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+}
+
+.node.floating {
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+    animation: floatIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: var(--bg-main);
+    border-color: #a855f7;
+    /* Purple */
+    width: 150px;
+}
+
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Floating Pointer for TOP */
+.floating-pointer {
+    position: absolute;
+    right: 120%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary);
+    color: #030712;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: top 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 50;
+}
+
+.arrow-connection {
+    position: absolute;
+    background: var(--primary);
+    height: 4px;
+    transform-origin: left;
+    opacity: 0;
+    transition: width 0.5s ease;
+}
+
+.arrow-connection.grow {
+    opacity: 1;
+    /* Transformation handled in JS or specific keyframe if fixed position */
+    animation: growLine 0.8s forwards;
+}
+
+@keyframes growLine {
+    from {
+        width: 0;
+        opacity: 1;
+    }
+
+    to {
+        width: 100px;
+        opacity: 1;
+    }
+}

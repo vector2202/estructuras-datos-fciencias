@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador de Pilas | Estructuras de Datos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="glass-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>Simulador de Pilas <span>(Stack)</span></h1>
+            <p class="subtitle">Estructuras de Datos Lineales</p>
+            <div class="speed-control-header">
+                <label for="speedSlider">Velocidad:</label>
+                <input type="range" id="speedSlider" min="0.1" max="2" step="0.1" value="1" />
+                <span id="speedValue">1.0x</span>
+            </div>
+        </header>
+
+        <section class="glass-panel">
+            <div class="controls-grid">
+                <input type="number" id="valueInput" placeholder="Valor" />
+                <button id="pushBtn" class="btn-primary">Push</button>
+                <button id="popBtn" class="btn-danger">Pop</button>
+                <button id="peekBtn" class="btn-warning">Peek</button>
+            </div>
+            <div class="explanation-box">
+                <p id="explanation">Listo para comenzar...</p>
+                <span id="stepCounter" class="step-counter"></span>
+            </div>
+        </section>
+
+        <main class="visualizer">
+            <div class="glass-panel stack-section">
+                <h3>Vista Lógica</h3>
+                <div id="stack-container">
+                    <div id="stack"></div>
+                </div>
+            </div>
+            <div class="glass-panel representation-section">
+                <h3>Representación en Código</h3>
+                <div id="references" class="code-block"></div>
+            </div>
+        </main>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

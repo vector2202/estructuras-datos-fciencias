@@ -7,6 +7,12 @@ const accessesElem = document.getElementById('accesses');
 const costFnElem = document.getElementById('costFn');
 const bigOElem = document.getElementById('bigO');
 const descriptionElem = document.getElementById('description');
+const sizeValueElem = document.getElementById('sizeValue');
+
+sizeSlider.oninput = () => {
+    sizeValueElem.textContent = sizeSlider.value;
+    reset();
+};
 
 let array = [];
 let comparisons = 0;
@@ -14,16 +20,16 @@ let accesses = 0;
 let interval;
 let index, left, right, mid;
 
-function generateArray(){
+function generateArray() {
     array = [];
     arrayContainer.innerHTML = '';
-    for (let i = 0; i < sizeSlider.value; i++){
+    for (let i = 0; i < sizeSlider.value; i++) {
         array.push(i + 1);
     }
     renderArray();
 }
 
-function renderArray(activeIndex = null, foundIndex = null){
+function renderArray(activeIndex = null, foundIndex = null) {
     arrayContainer.innerHTML = '';
     array.forEach((value, i) => {
         const div = document.createElement('div');
@@ -35,14 +41,14 @@ function renderArray(activeIndex = null, foundIndex = null){
     });
 }
 
-function updateStats(){
+function updateStats() {
     comparisonsElem.textContent = comparisons;
     accessesElem.textContent = accesses;
     costFnElem.textContent =
         `T(n) = ${comparisons} + ${accesses} = ${comparisons + accesses}`;
 }
 
-function reset(){
+function reset() {
     clearInterval(interval);
     comparisons = 0;
     accesses = 0;
@@ -54,7 +60,7 @@ function reset(){
     updateStats();
 }
 
-function updateInfo(){
+function updateInfo() {
     const op = operationSelect.value;
 
     const info = {
@@ -65,7 +71,7 @@ function updateInfo(){
         'insert-start': ['O(n)',
             'Insertar al inicio tenemos que desplazar todos los elementos un lugar a la derecha.'],
         'insert-end': ['O(1)',
-		       'Insertar al final solo requiere una escritura, sin recorrer el arreglo, ya que sabemos su posicion.'],
+            'Insertar al final solo requiere una escritura, sin recorrer el arreglo, ya que sabemos su posicion.'],
         'delete-start': ['O(n)',
             'Eliminar el primer elemento requiere desplazar todos los elementos.']
     };
@@ -75,34 +81,34 @@ function updateInfo(){
 }
 
 
-function linearSearch(target){
-    if (index >= array.length){
+function linearSearch(target) {
+    if (index >= array.length) {
         clearInterval(interval);
         return;
     }
     accesses++;
     comparisons++;
 
-    if(array[index] === target){
-	renderArray(index, index);
-	updateStats();
-	clearInterval(interval);
-	return;
+    if (array[index] === target) {
+        renderArray(index, index);
+        updateStats();
+        clearInterval(interval);
+        return;
     }
     renderArray(index);
     updateStats();
     index++;
 }
 
-function binarySearch(target){
-    if (left > right){
+function binarySearch(target) {
+    if (left > right) {
         clearInterval(interval);
         return;
     }
     mid = Math.floor((left + right) / 2);
     accesses++;
     comparisons++;
-    if (array[mid] === target){
+    if (array[mid] === target) {
         renderArray(mid, mid);
         updateStats();
         clearInterval(interval);
@@ -110,20 +116,20 @@ function binarySearch(target){
     }
 
     renderArray(mid);
-    if (target > array[mid]){
-	left = mid + 1;
+    if (target > array[mid]) {
+        left = mid + 1;
     }
-    else{
-	right = mid - 1;
+    else {
+        right = mid - 1;
     }
 
     updateStats();
 }
 
-function insertStart(value){
+function insertStart(value) {
     let i = array.length - 1;
     interval = setInterval(() => {
-        if (i < 0){
+        if (i < 0) {
             array[0] = value;
             accesses++;
             renderArray(0);
@@ -139,24 +145,24 @@ function insertStart(value){
     }, 600);
 }
 
-function insertEnd(value){
+function insertEnd(value) {
     array[array.length] = value;
     accesses++;
     renderArray(array.length - 1);
     updateStats();
 }
 
-function deleteValue(value){
+function deleteValue(value) {
     index = 0;
     interval = setInterval(() => {
-        if (index >= array.length){
+        if (index >= array.length) {
             clearInterval(interval);
             return;
         }
         accesses++;
         comparisons++;
 
-        if (array[index] === value){
+        if (array[index] === value) {
             array.splice(index, 1);
             accesses += array.length - index;
             renderArray(index);
@@ -176,20 +182,20 @@ document.getElementById('start').onclick = () => {
     const op = operationSelect.value;
     const value = parseInt(valueInput.value);
 
-    if (isNaN(value)){
+    if (isNaN(value)) {
         alert('Ingresa un valor');
         return;
     }
 
-    if (op === 'linear'){
+    if (op === 'linear') {
         interval = setInterval(() => linearSearch(value), 700);
-    } else if (op === 'binary'){
+    } else if (op === 'binary') {
         interval = setInterval(() => binarySearch(value), 700);
-    } else if (op === 'insert-start'){
+    } else if (op === 'insert-start') {
         insertStart(value);
-    } else if (op === 'insert-end'){
+    } else if (op === 'insert-end') {
         insertEnd(value);
-    } else if (op === 'delete-value'){
+    } else if (op === 'delete-value') {
         deleteValue(value);
     }
 };

@@ -10,7 +10,7 @@ const btnReset = document.getElementById('btnReset');
 
 // State
 let baseArray = [];
-const algos = ['bubble', 'merge', 'quick', 'radix'];
+const algos = ['bubble', 'insertion', 'selection', 'merge', 'quick', 'radix'];
 
 //Sorting algorithms
 //Bubble sort
@@ -32,10 +32,57 @@ function bubbleSort(arr) {
     return steps;
 }
 
+// Insertion Sort
+function insertionSort(arr) {
+    const array = [...arr];
+    const steps = [];
+    const n = array.length;
+    for (let i = 1; i < n; i++) {
+        let key = array[i];
+        let j = i - 1;
+        steps.push({ type: 'compare', indices: [i] });
+        while (j >= 0 && array[j] > key) {
+            steps.push({ type: 'compare', indices: [j, j + 1] });
+            steps.push({ type: 'overwrite', index: j + 1, value: array[j] });
+            array[j + 1] = array[j];
+            j = j - 1;
+        }
+        steps.push({ type: 'overwrite', index: j + 1, value: key });
+        array[j + 1] = key;
+    }
+    for (let i = 0; i < n; i++) {
+        steps.push({ type: 'sorted', indices: [i] });
+    }
+    return steps;
+}
+
+// Selection Sort
+function selectionSort(arr) {
+    const array = [...arr];
+    const steps = [];
+    const n = array.length;
+    for (let i = 0; i < n - 1; i++) {
+        let minIdx = i;
+        for (let j = i + 1; j < n; j++) {
+            steps.push({ type: 'compare', indices: [minIdx, j] });
+            if (array[j] < array[minIdx]) {
+                minIdx = j;
+            }
+        }
+        if (minIdx !== i) {
+            steps.push({ type: 'swap', indices: [i, minIdx] });
+            [array[i], array[minIdx]] = [array[minIdx], array[i]];
+        }
+        steps.push({ type: 'sorted', indices: [i] });
+    }
+    steps.push({ type: 'sorted', indices: [n - 1] });
+    return steps;
+}
+
 function quickSort(arr) {
     const array = [...arr];
     const steps = [];
-    
+
     function partition(low, high) {
         const pivot = array[high];
         steps.push({ type: 'compare', indices: [high] }); // Pivot highlight
@@ -67,7 +114,7 @@ function quickSort(arr) {
 function mergeSort(arr) {
     const array = [...arr];
     const steps = [];
-    
+
     function merge(l, m, r) {
         const leftArr = array.slice(l, m + 1);
         const rightArr = array.slice(m + 1, r + 1);
@@ -113,13 +160,13 @@ function radixSort(arr) {
 
     while (Math.floor(max / exp) > 0) {
         const buckets = Array.from({ length: 10 }, () => []);
-        
+
         // Frequencies, bucket digits
         for (let i = 0; i < array.length; i++) {
             const digit = Math.floor((array[i] / exp) % 10);
             buckets[digit].push(array[i]);
-	    //Digito leido
-            steps.push({ type: 'compare', indices: [i] }); 
+            //Digito leido
+            steps.push({ type: 'compare', indices: [i] });
         }
 
         // Rewrite array
@@ -154,7 +201,7 @@ async function runAlgo(id, steps) {
         //apply different actions
         if (step.type === 'compare') {
             step.indices.forEach(idx => highlights[idx] = 'compare');
-        } 
+        }
         else if (step.type === 'swap') {
             const [i1, i2] = step.indices;
             highlights[i1] = 'swap'; highlights[i2] = 'swap';
@@ -164,17 +211,17 @@ async function runAlgo(id, steps) {
             localArr[step.index] = step.value;
             highlights[step.index] = 'overwrite';
         }
-	else if (step.type === 'write') {
+        else if (step.type === 'write') {
             localArr[step.index] = step.value;
             highlights[step.index] = 'write';
         }
         else if (step.type === 'sorted') {
-             step.indices.forEach(idx => highlights[idx] = 'sorted');
+            step.indices.forEach(idx => highlights[idx] = 'sorted');
         }
 
         // Render Frame
         Utils.render(chartId, localArr, highlights);
-        
+
         // Update UI stats
         document.getElementById(statsId).textContent = `${ops} ops`;
         document.getElementById(progId).style.width = `${(i / totalSteps) * 100}%`;
@@ -182,10 +229,10 @@ async function runAlgo(id, steps) {
         //wait
         await Utils.sleep(() => Number(speedSlider.value));
     }
-    
+
     // Final clear
-    Utils.render(chartId, localArr, {}); 
-    document.getElementById(progId).style.background = 'var(--accent)'; // Finished color
+    Utils.render(chartId, localArr, {});
+    document.getElementById(progId).style.background = 'var(--accent)';
 }
 
 //application
@@ -206,6 +253,8 @@ function init() {
 btnStart.addEventListener('click', () => {
     const tasks = [
         runAlgo('bubble', bubbleSort(baseArray)),
+        runAlgo('insertion', insertionSort(baseArray)),
+        runAlgo('selection', selectionSort(baseArray)),
         runAlgo('merge', mergeSort(baseArray)),
         runAlgo('quick', quickSort(baseArray)),
         runAlgo('radix', radixSort(baseArray))

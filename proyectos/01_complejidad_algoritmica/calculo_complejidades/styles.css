@@ -31,8 +31,13 @@ header {
     padding-bottom: 20px;
 }
 
-.highlight { color: var(--accent); }
-.subtitle { color: var(--text-secondary); }
+.highlight {
+    color: var(--accent);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+}
 
 .dashboard {
     display: grid;
@@ -56,7 +61,8 @@ label {
     display: block;
 }
 
-select, input[type=range] {
+select,
+input[type=range] {
     width: 100%;
     padding: 10px;
     background: var(--bg-main);
@@ -97,6 +103,7 @@ button.secondary {
     gap: 10px;
     justify-content: center;
     margin-top: 20px;
+    flex-wrap: wrap;
 }
 
 .cell {
@@ -116,7 +123,7 @@ button.secondary {
 }
 
 .cell.found {
-    background: rgba(16,185,129,0.2);
+    background: rgba(16, 185, 129, 0.2);
     border-color: var(--success);
 }
 

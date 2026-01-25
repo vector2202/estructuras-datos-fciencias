@@ -1,4 +1,20 @@
-export function renderCircularList(list, currentNode = null) {
+export function renderFloatingNode(value) {
+    const canvas = document.getElementById("canvasCircular");
+    if (!canvas) return;
+
+    const existing = canvas.querySelector(".floating-node-container");
+    if (existing) existing.remove();
+
+    const container = document.createElement("div");
+    container.className = "floating-node-container";
+    container.innerHTML = `
+        <div class="node floating">${value}</div>
+        <div style="color: var(--text-muted); margin-top: 5px; font-size: 0.8rem;">NEW</div>
+    `;
+    canvas.appendChild(container);
+}
+
+export function renderCircularList(list, currentNode = null, animateArrowFromIndex = -1) {
     const canvas = document.getElementById("canvasCircular");
     if (!canvas) return;
     canvas.innerHTML = "";
@@ -52,6 +68,11 @@ export function renderCircularList(list, currentNode = null) {
             const arrow = document.createElement("div");
             arrow.className = "arrow";
             arrow.textContent = "→";
+
+            if (index === animateArrowFromIndex) {
+                arrow.classList.add("grow");
+            }
+
             wrapper.appendChild(arrow);
         }
 

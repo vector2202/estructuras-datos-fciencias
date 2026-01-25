@@ -68,8 +68,66 @@ Volviendo al concepto de nodo, un nodo entonces se va a componer por dos partes,
 
 [[./node.png]]
 
-Como vemos en la siguiente foto, que el nodo tiene dos partes, data que es el valor a guardar y next que es el apuntador, abstraigamos que el apuntador es una flecha que nos dice a donde ir 
+Como vemos en la siguiente foto, que el nodo tiene dos partes, data que es el valor a guardar y next que es el apuntador, abstraigamos que el apuntador es una flecha que nos dice a donde ir
+* Implementacion
+** Nodo
+Para ver la implementacion de una lista, vamos a comenzar con la implementacion de un nodo, esta implementacion sera clave a la hora de no solo ver como implementar listas, sino todas las estructuras de datos a lo largo del curso.
 
+Primero un nodo se vera definido de la siguiente manera:
+#+begin_src java
+  class Node{
+      T value;
+      Node next;
+  }
+#+end_src
+
+Donde T es el tipo de dato que va almacenar el nodo y node es el apuntador que mencionamos. Ahora va a haber estructuras con doble enlace, la cual se vera de la siguiente manera:
+#+begin_src java
+  class DoubleLinkedNode{
+      T value;
+      Node prev;
+      Node next;
+  }
+#+end_src
+
+Vemos que solo se agrega un apuntador al nodo previo, que es la caracteristica de los nodos doblemente enlazados, en el primer nodo es algo que se tiene que memorizar como si fuera agua, ya que todas las estructuras usan como base nodos para su construccion e implementacion.
+** Apuntadores auxiliares
+Antes de ver las operaciones sobre la lista, vamos a tener 2 apuntadores clave que nos van a ayudar a realizar las operaciones de mejor manera sobre las listas, estos seran:
+#+begin_src java
+  Node head;
+  Node tail;
+#+end_src
+Los cuales como su nombre lo deduce, van a apuntar al primer y ultimo nodo de la lista respectivamente, si estos dos valores tienen un valor de _null_, entonces quiere decir que la lista esta vacia.
+** Insercion
+Para la insercion en una lista tenemos 3 posibilidades, insertar al inicio, insertar al final, o insertar en la i-esima posicion, cubriremos las 3 inserciones
+*** Al inicio
+Como podemos deducir, head sera el nodo a modificar y el cual usaremos a la insercion, sabemos que head apunta al primer elemento de la lista, pero el elemento que vamos a insertar ahora sera el primero, por lo que entonces, primero que nada creamos un nuevo nodo:
+#+begin_src java
+Node new_node = new Node(valor_del_nuevo_nodo);
+#+end_src
+Y el siguiente nodo de este nuevo nodo el cual va a ser nuestro primer elemento, es el actual primer elemento de la lista, que ahora pasara a ser el segundo, pero este todavia primer elemento esta almacenado en /head/
+#+begin_src java
+new_node.next = head;
+#+end_src
+Y ahora head guardara la referencia al nuevo nodo
+#+begin_src java
+head = new_node;
+#+end_src
+
+Solo por ultimo tenemos que verificar si tail es null, porque si tenemos la lista vacia entonces el unico elemento insertado es el primero y el ultimo, por lo que esto seria_
+#+begin_src java
+  if(tail == null){
+      tail = new_node;
+  }
+#+end_src
+
+Y listo, habremos insertado al inicio de la lista
+
+*** En cierta posicion y al final
+En cierta posicion y al final es el mismo caso solo que con la variante que al final es la ultima posicion, asi que primero veamos en cierta posicion:
+
+** Eliminacion
+** Recorridos
 * Caracteristicas
 Las listas presentan las siguientes caracteristicas:
 - Estructura lineal: los elementos tienen una secuencia logica

@@ -1,4 +1,32 @@
-export function renderList(list, highlightIndex = null, currentIndex = null, searchingIndex = null) {
+export function renderFloatingNode(value) {
+	const canvas = document.getElementById("canvas");
+	if (!canvas) return;
+
+	// Clear previous floating nodes if any
+	const existing = canvas.querySelector(".floating-node-container");
+	if (existing) existing.remove();
+
+	// Create container centered (position absolute in styles)
+	const container = document.createElement("div");
+	container.className = "floating-node-container";
+
+	// Create Node
+	const nodeDiv = document.createElement("div");
+	nodeDiv.className = "node floating";
+	nodeDiv.textContent = value;
+
+	const label = document.createElement("div");
+	label.className = "node-label";
+	label.textContent = "NEW";
+	label.style.opacity = "1";
+	label.style.color = "var(--accent-primary)";
+	nodeDiv.appendChild(label);
+
+	container.appendChild(nodeDiv);
+	canvas.appendChild(container);
+}
+
+export function renderList(list, highlightIndex = null, currentIndex = null, searchingIndex = null, animateArrowFromIndex = -1) {
 	const canvas = document.getElementById("canvas");
 	if (!canvas) return;
 	canvas.innerHTML = "";
@@ -45,6 +73,11 @@ export function renderList(list, highlightIndex = null, currentIndex = null, sea
 		const arrow = document.createElement("div");
 		arrow.className = "arrow";
 		arrow.textContent = "→";
+
+		if (index === animateArrowFromIndex) {
+			arrow.classList.add("grow");
+		}
+
 		wrapper.appendChild(arrow);
 
 		canvas.appendChild(wrapper);
@@ -57,4 +90,7 @@ export function renderList(list, highlightIndex = null, currentIndex = null, sea
 	nullDiv.textContent = "null";
 	nullWrapper.appendChild(nullDiv);
 	canvas.appendChild(nullWrapper);
+
+	if (animateArrowFromIndex === nodes.length - 1) {
+	}
 }

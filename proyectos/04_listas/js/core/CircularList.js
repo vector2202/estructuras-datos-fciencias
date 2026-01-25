@@ -34,6 +34,33 @@ export default class CircularLinkedList {
         this.tail = node;
     }
 
+    insertAt(index, value) {
+        if (index < 0) return;
+        if (index === 0) {
+            this.insertAtStart(value);
+            return;
+        }
+
+        const node = new Node(value);
+        let current = this.head;
+        let i = 0;
+
+        if (!this.head) return;
+
+        do {
+            if (i === index - 1) {
+                node.next = current.next;
+                current.next = node;
+                if (current === this.tail) {
+                    this.tail = node;
+                }
+                return;
+            }
+            current = current.next;
+            i++;
+        } while (current !== this.head);
+    }
+
     search(value) {
         if (!this.head) return null;
 

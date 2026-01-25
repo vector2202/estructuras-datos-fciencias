@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Simulador de Colas</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main class="container">
+        <header>
+            <h1>Colas (Queue)</h1>
+            <p class="subtitle">FIFO · Circular · Visualización paso a paso</p>
+            <div class="speed-control-header">
+                <label for="speedSlider">Velocidad:</label>
+                <input type="range" id="speedSlider" min="0.1" max="2" step="0.1" value="1" />
+                <span id="speedValue">1.0x</span>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-target="simple">Cola Simple</button>
+            <button class="tab-btn" data-target="circular">Cola Circular</button>
+        </div>
+
+        <!-- COLA SIMPLE -->
+        <section id="simple" class="section active">
+            <div class="glass-panel controls-grid">
+                <input type="number" id="valueSimple" placeholder="Ej. 25">
+                <button id="enqueueSimple" class="btn-primary">Enqueue</button>
+                <button id="dequeueSimple" class="btn-danger">Dequeue</button>
+                <button id="peekSimple" class="btn-info">Frente (Peek)</button>
+            </div>
+
+            <div class="glass-panel">
+                <div id="canvasSimple" class="canvas-container"></div>
+            </div>
+
+            <div class="glass-panel explanation-box">
+                <div>
+                    <div id="explanationSimple"></div>
+                    <div id="stepsSimple" class="step-counter"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLA CIRCULAR -->
+        <section id="circular" class="section">
+            <div class="glass-panel controls-grid">
+                <input type="number" id="valueCircular" placeholder="Ej. 99">
+                <button id="enqueueCircular" class="btn-primary">Enqueue</button>
+                <button id="dequeueCircular" class="btn-danger">Dequeue</button>
+                <button id="peekCircular" class="btn-info">Frente (Peek)</button>
+            </div>
+
+            <div class="glass-panel">
+                <div id="canvasCircular" class="canvas-container"></div>
+            </div>
+
+            <div class="glass-panel explanation-box">
+                <div>
+                    <div id="explanationCircular"></div>
+                    <div id="stepsCircular" class="step-counter"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="js/sections/queue_section.js"></script>
+
+    <script>
+        const tabs = document.querySelectorAll(".tab-btn");
+        const sections = document.querySelectorAll(".section");
+
+        tabs.forEach(btn => {
+            btn.onclick = () => {
+                tabs.forEach(b => b.classList.remove("active"));
+                sections.forEach(s => s.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById(btn.dataset.target).classList.add("active");
+            };
+        });
+    </script>
+</body>
+
+</html>
