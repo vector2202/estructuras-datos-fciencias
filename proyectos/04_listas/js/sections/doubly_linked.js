@@ -36,6 +36,7 @@ document.getElementById("insertEndDL").onclick = async () => {
   renderDoubleLinkedList(dlist, null, null, arrowIdx);
   await viz.sleep(1000);
 
+  currentIndex = null;
   render();
   valueInput.value = "";
   viz.stop();
@@ -57,6 +58,7 @@ document.getElementById("insertBeginDL").onclick = async () => {
   renderDoubleLinkedList(dlist, null, null, 0);
   await viz.sleep(1000);
 
+  currentIndex = null;
   render();
   valueInput.value = "";
   viz.stop();

@@ -214,6 +214,10 @@ function drawCircularArrow() {
 
     if (!wrapper || !svg || !path || !canvas) return;
 
+    const wrapperRect = wrapper.getBoundingClientRect();
+    if (wrapperRect.width === 0 || wrapperRect.height === 0) return;
+
+
     const nodes = canvas.querySelectorAll(".node");
     if (nodes.length < 2) {
         svg.style.display = "none";
@@ -222,7 +226,7 @@ function drawCircularArrow() {
 
     const headRect = nodes[0].getBoundingClientRect();
     const tailRect = nodes[nodes.length - 1].getBoundingClientRect();
-    const wrapperRect = wrapper.getBoundingClientRect();
+
 
     // Logic from original file to draw arc
     const startX_old = ((tailRect.right - wrapperRect.left) / wrapperRect.width) * 1000 - 20;

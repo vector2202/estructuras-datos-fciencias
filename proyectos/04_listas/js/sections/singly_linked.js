@@ -85,7 +85,7 @@ document.getElementById("insertAtBtn").addEventListener("click", async () => {
     return;
   }
 
-  const currentSize = list.size();
+  const currentSize = list.size ? list.size() : list.toArray().length;
   const actualSize = list.toArray().length;
 
   if (idx < 0 || idx > actualSize) {

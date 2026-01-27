@@ -10,7 +10,7 @@ export function renderFloatingNode(value) {
 
   container.innerHTML = `
         <div class="node floating">${value}</div>
-        <div style="color: var(--text-muted); margin-top: 5px; font-size: 0.8rem;">NEW</div>
+        <div style="color: var(--text-secondary); margin-top: 5px; font-size: 0.8rem;">NEW</div>
     `;
 
   canvas.appendChild(container);

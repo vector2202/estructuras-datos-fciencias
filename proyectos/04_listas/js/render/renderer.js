@@ -19,7 +19,7 @@ export function renderFloatingNode(value) {
 	label.className = "node-label";
 	label.textContent = "NEW";
 	label.style.opacity = "1";
-	label.style.color = "var(--accent-primary)";
+	label.style.color = "var(--primary)";
 	nodeDiv.appendChild(label);
 
 	container.appendChild(nodeDiv);

@@ -1,11 +1,15 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Search algorithms</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
   <div class="app-container">
@@ -24,7 +28,7 @@
       <aside>
         <div class="card">
           <label>Configuration</label>
-          
+
           <div class="slider-header">
             <span>Size of array (N)</span>
             <span id="sizeVal" class="mono-value">60</span>
@@ -36,8 +40,9 @@
             <span id="speedVal" class="mono-value">200</span>
           </div>
           <input id="speedSlider" type="range" min="100" max="500" value="200" />
-          
-          <div style="background:var(--bg-main); padding:10px; border-radius:8px; margin: 15px 0; border:1px solid var(--accent);">
+
+          <div
+            style="background:var(--bg-main); padding:10px; border-radius:8px; margin: 15px 0; border:1px solid var(--accent);">
             <label style="margin-bottom:5px; color:var(--accent);">Target Value</label>
             <div id="targetDisplay" class="mono-value" style="font-size:1.5rem; color: white;">?</div>
           </div>
@@ -50,7 +55,8 @@
 
         <div class="card info-card">
           <h3>Ejecucion</h3>
-          <p>Para una comparación visual justa, ambos algoritmos operan sobre el mismo <strong>arreglo ordenado</strong>.</p>
+          <p>Para una comparación visual justa, ambos algoritmos operan sobre el mismo <strong>arreglo
+              ordenado</strong>.</p>
           <div style="margin-top:10px">
             <div style="color:var(--success)">■ Found</div>
             <div style="color:var(--warning)">■ Compare</div>
@@ -59,13 +65,16 @@
         </div>
       </aside>
 
-      <main class="algorithms-grid" style="grid-template-columns: 1fr;"> <div class="algo-card">
+      <main class="algorithms-grid" style="grid-template-columns: 1fr;">
+        <div class="algo-card">
           <div class="algo-header">
             <span>Linear Search <span class="complexity-badge" style="font-size:0.7em">O(n)</span></span>
             <span id="stats-linear" class="algo-ops">0 ops</span>
           </div>
           <div id="chart-linear" class="chart-container"></div>
-          <div class="progress-bg"><div id="prog-linear" class="progress-fill"></div></div>
+          <div class="progress-bg">
+            <div id="prog-linear" class="progress-fill"></div>
+          </div>
         </div>
 
         <div class="algo-card">
@@ -74,7 +83,9 @@
             <span id="stats-binary" class="algo-ops">0 ops</span>
           </div>
           <div id="chart-binary" class="chart-container"></div>
-          <div class="progress-bg"><div id="prog-binary" class="progress-fill"></div></div>
+          <div class="progress-bg">
+            <div id="prog-binary" class="progress-fill"></div>
+          </div>
         </div>
 
       </main>
@@ -83,4 +94,5 @@
 
   <script type="module" src="js/searching.js"></script>
 </body>
+
 </html>
