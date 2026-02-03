@@ -1,0 +1,138 @@
+#+Title:Arboles binarios
+* Introduccion
+Un arbol binario es un arbol especifico, en el cual cada nodo puede tener a lo mas 2 hijos, esta restriccion permite definir propiedades estructurales muy claras que hacen posible construir algoritmos con base en esta implementacion, estos nos sirven para hacer cosas como: arboles binarios de busqueda, heaps o monticulos que son colas de prioridad, arboles binarios balanceados, representacion de operacioneas aritmeticas, estructuras internas de compiladores.
+
+* Definicion
+Es un arbol el cual cada nodo tiene a lo mas 2 hijos, denominados, hijo izquierdo e hijo derecho
+
+/Un arbol binario es un conjunto finito de nodos que esta vacio o consiste de un nodo raiz y 2 subarboles binarios, llamados subarbol izquierdo y subarbol derecho/
+
+Cada nodo puede tener 0 hijos, o sea un hoja, 1 hijo, 2 hijos.
+#+begin_src java
+class BinaryNode<T> {
+T value;
+BinaryNode<T> left;
+BinaryNode<T> right;
+}
+#+end_src
+
+Donde value es el valor almacenado, left es el apuntador del hijo izquierdo y right el apuntador del hijo derecho, *si alguno de estos es null, entonces ese hijo no existe*.
+
+* Caracteristicas
+- Estructuras no lineales
+- Cada nodo tiene como maximo 2 hijos
+- Existe una unica raiz
+- No existen ciclos
+- Cada nodo define a dos subarboles de manera recursiva
+
+Existen varios tipos de arboles binarios, los cuales es bueno conocer como se llaman:
+
+*Arbol binario lleno*: todos los nodos tienen 0 o 2 hijos
+*Arbol binario completo*: todos los niveles estan completos a excepcion de posiblemente el ultimo
+*Arbol binario perfecto*: Todos nos nodos tiene 2 hijos y las hojas estan en el mismo nivel
+
+* Implementacion
+Aqui no hay reglas para insertar, por lo que no veremos ni insercion ni eliminacion ni busqueda, meramente recorridos, ya que las inserciones solo seria hacer node.left = New Node(val), para el nodo izquierdo y similar para el derecho, como no hay un orden no podemos definir un metodo de eliminacion estandar ya que no hay definicion de quien ocupa el lugar, solo podemos mostrar una busqueda de fuerza bruta (no eficiente) para tener nocion de como se buscaria y recorridos:
+** Busqueda
+Supongamos que llamamos al metodo:
+#+begin_src java
+search(root, target);
+#+end_src
+
+Entonces definimos a search empezando por que pasa si la raiz es null, entonces devolvemos false:
+#+begin_src java
+  if (root == null){
+      return false;
+  }
+#+end_src
+Vamos con el caso que si sea el target
+#+begin_src java
+  if(root.value == target){
+      return true;
+  }
+#+end_src
+En otro caso como no hay reglas ni nada buscaremos en ambos arboles:
+#+begin_src java
+return search(root.left) || search(root.right);
+#+end_src
+Esta va a buscar en ambos arboles y pues a veces no es eficiente pero es util saber como buscar en ambos arboles, ponemos el conector OR ya que elemento puede encontrarse en uno o en otro, los metodos de los arboles consiste en, checar si la raiz no es nula, y si no aplicar recursivamente a la izquierda o la derecha o ambos segun el caso.
+
+** Recorridos
+Estos son vitales y van a ser de mucha ayuda a lo largo de todo el tema de arboles, como aqui solo queremos recorrer el arbol binario si podemos definirlo ya que no operamos sobre un elemento en especifico, sino sobre todos. Pero cada recorrido varia de acuerdo a un orden en especifico.
+
+*** Recorrido pre orden
+Este es raiz, izquierda, derecha en ese orden, por lo que entonces se define primero llamamos a la funcion:
+#+begin_src java
+preorden(root);
+#+end_src
+Y verificamos que no es vacia, en este caso vamos a imprimir el valor pero pueden hacerse muchas cosas como almacenar ese valor, etc.
+#+begin_src java
+  if(root != null){
+      System,out.println(root.value);
+      preorden(root.left);
+      peorden(root.right);
+  }
+#+end_src
+Notese que si es vacia solo no hace nada y ya, todo bien. Este tiene un uso al copiar arboles o al obtener el orden estructural del arbol es decir la raiz primero que los hijos.
+*** Inorden
+Este es izquierdo, raiz, derecho, por lo que primero llamamos a la funcion:
+#+begin_src java
+inorden(root);
+#+end_src
+Y entonces el cuerpo de la funcion siguiendo el orden definido se ve asi:
+#+begin_src java
+  if (root != null){
+      inorden(root.left);
+      System,out.println(root.value);
+      inorden(root.right);
+  }
+#+end_src
+ Vamos solo cambiando el orden en el que llamamos a el arbol izquierdo derecho y lo que quiera que vayamos a hacer con la raiz. Este como su nombre lo dice, devuelve a los valores ordenados.
+
+*** Post orden
+Este orden se define como izquierdo, derecho, raiz, entonces llamamos a la funcion
+#+begin_src java
+postorden(root);
+#+end_src
+
+Y entonces el cuerpo de la funcion se ve asi:
+#+begin_src java
+  if(root != null){
+      postorden(root.left);
+      postorden(root.right);
+      System,out.println(root.value);
+  }
+#+end_src
+Este se usa comunmente para evaluar expresiones.
+
+* Operaciones
+Las operaciones que regularmente se realizan con los arboles son:
+- Crear arbol
+- Insertar nodo
+- Buscar un elemento
+- Eliminar un nodo
+- Recorrer un arbol
+- Obtener altura
+- Arbol vacio ?  que es root == null
+
+Estas operaciones tienen la complejidad:
+  | operación   | mejor caso | peor caso |
+  | ----------- | ---------- | --------- |
+  | búsqueda    | O(log n)   | O(n)      |
+  | inserción   | O(log n)   | O(n)      |
+  | eliminación | O(log n)   | O(n)      |
+  | recorridos  | O(n)       | O(n)      |
+
+* Ventajas y desventajas
+** Ventajas
+
+- Modelan jerarquias de forma natural
+- Permiten busquedas eficientes
+- Base de estructuras avanzadas
+
+** Desventajas
+- Implementación mas compleja
+- Pueden degradarse si no están balanceados, porque imaginemos que un arbol cada nodo solo tiene un hijo, entonces esto se vuelve una lista, por lo que entonces ya no estamos aprovechando la estructura de un arbol.
+
+* Conclusion
+Los árboles binarios representan un punto intermedio entre estructuras simples como listas y estructuras avanzadas como arboes balanceados y grafos. Dominar su estructura, recorridos y comportamiento es esencial para comprender algoritmos eficientes y el diseño de sistemas complejos.

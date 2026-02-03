@@ -1,0 +1,141 @@
+#+Title: Arboles binarios de busqueda
+* Introduccion
+Un arbol binario de busqueda es un tipo especial de arbol binario que impone una restriccion de irden sobre los valores almacenados, en sus nodos, esta propiedad permite realizar operaciones de busqueda insercion y eliminacion de manera eficiente.
+
+Los BST o ABB por sus iniciales en ingles Binary Search Tree o Arboles Binarios de busqueda aqui se definira como BST, representan una mejora a los arboles binarios ya que introducen un orden, lo cual nos abre como una alternativa a listas y arreglos.
+
+Sus usos son en: implementacion de diccionario, indices de bases de datos, ayudan a implementar algoritmos de busqueda.
+
+* Definicion
+/Un arbol binario de busqueda es un arbol binario que cumple la propiedad de que para cada nodo, todos los valores del subarbol izquierdo son menores que el valor del nodo, y todos los valores del subarbol derecho son mayores./
+
+Formalmente es para todo nodo N.
+- Si x pertenece al subarbol izquierdo de N entonces x < N.
+- Si y pertenece al subarbol derecho de N, entonces y > N.
+
+Esta propiedad es recursiva para todos los subarboles.
+
+* Caracteristicas
+Aqui ahora si vamos a tener un orden de insercion, una regla para como vamos a insertar y esa propiedad nos va a ayudar a eliminar y buscar. El nodo ahora se vera asi:
+#+begin_src java
+class BSTNode<T> {
+T value;
+BSTNode<T> left;
+BSTNode<T> right;
+}
+#+end_src
+
+Es igual a un nodo de arbol binario.
+Propiedades.
+
+- Son arboles binarios
+- Mantienen los datos ordenados
+- No tienen ciclos
+- Cada operacion depende de la altura del arbol
+- El recorrido in orden produce valores ordenados
+* Implementacion
+Vamos con la insercion:
+** Insercion
+Recordemos la regla de que todo elemento si es mayor va a la derecha y si es menor va a la izquierda, por lo que veamos el siguiente algoritmo:
+
+1. Si el arbol esta vacio, el nuevo nodo es la raiz
+2. Si el valor es menor que el nodo actual, se insertara en el subarbol izquierdo
+3. Si el valor es mayor, se insertara en el subarbol derecho
+4. El proceso se repite recursivamente hasta encontrar su lugar.
+
+Por lo que se vera de la siguiente manera llamando a la funcion:
+#+begin_src java
+insert(root, new_value);
+#+end_src
+#+begin_src java
+  BSTNode insert(BSTNode node, int new_value){
+    if(node == null){
+          return new BSTNode(new_value);
+      }
+      if(new_value < node.value){
+          node.left = insert(node.left, new_value);
+      }else if(new_value > node.value){
+          node.right = insert(node.right, new_value);
+      }
+      return node;//Si el valor es el mismo, no lo insertes
+  }
+#+end_src
+Notemos como se manda a llamar la misma funcion, pero con el subarbol izquierdo o arbol derecho, esto va a ser una constante en los arboles binarios.
+
+** Busqueda
+La busqueda aprovecha el orden de los BST para descartar la mitad del arbol en cada caso, veamos el siguiente algoritmo:
+1. Si el nodo es vacio, o sea el nodo es null, el elemento no existe.
+2. Si el valor es igual se encontro
+3. Si el valor a buscar es menor a la raiz, buscalo en el subarbol izquierdo.
+4. Si el valor a buscar es mayor a la raiz, buscalo en el subarbol derecho.
+
+#+begin_src java
+boolean search(BSTNode node, int target){
+if(node == null) return false;
+if(node.value == target) return true;
+if(target < node.value)
+return search(node.left, target);
+else
+return search(node.right, target);
+}
+#+end_src
+
+** Eliminacion
+La eliminacion aqui va a ser mas compleja, ya que si eliminamos, supognamos que eliminaremos a A que es padre de B y C, entonces quien pasa a ser el padre, B ? C ? o algun otro nodo?, esto nos va a llevar a que queramos eliminar nodos y clasifiquemos por caso, recordemos que en un Arbol binario, tienes 0,1,2 hijos, por lo que tenemos 3 posibles casos:
+*** Nodo hoja 0 hjos
+Se elimina directamente, el apuntador que apuntaba a este nodo pasa a ser null
+*** Nodo con un solo hijo
+El nodo se remplaza con su unico hijo, entonces quien apuntaba a este nodo a eliminar pasa a apuntar a su hijo.
+*** Nodo con dos hijos
+Aqui es donde entra lo curioso, y aqui nos sirven las propiedades, lo puede remplazar o el minimo elemento (hijo mas izquierdo) del subarbol derecho, de manera que este elemento sigue siendo menor al hijo derecho del nodo pero mayor a todo el subarbol izquierdo, o lo puede remplazar el maximo elemento (hijo mas derecho) del subarbol izquierdo. Ambas son validas
+
+Luego se elimina este nodo:
+
+#+begin_src java
+  BSTNode delete(BSTNode node, int value){
+  if(node == null) return null; //nodo hoja
+  if(value < node.value){//buscamos el valor en el subarbol izquierdo
+      node.left = delete(node.left, value);
+  } else if(value > node.value){//buscamos el valor en el subarbol derecho
+      node.right = delete(node.right, value);
+  } else {
+      if(node.left == null) return node.right;//solo hay hijo derecho, el pasa a ser el padre
+      if(node.right == null) return node.left;//solo hay hijo izquierdo, el pasa a ser el padre
+
+      BSTNode successor = findMin(node.right);//En este caso optaremos por el menor del subarbol derecho
+      node.value = successor.value;//vamos a remplazar el valor por el menor del subarbol derecho
+      node.right = delete(node.right, successor.value);//eliminamos este nodo nuevo
+  }
+  return node;
+  }
+#+end_src
+
+La complejidad de las operaciones depende meramente de como este el arbol:
+| operación   | mejor caso       | peor caso        |
+| ----------- | ---------------- | ---------------- |
+| búsqueda    | O(log n)         | O(n)             |
+| inserción   | O(log n)         | O(n)             |
+| eliminación | O(log n)         | O(n)             |
+| recorrido   | O(n)             | O(n)             |
+
+* Ventajas y limitaciones
+** Ventajas
+- Busqueda eficiente
+- Mantiene los datos ordenados
+- Mas flexible que un arreglo
+
+** Limitaciones
+- Si cada nodo tiene un hijo entonces perdemos la ventaja de ser un arbol
+- No podemos garantizar que esta balanceado
+
+Estas limitaciones motivan la existencia de arboles balanceados como AVL y Red-Black.
+
+Comparación con otras estructuras
+| estructura       | búsqueda          | inserción         | orden |
+|------------------+-------------------+-------------------+-------|
+| lista            | O(n)              | O(1)              | no    |
+| arreglo ordenado | O(log n)          | O(n)              | sí    |
+| BST              | O(log n) promedio | O(log n) promedio | sí    |
+
+* Conclusion
+Los arboels binarios de busqueda introducen el concepto de orden jerarquico eficiente. Son una transicion clave entre arboles binarios simples y estructuras mas avanzadas, y su comprensión es esencial para el estudio de algoritmos y estructuras de datos modernas.

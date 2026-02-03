@@ -1,0 +1,60 @@
+#+title:Arboles
+* Introduccion
+Los arboles son estructuras de datos no lineales, que permiten representar relaciones jerarquicas entre los elementos, a diferencias de las lineales que hemos visto (listas, pilas, colas) donde cada elemento tiene sucesor y puede que tenga predecesor, los arboles puede estar un nodo relacionado a varios elementos, lo que permite hacer estructuras mas complejas.
+
+Estos arboles son muy utiles en computacion, ya que nos permiten manejar: sistemas de archivos, donde dentro de una carpeta hay mas de un elemento, una estructura html, expresiones matematicas donde hay varias operaciones y en distinto orden a realizar, cada operador se puede ver como un nodo, indices en bases de datos, etc.
+
+La importancia de estos arboles es que nos permite organizar informacion de manera eficiente, reduciendo los costos de busqueda, insercion y eliminacion dependiendo del problema
+
+* Definicion
+/Un arbol es una estructura de datos no lineal formada por un conjunto finito de nodos, donde existe un nodo raiz, los demas nodos se organizan en subarboles, conectados mediante relaciones padre hijos, sin formar ciclos./
+
+Formalmente se define un arbol T como:
+- Un nodo raiz
+- Cero o mas subrboles, cada uno a su vez es un arbol
+#+begin_src text
+A
+/\
+B C
+/\ \
+D E F
+#+end_src
+
+Notese que:
+- A tiene dos hijos: B,C
+- B tiene dos hijos: D,E
+- C tiene un hijo F
+- D E y F no tienen hijos
+
+* Caracteristicas
+- Los arboles son no lineales
+- Existe un unico nodo raiz
+- Cada nodo menos la raiz tiene exactamente un padre
+- Un nodo puede tener 0 o mas hijos (existen nodos con 3,4,5,.... hijos)
+- No hay ciclos
+- Desde cada nodo solo hay un camino a la raiz
+Esto nos ayuda a tener una estructura jerarquica y bien definida
+
+* Terminologia
+Estos terminos, tenemos que dominarlos ya que tiene que ser natural hablar de ellos:
+- Nodo: ya vimos, es un elemento que contiene un valor y apuntadores a otros nodos
+- Raiz: nodo principal del arbol, no tiene padre
+- Padre: nodo que tiene al menos un hijo
+- Hijo: nodo que desciende de otro nodo
+- Hermanos: nodos que comparten un nodo padre
+- Hoja: nodo que no tiene hijos
+- Subarbol: arbol formado por un nodo y todos sus descendientes
+- Grado de un nodo: numero de hijos que tiene
+- Nivel de nodo, distancia o niveles desde la raiz (la raiz es el nivel 0)
+- Altura de un arbol: nivel maximo de todos los nodos
+- Profundidad de un nodo: numero de niveles que hay que bajar desde la raiz hasta ese nodo
+- Arbol vacio: raiz nula
+
+Una implementacion basica se veria asi:
+#+begin_src java
+class TreeNode<T> {
+T value;
+List<TreeNode<T>> children;
+}
+#+end_src
+Donde children es una lista de todos los hijos a los que apunta ese nodo, pero en este curso veremos un caso particular de los arboles, los *arboles binarios*
