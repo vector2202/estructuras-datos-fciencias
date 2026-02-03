@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructuras Lineales | Simulador Interactivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Estructuras Lineales</h1>
+            <p class="subtitle">Casos de Uso Real en Ingeniería de Software</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="array-section">Arreglos</button>
+            <button class="tab-btn" data-tab="list-section">Listas Enlazadas</button>
+            <button class="tab-btn" data-tab="stack-section">Pilas</button>
+            <button class="tab-btn" data-tab="queue-section">Colas</button>
+            <button class="tab-btn" data-tab="circular-section">Listas Circulares</button>
+        </nav>
+
+        <main class="content">
+            <!-- ARREGLOS -->
+            <section id="array-section" class="section active">
+                <div class="glass-panel">
+                    <div class="section-header">
+                        <h2>Buffer de Imagen (Arreglo)</h2>
+                        <button id="array-start" class="btn-primary">Iniciar Simulación</button>
+                    </div>
+                    <p class="description">Los arreglos son fundamentales para el manejo de memoria contigua, como en
+                        los buffers de video donde cada celda representa un canal de color.</p>
+                    <div id="array-canvas" class="canvas-container"></div>
+                    <div id="array-explain" class="explanation-box"></div>
+                </div>
+            </section>
+
+            <!-- LISTAS ENLAZADAS -->
+            <section id="list-section" class="section">
+                <div class="glass-panel">
+                    <div class="section-header">
+                        <h2>Playlist de Música (Lista Enlazada)</h2>
+                        <button id="list-start" class="btn-primary">Iniciar Simulación</button>
+                    </div>
+                    <p class="description">Cada canción es un nodo que apunta a la siguiente, permitiendo inserciones y
+                        eliminaciones dinámicas sin reordenar toda la memoria.</p>
+                    <div id="list-canvas" class="canvas-container"></div>
+                    <div id="list-explain" class="explanation-box"></div>
+                </div>
+            </section>
+
+            <!-- PILAS -->
+            <section id="stack-section" class="section">
+                <div class="glass-panel">
+                    <div class="section-header">
+                        <h2>Historial de Navegación (Pila)</h2>
+                        <button id="stack-start" class="btn-primary">Iniciar Simulación</button>
+                    </div>
+                    <p class="description">El botón "Atrás" de un navegador funciona como una pila LIFO (Last-In,
+                        First-Out), sacando la última URL visitada.</p>
+                    <div id="stack-canvas" class="canvas-container"></div>
+                    <div id="stack-explain" class="explanation-box"></div>
+                </div>
+            </section>
+
+            <!-- COLAS -->
+            <section id="queue-section" class="section">
+                <div class="glass-panel">
+                    <div class="section-header">
+                        <h2>Cola de Tareas / Impresión (Cola)</h2>
+                        <button id="queue-start" class="btn-primary">Iniciar Simulación</button>
+                    </div>
+                    <p class="description">Las tareas se procesan en el orden en que llegan (FIFO: First-In, First-Out),
+                        garantizando equidad en el procesamiento.</p>
+                    <div id="queue-canvas" class="canvas-container"></div>
+                    <div id="queue-explain" class="explanation-box"></div>
+                </div>
+            </section>
+
+            <!-- LISTAS CIRCULARES -->
+            <section id="circular-section" class="section">
+                <div class="glass-panel">
+                    <div class="section-header">
+                        <h2>Round Robin Scheduler (Lista Circular)</h2>
+                        <button id="circular-start" class="btn-primary">Iniciar Simulación</button>
+                    </div>
+                    <p class="description">Los sistemas operativos utilizan listas circulares para repartir tiempo de
+                        CPU entre procesos de manera equitativa.</p>
+                    <div id="circular-canvas" class="canvas-container"></div>
+                    <div id="circular-explain" class="explanation-box"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

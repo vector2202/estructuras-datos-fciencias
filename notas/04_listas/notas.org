@@ -126,8 +126,98 @@ Y listo, habremos insertado al inicio de la lista
 *** En cierta posicion y al final
 En cierta posicion y al final es el mismo caso solo que con la variante que al final es la ultima posicion, asi que primero veamos en cierta posicion:
 
+** Busqueda
+La busqueda es fundamental no solo en listas, sino en las estructuras de datos que se veran a lo largo del curso, se inicia con un nodo auxiliar, comunmente denominado curr o aux el cual se va inicializar con lo que valga head, es facil verlo si pensamos que este nodo es una flecha meramente, y va a apuntar al inicio de la lista.
+#+begin_src java
+Node aux = head;
+#+end_src
+
+Tomando en cuenta que no son estructura de datos circulares, es decir en algun momento terminan, sabemos que el ultimo elemento su apuntador, apunta a null, entonces vamos a tomar ese hecho para determinar cuando parar, como aux es la flecha que vamos a mover a traves de toda la lista, entonces esa es la que vamos a comparar con null.
+
+En caso de que el valor de aux sea el que buscamos, regresamos true, sino entonces la flecha va a apuntar al siguiente nodo, que nos pasamos para alla actualizando a aux.next:
+#+begin_src java
+  while (aux != null){
+      if (aux.value == target){
+  	return true;
+      }
+      aux = aux.next;
+  }
+#+end_src
 ** Eliminacion
-** Recorridos
+La eliminacion inicia igual que la busqueda, recorremos la lista con un nodo auxiliar, lo que va a cambiar es que pasa cuando encontramos el elemento que queremos eliminar, primero establezcamos la logica de la eliminacion:
+
+Digamos que queremos eliminar a x, tenemos 3 posibles escenarios:
+- X es el primer elemento, es decir la cabeza
+- X tiene un nodo antes de el que apunta al nodo de x, y a su vez este nodo apunta a otro nodo
+- X es el ultimo nodo de la lista
+
+*** Elemento al inicio de la lista
+Si esta al inicio de la lista, entonces solo tenemos que "mover" nuestro nodo apuntador al inicio de la lista
+#+begin_src java
+head = head.next;
+#+end_src
+Y solo hay que revisar si head quedo null, entonces tail se hace null
+#+begin_src java
+  if(head == null){
+      tail = null;
+  }
+#+end_src
+*** Elemento en medio
+Si hay un nodo que apunta entonces vamos a hacer un truco, en lugar de ir buscando aux.value, vamos a buscar aux.next.value, para que nos detengamos justo un nodo antes del nodo a eliminar :
+#+begin_src java
+while (aux.next.value != target){
+      aux = aux.next;
+  }
+#+end_src
+posteriormente sabemos que en aux se contiene el nodo previo, por lo que en teoria solo bastaria con hacer:
+#+begin_src java
+aux.next = aux.next.next;
+#+end_src
+Y ya con eso dejamos de referenciar al nodo de enmedio, esto funciona si aux.next no es nulo, que pasa si aux.next es nulo, entonces caemos en el tercer caso
+*** Elemento al final
+En este caso entonces supongamos que nos paramos en el penultimo nodo, entonces solo basta con hacer que tail apunte a este penultimo nodo, y que next de este penultimo nodo apunte a null ya que este sera el final de la lista:
+#+begin_src java
+  aux.next = null;
+  tail = aux;
+#+end_src
+*** Implementacion de eliminacion
+Obviamente no sabemos donde esta el nodo y es mas, ni sabemos si el elemento a eliminar esta, entonces hay que hacer una implementacion robusta de los 3 casos y sumando que pasa si no esta:
+#+begin_src java
+  if (head.value == target){
+      head = head.next;
+      if(head == null){
+  	tail = null;
+      }
+      return true
+  }
+  aux = head;
+  while(aux.next != null && aux.next.value != target){
+      aux = aux.next;
+  }
+  if(aux.next != null){
+      Node node_to_remove = aux.next;
+      aux.next = aux.next.next;
+      if(node_to_remove == tail){
+  	tail = aux;
+      }
+      return true;
+  }
+  else{
+      return false;
+  }
+#+end_src
+
+Añadimos unas lineas, veamos porque, primero en el while añadimos la condicion:
+#+begin_src java
+aux.next != null
+#+end_src
+Esto porque si el elemento no esta en la lista, entonces debemos de parar y sabemos que el ultimo elemento apunta a null, entonces si el siguiente es null, para.
+
+Siguiente tenemos:
+#+begin_src java
+if(aux.next != null)
+#+end_src
+Esto porque queremos ver si el while paro porque ya no habia mas nodos despues, o porque encontro el target, en caso de que no encontro el target, regresa false, es decir la eliminacion no se pudo hacer. En caso de que si guardamos aux.next, que es el nodo a eliminar, y hacemos un brinco, recordemos que aux representa en este momento al nodo previo a eliminar, entonces hacemos que este nodo previo ahora apunte al next, que estaba apuntando el nodo a elimninar, por eso aux.next(nodo a eliminar).next(siguiente de este nodo), una vez eso vemos si tenemos que actualizar tail, esto es si el nodo a eliminar es tail, si si entonces tail va a apuntar a aux que es el nodo previo, y regresamos true, es decir eliminacion exitosa.
 * Caracteristicas
 Las listas presentan las siguientes caracteristicas:
 - Estructura lineal: los elementos tienen una secuencia logica
