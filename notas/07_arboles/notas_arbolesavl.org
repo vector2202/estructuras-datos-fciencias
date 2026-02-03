@@ -1,0 +1,54 @@
+#+Title:Arboles AVL
+* Introduccion
+Los arboles AVL son un tipo de arbol binario de busqueda balanceado, resolviendo el problema de los BST, que es que todos sus nodos solo tengan un hijo, haciendolo una lista.
+
+Como se vio antes, un BST puede hacerse una lista, por ejemplo si insertamos 1,2,3,4,5,6 en ese orden, 1 tiene como hijo derecho a 2 quien su hijo derecho es 3, y asi, no hay hijo izquierdo por lo que al acceder a 6 nos tardamos 6 operaciones, o sea el tamaño del arbol. Esto provoca que las operaciones tengan complejidad O(n), como no podemos garantizar que el balanceo se cumpla en todo momento, entonces nacen estas implementaciones, los cuales son los arboles AVL, los cuales garantizan que las operaciones de busqueda, insercion y eliminacion sean de O(log n). Aprovechando las propiedades de los arboles.
+
+
+* Definicion
+/Un arbol AVL es un arbol binario de busqueda que cumple la propiedad de que para todo nodo, la diferencia entre la altura del subarbol izquierdo y derecho es a lo mas 1./
+
+Esta diferencia le vamos a llamar factor de balance. Por lo que para todo nodo N:
+#+begin_src text
+balance(N) = altura(subárbol izquierdo) − altura(subárbol derecho)
+#+end_src
+
+Y debe cumplirse que:
+#+begin_src text
+−1 ≤ balance(N) ≤ 1
+#+end_src
+
+* Propiedades 
+
+Los arboles AVL cumplen las propiedades que:
+- Son arboles binarios
+- Son arboles binarios de busqueda
+- Son estrictamente balanceados
+- No tienen ciclos
+- Garantizan altura O(log n)
+- Mantienen los datos ordenados
+- Ademas de guardar lo que guardan los nodos de un BST, guardan la informacion del balance.
+
+#+begin_src java
+  class AVLNode<T> {
+      T value;
+      AVLNode<T> left;
+      AVLNode<T> right;
+      int height;
+  }
+#+end_src
+Donde value es el valor almacenado, left y right son los hijos y height es la altura del nodo, la cual de un nodo por si es 1, y se calcula como:
+#+begin_src text
+altura(nodo) = 1 + max(altura(izquierdo), altura(derecho))
+#+end_src
+
+El factor de balance se calcula como:
+#+begin_src text
+balance = altura(izquierdo) − altura(derecho)
+#+end_src
+
+Y decimos que un arbol esta balanceado si tiene: -1,0,1. Cualquier otro factor implica que debe hacerse un rebalanceo.
+
+
+* Implementacion
+
