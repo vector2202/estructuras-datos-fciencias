@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Backtracking - Laberintos</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <h1>Simulador de Backtracking</h1>
+    <p class="desc">
+        Visualiza cómo el algoritmo de <b>Backtracking</b> utiliza una <b>Pila</b> para explorar laberintos,
+        retrocediendo estratégicamente cuando encuentra un camino sin salida.
+    </p>
+
+    <div class="controls glass-panel">
+        <div class="control-group">
+            <label for="mazeSelector">Presets:</label>
+            <select id="mazeSelector">
+                <option value="easy">Laberinto fácil</option>
+                <option value="no-solution">Sin solución</option>
+                <option value="multiple">Múltiples caminos</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Archivo (5x5):</label>
+            <input type="file" id="fileInput" accept=".txt" style="display: none;">
+            <button id="uploadBtn">Subir .txt</button>
+        </div>
+
+        <div class="button-group">
+            <button id="stepBtn">Paso a Paso</button>
+            <button id="autoBtn">Simulación Automática</button>
+            <button id="resetBtn">Reiniciar</button>
+        </div>
+    </div>
+
+    <main class="main-layout">
+        <section class="viz-section glass-panel">
+            <h2>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                    <line x1="15" y1="3" x2="15" y2="21"></line>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="3" y1="15" x2="21" y2="15"></line>
+                </svg>
+                Laberinto
+            </h2>
+            <div id="maze"></div>
+        </section>
+
+        <section class="viz-section glass-panel">
+            <h2>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                Pila (Stack)
+            </h2>
+            <div id="stack-container">
+                <!-- Stack items will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <div class="status-bar glass-panel">
+        <div class="status-indicator">
+            <span class="dot" id="status-dot"></span>
+            <span id="status-text">Listo para iniciar</span>
+        </div>
+        <div id="step-counter">Pasos: 0</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
