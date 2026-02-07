@@ -52,3 +52,153 @@ Y decimos que un arbol esta balanceado si tiene: -1,0,1. Cualquier otro factor i
 
 * Implementacion
 
+Aqui la insercion y eliminacion se mantienen igual salvo una diferencia, tomemos de ejemplo la insercion:
+
+1. Insertamos el elemento como en un BST
+2. Actualizamos las alturas, calculamos el nuevo balance
+3. Si el arbol queda desbalanceado entonces introducimos un nuevo concepto, que van a ser las rotaciones, se le llama rotaciones porque visualmente vamos a rotar el arbol para conservar el balanceo, es decir que el factor de balanceo sea -1,0,1
+
+
+Existen 4 desbalanceos, 4 casos diferentes y para cada uno se va a aplicar una rotacion especifica. Vamos a definir primero las rotaciones y luego veremos cual se aplica en cada uno.
+** Rotación simple a la derecha
+Insertar imagen
+#+begin_src text
+      y                x
+     / \              / \
+    x   C   ---->    A   y
+   / \                  / \
+  A   B                B   C
+
+#+end_src
+
+Esto queda implementado con la ayuda de auxiliares, vamos a llamar a las variables como en nuestro ejemplo para que podamos ver mejor como se rota en codigo
+#+begin_src java
+Node rotateRight(Node y) {
+    Node x = y.left;//hijo izquierdo de la raiz
+    Node T2 = x.right;//hijo derecho del hijo izquierdo
+
+    // Rotacion
+    x.right = y;//el nuevo hijo derecho pasa a ser la raiz
+    y.left = T2;//el hijo izquierdo de la vieja raiz es el que era el hijon derecho de x
+
+    // Actualizar alturas
+    y.height = 1 + Math.max(height(y.left), height(y.right));
+    x.height = 1 + Math.max(height(x.left), height(x.right));
+
+    //Ahora x va a ser nuestra nueva raiz
+    return x;
+}
+
+#+end_src
+** Rotación simple a la izquierda
+Insertar imagen
+#+begin_src text
+    x                  y
+   / \                / \
+  A   y    ---->     x   C
+     / \            / \
+    B   C          A   B
+
+#+end_src
+Ahora vamos a ver como seria rotar un abrol a la izquierda
+#+begin_src java
+Node rotateLeft(Node x) {
+    Node y = x.right;//hijo derecho de la raiz
+    Node T2 = y.left;//hijo izquierdo del hijo derecho de la raiz
+
+    // Rotacion
+    y.left = x;//la raiz pasa a ser el hijo izquierdo de x
+    x.right = T2;//el hijo derecho de quien era la raiz es el hijo izquierdo de y
+
+    // Actualizar alturas
+    x.height = 1 + Math.max(height(x.left), height(x.right));
+    y.height = 1 + Math.max(height(y.left), height(y.right));
+
+    // y termina siendo la raiz nueva
+    return y;
+}
+
+#+end_src
+** Caso LL (left left)
+En este caso ocurre cuando digamos crecio el subarbol izquierdo del hijo izquierdo, en este caso entonces vamos a aplicar una rotacion a la derecha.
+** Caso RR (right right)
+Ocurre cuando un nodo se desbalancea por una insercion en el subarbol derecho del hijo derecho, en este caso vamos a a aplicar una rotacion simple a la izquierda.
+** Caso LR (left right)
+Ocurre cuando el desbalance esta en el subarbol derecho del hijo izquierdo. En este caso vamos a hacer 2 rotaciones, primero:
+1. Rotacion a la izquierda sobre el hijo
+2. Rotacion a la derecha sobre el nodo desbalanceado
+** Caso RL (right left)
+Ocurre cuando el desbalance esta en el subarbol izquierdo del hijo derecho, en este caso igual haremos 2 rotaciones:
+1. Rotacion derecha sobre el hijo
+2. Rotacion izquierda sobre el nodo desbalanceado
+
+
+** Implementacion
+ Teniendo en cuenta todos los casos vistos vamos a ver como quedarian todos integrados en la funcion de insercion
+
+#+begin_src java
+  AVLNode insert(AVLNode node, int value){
+      if(node == null)//Si el nodo es nulo, regresa el nuevo objeto
+  	return new AVLNode(value);
+      //insercion normal como un bst
+      if(value < node.value)
+  	node.left = insert(node.left, value);
+      else if(value > node.value)
+  	node.right = insert(node.right, value);
+      else
+  	return node;
+      //calculo de la altura del nodo (after insercion)
+      node.height = 1 + max(height(node.left), height(node.right));
+      //calcula el factor de balanceo
+      int balance = getBalance(node);
+      //Si el arbol esta mas cargado a la izquierda y el valor insertado
+      //(value) quedo a la izquierdo del hijo izquierdo de esta raiz
+      if(balance > 1 && value < node.left.value)
+  	return rotateRight(node);//rotacion simple a la derecha
+      //Si el arbol esta mas cargado a la derecha, y el valor insertado
+      //(value) quedo a la derecha del hijo derecho de la raiz
+      if(balance < -1 && value > node.right.value)
+  	return rotateLeft(node);//rotacion simple a la derecha
+      //Si el arbol esta mas cargado a la izquierda y el valor insertado
+      //(value) quedo a la derecha del hijo izquierdo de la raiz
+      if(balance > 1 && value > node.left.value){
+  	node.left = rotateLeft(node.left);//rota a la izquierda el hijo izquierdo
+  	return rotateRight(node);//rota a la derecha la raiz
+      }
+      //Si el arbol esta mas cargado a la derecha y el valor insertado
+      //(value) quedo a la izquierda del hijo derecho de la raiz
+      if(balance < -1 && value < node.right.value){
+  	node.right = rotateRight(node.right);//rota a la derecha el hijo derecho
+  	return rotateLeft(node);//rota a la izquierda la raiz
+      }
+
+      return node;
+  }
+#+end_src
+
+** Eliminacion
+Para la eliminacion es igual, una vez que eliminamos un nodo checamos el factor de balanceo y si esta desbalanceado, analizamos los mismos 4 casos y dependiendo en cual caiga en ese es el que rotamos.
+
+
+* Complejidades Temporales
+| operación   | complejidad |
+| ----------- | ----------- |
+| búsqueda    | O(log n)    |
+| inserción   | O(log n)    |
+| eliminación | O(log n)    |
+| recorrido   | O(n)        |
+Como vemos en el caso del BST, no podiamos garantizar que siempre fuera logh n sus operaciones debido a que no podiamos controlar el balanceo, pero ahora si, entonces en la practica estos arboles son mejores porque ahora si tenemos certeza que cada operacion toma log n, lo cual nospermite aprovechar la eficiencia de estas estructuras.
+* Ventajas y desventajas
+Ventajas:
+- Altura controlada
+- Operaciones eficientes garantizadas
+- Datos siempre ordenadas
+Desventajas:
+- La implementacion es mas compleja
+- Hay ciertas operaciones extra en la insercion y eliminacion
+- Al guardar un dato mas por nodo, el uso de memoria crece
+
+* Conclusion
+Los arboles AVL representan un arreglo al problema mas comun de los BST, introducen este concepto de que se autobalancean garantizando que sus operaciones se realizan de manera eficiente en todo momento a costa de una mayor complejidad de implementacion.
+
+Son idelaes cuando se quiere garantizar que las busquedas son rapidas y si las busquedas van a ser frecuentes. 

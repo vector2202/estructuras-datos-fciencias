@@ -1,0 +1,106 @@
+#+Title:Arboles roji negros
+* Introduccion
+Los arboles rojinegros son un tipo de BST auto balanceado cuyo objetivo al igual que los AVL, se garantiza que las operaciones como busqueda, insercion, eliminacion se realizan en O(log n).
+
+A diferencia de los AVL ya vistos, los cuales su factor de balanceo es muy estricto, los rojinegros permiten un balance mas flexinle, lo cual reduce el numero de rotaciones necesarias y los hace mas eficientes que los avl, estos rojinegros son la base para muchas clases que usamos en lenguajes de programacion como:
+- TreeMap y TreeSet en java
+- std::map y std::set en C++
+- Estructuras internas en Sistemas operativos
+- Indices de bases de datos
+* Definicion
+
+/Un arbol rojinegro es un arbol binario de busqueda en el que cada nodo esta coloreado de rojo o de negro y que satisface un conjunto de propiedades que garantizan que el abrol se mantenga balanceado/
+
+Esto garantiza que la altura del arbol siempre sea O(log n).
+
+Entonces podemos notar que cada nodo contiene un color, ya sea rojo o negro.
+#+begin_src java
+  class RBNode<T> {
+      T value;
+      RBNode<T> left;
+      RBNode<T> right;
+      RBNode<T> parent;
+      Color color; // rojo o negro
+  }
+#+end_src
+
+* Propiedades
+Todo arbol rojinegro debe cumplir las siguientes reglas:
+1. Cada nodo es rojo o negro
+2. La raiz siempre es negra
+3. TRodas las hojas nulas, siempre se consideran negras
+4. Un nodo rojo no puede tener dos hijos rojos, es decir no puede haber dos rojos consecutivos.
+5. Para cada nodo todos los caminos de ese nodo hasta una hoja nula contienen el mismo numero de nodos negros.
+
+Esta ultima propiedad define la llamada *altura negra*, que es el numero de nodos negros en cualquier camino desde ese nodo hasta una hoja nula, sin contar el propio nodo si es rojo.
+
+
+Es gracias a esta propiedad que nosotros podemos asegurar que los arboles rojinegros estan balanceados, ya que se puede demostrar que:
+#+begin_src text
+altura ≤ 2 × log₂(n + 1)
+#+end_src
+
+Esto nos va a garantizar eficiencia logaritmica
+
+Si lo comparamos con un AVL:
+- El AVL mantiene un balance estricto mientras que el rojinegro mantiene un balance mas relajado.
+- AVL minimiza la altura, es decir la altura entre sus nodos nunca varia mas de 1, mientras que el rojinegro minimiza las rotaciones realizadas para mantener un balance.
+
+Esto ultimo hace que los arboles rojinegros sean mas preferidos en implementaciones del mundo real, ahora vamos a ello.
+* Implementacion
+** Insercion
+La insercion de un arbol rojinegro igual se realiza en 2 fases:
+1. Se inserta como un BST normal
+2. El nuevo nodo se colorea de rojo
+3. Se corrigen si es que se viola alguna de las 5 propiedades mediante recoloraciones o mediante rotaciones.
+
+La violacion principal es cuando el padre del nodo insertado es rojo, para ver los diferentes casos vamos a usar la siguiente notacion:
+- N para el nodo recien insertado
+- P para el padre del nodo
+- G para el abuelo del nodo
+- U para el tio del nodo, es decir hermano de P del nodo
+
+*** Caso 1
+En este caso es el que U sea rojo, en ese caso:
+1. Se recolorean P y U a negro
+2. G se recolorea a rojo
+3. El problema se propaga hacia arriba, es decir ahora vemos que P no incurra en la regla
+*** Caso 2
+En este caso U es negro y N forma un triangulo
+1. Se realiza una rotacion para convertirlo en una linea
+2. Se pasa al caso 3
+*** Caso 3
+En este caso U es negro y N forma una linea
+1. Se realiza una rotacion sobre G
+2. Se intercambian colores entre P y G
+Las rotaciones son las mismas que usamos en el arbol AVL.
+
+** Eliminacion
+La eliminacion igual vamos a dividirlo en 2 fases:
+1. Eliminacion tradicional de un BST
+2. Si el nodo eliminado es negro, se introduce un doble negro
+3. Se corrige el doble negro mediante: recoloraciones, rotaciones, propagacion a la raiz.
+* Complejidades
+| operación   | complejidad |
+| ----------- | ----------- |
+| búsqueda    | O(log n)    |
+| inserción   | O(log n)    |
+| eliminación | O(log n)    |
+| recorrido   | O(n)        |
+
+
+** Ventajas y desventajas
+Ventajas:
+- Hay un balanceo garantizado
+- Menor numero de rotaciones que un AVL
+- Mas eficientes que un AVL
+- Son usados en librerias estandar de multiples lenguajes de programacion
+Desventajas:
+- Son los arboles mas complejos de implementar
+- Mas dificiles que un AVL
+- Un arbol mas alto que el AVL
+
+Conviene usarlos cuando se van a hacer multiples inserciones o eliminaciones, cuando se requiere un rendimiento estable y cuando se implementan mapas y conjuntos ordenados.
+
+* Conclusion
+Los arboles rojinegros representan un equilibrio entre simplicidad operativa y eficiencia practica, conceptualmente son mas complejos de entender que los AVL, pero su menor numero de rotaciones y su balance flexible los convierte en la opcion 1 en las implementaciones de los lenguajes de programacion.
