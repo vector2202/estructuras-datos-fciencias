@@ -218,7 +218,7 @@ fileInput.onchange = (e) => {
                 );
                 uploadBtn.textContent = `Archivo: ${file.name}`;
                 uploadBtn.style.borderColor = "var(--accent-emerald)";
-                configureMaze(); // Auto-load on valid file
+                configureMaze();
             } else {
                 alert("El archivo debe contener solo 0s y 1s.");
             }
@@ -233,7 +233,7 @@ mazeSelector.onchange = () => {
     customMazeData = null;
     uploadBtn.textContent = "Subir .txt";
     uploadBtn.style.borderColor = "var(--glass-border)";
-    configureMaze(); // Auto-load on preset change
+    configureMaze();
 };
 
 document.getElementById("resetBtn").onclick = initSimulation;
