@@ -11,8 +11,10 @@
     --accent-amber: #fbbf24;
     --accent-rose: #f43f5e;
 
-    --wall: #1e293b;
-    --free: rgba(255, 255, 255, 0.03);
+    --wall: #0f172a;
+    /* Darker navy */
+    --free: rgba(255, 255, 255, 0.01);
+    /* Much more subtle */
     --start: var(--accent-blue);
     --end: var(--accent-rose);
     --visited: var(--accent-emerald);
@@ -161,7 +163,26 @@ button#startBtn:hover {
 
 .wall {
     background: var(--wall);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    /* Thicker border */
+    box-shadow:
+        inset 0 0 20px rgba(0, 0, 0, 0.8),
+        0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.wall::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+    background-size: 8px 8px;
+    background-position: 0 0, 0 4px, 4px 4px, 4px 0;
 }
 
 .free {

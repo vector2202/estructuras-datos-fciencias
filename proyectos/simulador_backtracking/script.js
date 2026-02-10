@@ -233,8 +233,39 @@ mazeSelector.onchange = () => {
     customMazeData = null;
     uploadBtn.textContent = "Subir .txt";
     uploadBtn.style.borderColor = "var(--glass-border)";
+
+    const isRandom = mazeSelector.value === "random";
+    document.getElementById("randomControls").style.display = isRandom ? "block" : "none";
+
+    if (!isRandom) {
+        configureMaze();
+    } else {
+        updateUI("Modo aleatorio: genera un laberinto", "idle");
+        mazeContainer.innerHTML = '<div style="color: #94a3b8; text-align: center; grid-column: 1/-1;">Presiona "Generar laberinto"</div>';
+    }
+};
+
+document.getElementById("generateBtn").onclick = () => {
+    generateRandomMaze();
     configureMaze();
 };
+
+function generateRandomMaze() {
+    const size = 5;
+    const newMaze = [];
+    for (let i = 0; i < size; i++) {
+        const row = [];
+        for (let j = 0; j < size; j++) {
+            if (i === 0 && j === 0) row.push("S");
+            else if (i === size - 1 && j === size - 1) row.push("E");
+            else {
+                row.push(Math.random() < 0.4 ? "#" : ".");
+            }
+        }
+        newMaze.push(row);
+    }
+    customMazeData = newMaze;
+}
 
 document.getElementById("resetBtn").onclick = initSimulation;
 document.getElementById("stepBtn").onclick = step;
