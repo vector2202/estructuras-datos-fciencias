@@ -7,26 +7,21 @@ export class TreeVisualizer {
         this.svg.style.height = "100%";
         this.container.appendChild(this.svg);
         this.nodeRadius = 20;
-        this.animationSpeed = 500; // ms
+        this.animationSpeed = 500;
 
-        // Listen for speed changes
         window.addEventListener('speedChange', (e) => {
             if (e.detail > 0) {
                 this.animationSpeed = 1000 / e.detail;
             }
         });
 
-        // Resize observer to redraw on window resize
         new ResizeObserver(() => {
             if (this.lastRoot) this.draw(this.lastRoot);
         }).observe(this.container);
-
-        // Map to store existing DOM elements by value
         this.nodesMap = new Map(); // value -> { group, circle, text, x, y }
         this.edgesMap = new Map(); // key (val1-val2) -> line
     }
 
-    // Helper to pause execution
     async sleep(ms = this.animationSpeed) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -46,15 +41,12 @@ export class TreeVisualizer {
 
         const width = this.container.clientWidth;
 
-        // 1. Calculate target positions (without modifying DOM yet)
         const positions = new Map(); // value -> {x, y}
         this.calculatePositions(root, width / 2, 50, width / 4, positions);
 
-        // 2. Identify edges
         const edges = [];
         this.collectEdges(root, edges);
 
-        // 3. Update DOM
         this.updateEdges(edges, positions);
         this.updateNodes(positions);
     }
@@ -81,7 +73,6 @@ export class TreeVisualizer {
     }
 
     updateNodes(positions) {
-        // Remove nodes that are no longer in the tree
         for (const [val, el] of this.nodesMap) {
             if (!positions.has(val)) {
                 this.svg.removeChild(el.group);
@@ -89,12 +80,10 @@ export class TreeVisualizer {
             }
         }
 
-        // Add or Update nodes
         for (const [val, pos] of positions) {
             let nodeEl = this.nodesMap.get(val);
 
             if (!nodeEl) {
-                // Create new node
                 const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
                 g.setAttribute("class", "node-group");
                 g.setAttribute("id", `node-${val}`);
@@ -114,11 +103,9 @@ export class TreeVisualizer {
                 g.appendChild(circle);
                 g.appendChild(text);
 
-                // Append to SVG (nodes on top of edges)
                 this.svg.appendChild(g);
                 this.nodesMap.set(val, { group: g, circle, text, ...pos });
             } else {
-                // Update existing node position with transition
                 nodeEl.circle.setAttribute("cx", pos.x);
                 nodeEl.circle.setAttribute("cy", pos.y);
                 nodeEl.text.setAttribute("x", pos.x);
@@ -131,10 +118,8 @@ export class TreeVisualizer {
     }
 
     updateEdges(edges, positions) {
-        // Edges key: "from-to"
         const newEdgeKeys = new Set(edges.map(e => `${e.from}-${e.to}`));
 
-        // Remove old edges
         for (const [key, line] of this.edgesMap) {
             if (!newEdgeKeys.has(key)) {
                 this.svg.removeChild(line);
@@ -142,7 +127,6 @@ export class TreeVisualizer {
             }
         }
 
-        // Add/Update edges
         for (const edge of edges) {
             const key = `${edge.from}-${edge.to}`;
             const start = positions.get(edge.from);
@@ -154,7 +138,6 @@ export class TreeVisualizer {
             if (!line) {
                 line = document.createElementNS("http://www.w3.org/2000/svg", "line");
                 line.setAttribute("class", "edge");
-                // Insert before first node group so it's behind
                 if (this.svg.firstChild) {
                     this.svg.insertBefore(line, this.svg.firstChild);
                 } else {
@@ -174,7 +157,6 @@ export class TreeVisualizer {
     async highlightNode(value, type = "highlight-node") {
         const nodeEl = this.nodesMap.get(value);
         if (nodeEl) {
-            // Remove other highlight classes
             nodeEl.group.classList.remove("highlight-node", "visiting-node", "found-node");
             if (type) nodeEl.group.classList.add(type);
         }

@@ -95,7 +95,6 @@
 
     <script type="module" src="js/main.js"></script>
     <script>
-        // Tab switching logic
         const tabs = document.querySelectorAll(".tab-btn");
         const sections = document.querySelectorAll(".section");
 
@@ -108,12 +107,10 @@
             };
         });
 
-        // Speed slider logic
         const speedSlider = document.getElementById('speedSlider');
         const speedValue = document.getElementById('speedValue');
         speedSlider.addEventListener('input', (e) => {
             speedValue.innerText = e.target.value + 'x';
-            // Dispatch event for visualizer to pick up
             window.dispatchEvent(new CustomEvent('speedChange', { detail: parseFloat(e.target.value) }));
         });
     </script>

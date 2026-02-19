@@ -28,38 +28,30 @@ export class AVL {
         return node ? this.height(node.left) - this.height(node.right) : 0;
     }
 
-    // Updated rotation methods with clearer visual steps
     async rotateRight(y, parent, link) {
         const x = y.left;
         const T2 = x.right;
 
-        // Visual Context
         this.visualizer.showMessage(`Rotación Derecha: ${x.value} sube, ${y.value} baja.`);
-        await this.visualizer.highlightNode(y.value, "highlight-node"); // Node going down
-        await this.visualizer.highlightNode(x.value, "found-node");      // Node going up
-        if (T2) await this.visualizer.highlightNode(T2.value, "visiting-node"); // Subtree moving
+        await this.visualizer.highlightNode(y.value, "highlight-node");
+        await this.visualizer.highlightNode(x.value, "found-node");
+        if (T2) await this.visualizer.highlightNode(T2.value, "visiting-node");
         await this.sleep(800);
 
-        // Perform rotation
         x.right = y;
         y.left = T2;
 
-        // Update heights
         y.height = Math.max(this.height(y.left), this.height(y.right)) + 1;
         x.height = Math.max(this.height(x.left), this.height(x.right)) + 1;
 
-        // Patch global structure
         if (parent) {
             parent[link] = x;
         } else {
             this.root = x;
         }
 
-        // Animate
         this.visualizer.draw(this.root);
         await this.sleep(1200);
-
-        // Clear highlight colors involved in rotation
         await this.visualizer.removeHighlight(y.value);
         await this.visualizer.removeHighlight(x.value);
         if (T2) await this.visualizer.removeHighlight(T2.value);
@@ -71,10 +63,9 @@ export class AVL {
         const y = x.right;
         const T2 = y.left;
 
-        // Visual Context
         this.visualizer.showMessage(`Rotación Izquierda: ${y.value} sube, ${x.value} baja.`);
-        await this.visualizer.highlightNode(x.value, "highlight-node"); // Node going down
-        await this.visualizer.highlightNode(y.value, "found-node");      // Node going up
+        await this.visualizer.highlightNode(x.value, "highlight-node");
+        await this.visualizer.highlightNode(y.value, "found-node");
         if (T2) await this.visualizer.highlightNode(T2.value, "visiting-node");
         await this.sleep(800);
 
@@ -82,22 +73,18 @@ export class AVL {
         y.left = x;
         x.right = T2;
 
-        // Update heights
         x.height = Math.max(this.height(x.left), this.height(x.right)) + 1;
         y.height = Math.max(this.height(y.left), this.height(y.right)) + 1;
 
-        // Patch global structure
         if (parent) {
             parent[link] = y;
         } else {
             this.root = y;
         }
 
-        // Animate
         this.visualizer.draw(this.root);
         await this.sleep(1200);
 
-        // Clear highlights
         await this.visualizer.removeHighlight(x.value);
         await this.visualizer.removeHighlight(y.value);
         if (T2) await this.visualizer.removeHighlight(T2.value);

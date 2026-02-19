@@ -93,7 +93,7 @@ export class BST {
             this.visualizer.showMessage(`Buscando sucesor (mínimo del subárbol derecho)...`);
             let min = await this._min(node.right);
             node.value = min.value;
-            this.visualizer.draw(this.root); // Update value visually
+            this.visualizer.draw(this.root);
             await this.visualizer.highlightNode(node.value, "visiting-node");
             this.visualizer.showMessage(`Reemplazado con ${min.value}. Eliminando duplicado...`);
             await this.visualizer.sleep();

@@ -17,7 +17,6 @@ avlVisualizer.showMessage = (msg) => {
 const bst = new BST(bstVisualizer);
 const avl = new AVL(avlVisualizer);
 
-// Helper to disable buttons during animation
 function setControlsDisabled(type, disabled) {
     document.querySelectorAll(`#${type.toLowerCase()} button`).forEach(btn => {
         btn.disabled = disabled;
@@ -25,7 +24,6 @@ function setControlsDisabled(type, disabled) {
     document.getElementById(`value${type}`).disabled = disabled;
 }
 
-// Setup Event Listeners
 function setup(type, tree, visualizer) {
     const insertBtn = document.getElementById(`insert${type}`);
     const deleteBtn = document.getElementById(`delete${type}`);
@@ -49,7 +47,6 @@ function setup(type, tree, visualizer) {
             visualizer.showMessage("Error: " + e.message);
         } finally {
             setControlsDisabled(type, false);
-            // Clear any remaining highlights
             await visualizer.clearHighlights();
             input.value = "";
             input.focus();
@@ -82,23 +79,15 @@ function setup(type, tree, visualizer) {
         visualizer.showMessage(`Insertando ${count} nodos aleatorios...`);
         setControlsDisabled(type, true);
 
-        // Chain promises or use a loop with await
         (async () => {
-            // No need to clear highlights inside the loop if we want to see progress,
-            // but we should clear them at the start? Or handleAction wrapper?
-            // "Random" has custom logic not using handleAction.
             await visualizer.clearHighlights();
 
             for (let i = 0; i < count; i++) {
                 const val = Math.floor(Math.random() * 100);
-                // We use tree.insert directly, which highlights nodes.
-                // We should probably allow the tree to handle it, but maybe silence messages?
-                // For now, just run it.
                 await tree.insert(val);
                 await visualizer.sleep(200);
             }
 
-            // Explicitly clear highlights after random insertion batch is done
             await visualizer.clearHighlights();
 
             setControlsDisabled(type, false);
