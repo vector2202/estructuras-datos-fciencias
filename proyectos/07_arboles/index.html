@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Árboles - Glassmorphism</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <main class="container">
+        <header>
+            <h1>Estructuras de Árboles</h1>
+            <p class="subtitle">Explora BST y AVL con visualizaciones paso a paso</p>
+
+            <div class="speed-control-header">
+                <label for="speedSlider"><i class="fas fa-tachometer-alt"></i> Velocidad:</label>
+                <input type="range" id="speedSlider" min="0.5" max="3" step="0.5" value="1">
+                <span id="speedValue">1.0x</span>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-target="bst">
+                <i class="fas fa-tree"></i> Árbol Binario de Búsqueda
+            </button>
+            <button class="tab-btn" data-target="avl">
+                <i class="fas fa-balance-scale"></i> Árbol AVL
+            </button>
+        </div>
+
+        <!-- BST Section -->
+        <section id="bst" class="section active">
+            <div class="glass-panel controls-grid">
+                <div class="input-group">
+                    <input type="number" id="valueBST" placeholder="Valor"
+                        onkeypress="if(event.key === 'Enter') document.getElementById('insertBST').click()">
+                </div>
+                <div class="btn-group">
+                    <button id="insertBST" class="btn-primary"><i class="fas fa-plus"></i> Insertar</button>
+                    <button id="deleteBST" class="btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
+                    <button id="searchBST" class="btn-info"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+                <div class="btn-group-secondary">
+                    <button id="inorderBST" class="btn-outline">Inorden</button>
+                    <button id="preorderBST" class="btn-outline">Preorden</button>
+                    <button id="postorderBST" class="btn-outline">Postorden</button>
+                </div>
+                <button id="randomBST" class="btn-accent"><i class="fas fa-random"></i> Aleatorio</button>
+                <button id="clearBST" class="btn-warning"><i class="fas fa-eraser"></i> Limpiar</button>
+            </div>
+
+            <div class="glass-panel canvas-wrapper">
+                <div id="canvasBST" class="canvas-container"></div>
+            </div>
+
+            <div class="glass-panel explanation-box">
+                <div id="msgBST" class="message-content">Esperando acción...</div>
+            </div>
+        </section>
+
+        <!-- AVL Section -->
+        <section id="avl" class="section">
+            <div class="glass-panel controls-grid">
+                <div class="input-group">
+                    <input type="number" id="valueAVL" placeholder="Valor"
+                        onkeypress="if(event.key === 'Enter') document.getElementById('insertAVL').click()">
+                </div>
+                <div class="btn-group">
+                    <button id="insertAVL" class="btn-primary"><i class="fas fa-plus"></i> Insertar</button>
+                    <button id="deleteAVL" class="btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
+                    <button id="searchAVL" class="btn-info"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+                <div class="btn-group-secondary">
+                    <button id="inorderAVL" class="btn-outline">Inorden</button>
+                    <button id="preorderAVL" class="btn-outline">Preorden</button>
+                    <button id="postorderAVL" class="btn-outline">Postorden</button>
+                </div>
+                <button id="randomAVL" class="btn-accent"><i class="fas fa-random"></i> Aleatorio</button>
+                <button id="clearAVL" class="btn-warning"><i class="fas fa-eraser"></i> Limpiar</button>
+            </div>
+
+            <div class="glass-panel canvas-wrapper">
+                <div id="canvasAVL" class="canvas-container"></div>
+            </div>
+
+            <div class="glass-panel explanation-box">
+                <div id="msgAVL" class="message-content">Esperando acción...</div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+    <script>
+        // Tab switching logic
+        const tabs = document.querySelectorAll(".tab-btn");
+        const sections = document.querySelectorAll(".section");
+
+        tabs.forEach(btn => {
+            btn.onclick = () => {
+                tabs.forEach(b => b.classList.remove("active"));
+                sections.forEach(s => s.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById(btn.dataset.target).classList.add("active");
+            };
+        });
+
+        // Speed slider logic
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+        speedSlider.addEventListener('input', (e) => {
+            speedValue.innerText = e.target.value + 'x';
+            // Dispatch event for visualizer to pick up
+            window.dispatchEvent(new CustomEvent('speedChange', { detail: parseFloat(e.target.value) }));
+        });
+    </script>
+</body>
+
+</html>
