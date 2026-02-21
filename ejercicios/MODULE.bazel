@@ -1,0 +1,21 @@
+module(
+    name = "ejercicios_estructuras",
+    version = "1.0",
+)
+
+bazel_dep(name = "rules_java", version = "7.10.0")
+bazel_dep(name = "rules_jvm_external", version = "6.1")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+maven.install(
+    artifacts = [
+        "org.junit.jupiter:junit-jupiter-api:5.10.1",
+        "org.junit.jupiter:junit-jupiter-engine:5.10.1",
+        "org.junit.platform:junit-platform-launcher:1.10.1",
+        "org.junit.platform:junit-platform-reporting:1.10.1",
+        "org.junit.platform:junit-platform-console:1.10.1",
+    ],
+)
+
+use_repo(maven, "maven")
