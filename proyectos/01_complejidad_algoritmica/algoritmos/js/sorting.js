@@ -7,9 +7,11 @@ const speedSlider = document.getElementById('speedSlider');
 const speedVal = document.getElementById('speedVal');
 const btnStart = document.getElementById('btnStart');
 const btnReset = document.getElementById('btnReset');
+const typeButtons = document.querySelectorAll('.type-btn');
 
 // State
 let baseArray = [];
+let currentInputType = 'random';
 const algos = ['bubble', 'insertion', 'selection', 'merge', 'quick', 'radix'];
 
 //Sorting algorithms
@@ -161,15 +163,12 @@ function radixSort(arr) {
     while (Math.floor(max / exp) > 0) {
         const buckets = Array.from({ length: 10 }, () => []);
 
-        // Frequencies, bucket digits
         for (let i = 0; i < array.length; i++) {
             const digit = Math.floor((array[i] / exp) % 10);
             buckets[digit].push(array[i]);
-            //Digito leido
             steps.push({ type: 'compare', indices: [i] });
         }
 
-        // Rewrite array
         let idx = 0;
         for (let i = 0; i < 10; i++) {
             for (let val of buckets[i]) {
@@ -188,7 +187,6 @@ async function runAlgo(id, steps) {
     const chartId = `chart-${id}`;
     const statsId = `stats-${id}`;
     const progId = `prog-${id}`;
-    //copy local array
     const localArr = [...baseArray];
     const totalSteps = steps.length;
     let ops = 0;
@@ -198,7 +196,6 @@ async function runAlgo(id, steps) {
         const highlights = {};
 
         ops++;
-        //apply different actions
         if (step.type === 'compare') {
             step.indices.forEach(idx => highlights[idx] = 'compare');
         }
@@ -219,18 +216,14 @@ async function runAlgo(id, steps) {
             step.indices.forEach(idx => highlights[idx] = 'sorted');
         }
 
-        // Render Frame
         Utils.render(chartId, localArr, highlights);
 
-        // Update UI stats
         document.getElementById(statsId).textContent = `${ops} ops`;
         document.getElementById(progId).style.width = `${(i / totalSteps) * 100}%`;
 
-        //wait
         await Utils.sleep(() => Number(speedSlider.value));
     }
 
-    // Final clear
     Utils.render(chartId, localArr, {});
     document.getElementById(progId).style.background = 'var(--accent)';
 }
@@ -239,7 +232,7 @@ async function runAlgo(id, steps) {
 
 function init() {
     const size = Number(sizeSlider.value);
-    baseArray = Utils.generateArray(size, 5, 200);//max 200
+    baseArray = Utils.generateArray(size, currentInputType, 5, 200);
 
     // Reset UI
     algos.forEach(id => {
@@ -249,6 +242,15 @@ function init() {
         document.getElementById(`prog-${id}`).style.background = 'var(--success)';
     });
 }
+
+typeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        typeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentInputType = btn.dataset.type;
+        init();
+    });
+});
 
 btnStart.addEventListener('click', () => {
     const tasks = [
