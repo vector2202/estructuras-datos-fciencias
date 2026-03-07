@@ -37,11 +37,11 @@ function setup(type, tree, visualizer) {
     const preorderBtn = document.getElementById(`preorder${type}`);
     const postorderBtn = document.getElementById(`postorder${type}`);
 
-    async function handleAction(actionProm) {
+    async function handleAction(actionFn) {
         setControlsDisabled(type, true);
         await visualizer.clearHighlights(); // Clear previous highlights BEFORE starting
         try {
-            await actionProm;
+            await actionFn();
         } catch (e) {
             console.error(e);
             visualizer.showMessage("Error: " + e.message);
@@ -59,19 +59,19 @@ function setup(type, tree, visualizer) {
             visualizer.showMessage("Por favor ingresa un número válido.");
             return;
         }
-        handleAction(tree.insert(value));
+        handleAction(() => tree.insert(value));
     };
 
     deleteBtn.onclick = () => {
         const value = parseInt(input.value);
         if (isNaN(value)) return;
-        handleAction(tree.remove(value));
+        handleAction(() => tree.remove(value));
     };
 
     searchBtn.onclick = () => {
         const value = parseInt(input.value);
         if (isNaN(value)) return;
-        handleAction(tree.search(value));
+        handleAction(() => tree.search(value));
     };
 
     randomBtn.onclick = () => {
@@ -101,9 +101,9 @@ function setup(type, tree, visualizer) {
         visualizer.showMessage("Árbol limpiado.");
     };
 
-    if (inorderBtn) inorderBtn.onclick = () => handleAction(tree.traverse("in"));
-    if (preorderBtn) preorderBtn.onclick = () => handleAction(tree.traverse("pre"));
-    if (postorderBtn) postorderBtn.onclick = () => handleAction(tree.traverse("post"));
+    if (inorderBtn) inorderBtn.onclick = () => handleAction(() => tree.traverse("in"));
+    if (preorderBtn) preorderBtn.onclick = () => handleAction(() => tree.traverse("pre"));
+    if (postorderBtn) postorderBtn.onclick = () => handleAction(() => tree.traverse("post"));
 }
 
 setup("BST", bst, bstVisualizer);
