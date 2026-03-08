@@ -1,0 +1,96 @@
+#+Title: Tablas hash
+#+Author: Victor Torres
+
+* Introduccion
+Las tablas hash son estructuras de datos que permiten almacenar y buscar informacion de manera muy eficiente. Su principal ventaja es que pueden realizar operaciones de busqueda, insercion, eliminacion en tiempo constante en promedio.
+
+La idea de esto es utilizar una funcion matematica llamada *funcion hash* o *funcion de dispersion* que convierte una clave en un indice de registro dentro de un arreglo.
+
+De esta manera en lugar de buscar un elemento recorriendo toda una lista o arreglo podemos calcular la posicion donde deberiamos encontrarlo.
+
+* Definicion
+
+/Una estructura hash es una estructura que almacena pares de clave-valor que permite busquedas inserciones y eliminaciones rapidas, generalmente en tiempo constante. Utiliza una funcion hash para convertir una clave unica en un indice especifico dentro de un array./
+
+Las tablas hash se basan entereamente en funciones hash, la cual es una funcion que toma una clave y la transforma en un numero entero dentro del rango de un arreglo, una funcion hash se disena y para que sea una buena funcion hash debe:
+- ser rapida de calcular
+- distribuir los elementos de manera uniforme
+- minimizar las colisiones
+
+Las colisiones se le denomina a cuando dos valor diferentes, su valor calculado por la funcion hash es el mismo.
+
+Por ejemplo una funcion hash simple es:
+
+
+hash(key) =  key % size
+
+* Colisiones
+Una colision ocurre cuando dos claves diferentes producen el mismo valor indice en la tabla
+
+Ejemplo funcion hash valor % 10:
+
+| Clave | Hash |
+|-------+------|
+| 15    | 5    |
+| 25    | 5    |
+
+Ambos elementos quieren ir en la misma posicion.
+
+Como las colisiones son inevitables porque al final de cuentas nosotros podemos implementar una funcion muy buena de hash pero al final siempre va a caer un valor donde ambos valores tengan el mismo hash.
+
+* Resolucion de colisiones
+** Encadenamiento
+
+Cada posicion de la tabla es una lista de elementos, si ocurre una colision el nuevo elemento se agrega a la lista.
+Ventajas:
+
+- Facil de implementar
+- no requiere mover elementos
+** Direccionamiento abierto
+Cuando ocurre una colision se busca otra posicion disponible en la tabla.
+
+Algunas estrategias son:
+- buscar la siguiente posicion disponible incrementando de 1 en 1
+- buscar la siguiente posicion disponible incrementando en potencias de 2
+- buscar la siguiente posicion disponible aplicando una segunda funcion hash
+
+* Factor de carga
+El factor de carga mide que tan llena esta la tabla hash
+
+factor_carga = elementos / size_table
+
+cuando el factor de carga es muy alto entonces las colisiones aumentan y el rendimiento de que sean las operaciones constantes disminuye.
+
+Por esta razon muchas implementaciones redimensionan la tabla cuandos supera ciero limite, por ejemplo 0.75.
+
+
+* Complejidad
+| Operacion | Complejidad Promedio | Peor Caso |
+|-----------+---------------------+-----------|
+| Insercion | O(1)                | O(n)      |
+| Busqueda  | O(1)                | O(n)      |
+| Eliminacion | O(1)              | O(n)      |
+
+El peor caso ocurre cuando muchas claves generan colisiones.
+
+* Aplicaciones
+Las tablas hash son ampliamentes usadas, algunas de las aplicaciones son:
+- implementacion en indices en base de datos
+- caches en siistemas y aplicaciones web
+- implementacion en maps en lenguajes de programacion
+- tablas de simbolos en compiladores
+
+Gracias a su rapidez de acceso son de las estructuras mas usadas.
+
+* Ventajas y desventajas
+Ventajas:
+- Permiten realizar busquedas muy rapidas en promedio constante
+- insertar y eliminar es muy eficiente
+- son relativamente sencillas de implementar
+- son muy utiles cuando se necesita acceder a datos con una key
+
+Desventajas:
+- pueden ocurrir colisiones
+- si se implementan mal, caen hasta O(n)
+- requieren una buena funcion hash y un tamano adecuado
+- pueden consumir memoria de mas
