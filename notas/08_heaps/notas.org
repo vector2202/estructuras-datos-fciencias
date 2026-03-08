@@ -1,0 +1,232 @@
+#+Title: Heaps
+#+Author: Victor Torres
+
+* Introduccion
+
+Los heaps o monticulos son estructuras de datos las cuales permiten mantener una coleccion de elementos donde siempre podemos acceder rapidamente al elemento de mayor o menor prioridad segun se defina.
+
+A diferencia de las estructuras lineales como las colas, los heaps se basan en una estructura jerarquica basada en arboles. Esto nos permite organizar los datos de una forma que ciertas operaciones como, obtener el maximo/minimo se puedan realizar en tiempo constante.
+
+Los heaps son utiles cuando trabajabamos con problemas donde los elementos tienen una prioridad asociada, algunos ejemplos comunes son:
+- Sistemas de planificacion de procesos
+- Algoritmos de graficas como dijkstra
+- Sistemas de simulacion
+- Algoritmos de ordenamiento
+
+La idea principal siempre es mantener un elemento especial accesible de forma inmediata, normalmente el minimo o el maximo.
+
+* Definicion
+
+/Un heap es una estructura de datos basada en un arbol binario completo, que cumple una propiedad de orden especifica entre padres e hijos./
+
+Todo heap cumple dos propiedades fundamentales:
+- Propiedad estructural
+- Propiedad de heap
+
+Formalmente lo podemos representar como un conjunto de elementos
+
+#+begin_src python
+  H = (e1, e2, e3, ..., en)
+#+end_src
+
+donde los elementos estan organizados en forma de un arbol binario completo. El elemento de mayor importancia siempre esta en la raiz
+
+* Tipos de heap
+
+Existen dos tipos de heap:
+** Min heap
+
+En un min heap el valor de cada nodo es menor o igual al de sus hijos, es decir siempre se cumple que padre <= hijos.
+
+Esto nos garantiza que el elemento minimo de todo el arbol siempre se encuentra en la raiz.
+
+#+begin_src
+   2
+/    \
+5     8
+/ \  /
+10 7 9
+#+end_src
+
+** Max heap
+
+En un max heap, ocurre lo contrario, es decir siempre el padre >= hijos.
+
+El valor de cada nodo es mayor o igual que el de sus hijos.
+
+#+begin_src
+   20
+/     \
+15     18
+/ \   /
+10 12 8
+#+end_src
+
+* Propiedad estructural
+
+Una caracteristica fundamental de los heaps es que siempre forman un arbol binario completo, es decir:
+- Todos los niveles estan completamente llenos a exception del ultimo (puede o no)
+- El ultimo nivel se llena de izquiers a derecha
+
+Esto es importante porque no vamos a representar al heap de manera natural como lo hariamos en un arbol, sino con un arreglo.
+
+Veamos como se representaria un heap en arreglo antes de proceder con la implementacion:
+#+begin_src
+   5
+ /   \
+ 8    10
+/ \   /
+15 20 12
+#+end_src
+
+Esto en un arreglo se veria de la siguiente manera, recordemos que lo vamos a llenar de izquierda a derecha y por niveles:
+#+begin_src java
+[5, 8, 10, 15, 20, 12]
+#+end_src
+
+Y podemos definir entonces en base a como quedo el arreglo las siguientes relaciones:
+#+begin_src
+padre(i) = (i - 1) / 2
+hijo_izq(i) = 2i + 1
+hijo_der(i) = 2i + 2
+#+end_src
+
+Esto nos va a permitir navegar todo el arbol con el uso unicamente de indices, por ejemplo si un nodo esta en la posicion 2, su hijo izquierdo esta en la posicion 2(2)+1=5 y el hijo derecho en la posicion 2(2)+2=6, esto nos va a ayudar mucho en el recorrido de estos heaps.
+* Operaciones
+Las operaciones que vamos a poder realizar sobre esta TDA son:
+- insert
+- pop
+- peek
+
+** Insert
+La insercion en un heap siempre se hara en el ultimo elemento del arreglo, es decir vamos a hacer estos pasos:
+1. Insertamos al final del arreglo
+2. Restauramos la propiedad mediante heapify up
+
+Ejemplo si queremos insertar digamos el 3:
+
+#+begin_src java
+heap = [5,8,10,3]
+#+end_src
+
+Despues de hacer el heapify up debe quedar de la siguiente manera:
+#+begin_src java
+heap = [3,5,10,8]
+#+end_src
+
+Mas adelante veremos que es el heapify up, pero de momento quedemonos que es un metodo que va a ordenar el heap, y se llama heapify up porque el elemento que va a ordenar esta hasta abajo, entonces lo va ir subiendo hasta encontrar su lugar
+
+
+Por lo cual la implementacion se ve como
+#+begin_src java
+  head.add(value);
+  heapifyUp(heap.size() - 1);
+#+end_src
+** Remove
+Este elemento elimina la raiz, entonces sigamos lo siguiente:
+1. Guardamos el valor de la raiz
+2. Movemos el ultimo elemento del arreglo a la raiz
+3. Aplicamos heapify down
+
+Ejemplo:
+#+begin_src java
+heap = [2,5,8,10,7]
+#+end_src
+
+Tomemos que vamos a eliminar el 2 que es el menor y el 7 que es el ultimo elemento pasa a ser la raiz ahora
+#+begin_src java
+heap = [7,5,8,10]
+#+end_src
+Despues de hacer heapify down queda de la siguiente manera
+#+begin_src java
+heap = [5,7,8,10]
+#+end_src
+
+Mas adelante veremos de igual manera heapify down, pero de momento nos quedamos con que es un metodo que el elemento que va a ordenar esta hasta arriba, y lo va a ir bajando hasta encontrar su lugar.
+
+Por lo que la implementacion se ve:
+#+begin_src java
+  heap.set(0, last);
+  heapifyDown(0);
+#+end_src
+
+** Peek
+Siempre devolvera el valor de la raiz
+
+** Heapify up
+Los terminos heapify es cuando hemos violado la regla del heap, debemos volver a reordenarla, para esto primero veamos heapify up, el cual sabemos que se ejecuta despues de una insercion:
+
+Algoritmo:
+1. Se compara con el padre
+2. Si el hijo tiene mayor prioridad al padre en ese caso se intercambia
+3. Continua asi hasta llegar a la raiz
+
+Ya en codigo se veria de la siguiente maneraL
+#+begin_src java
+  while (index > 0) {
+      int parent = (index - 1) / 2;
+       // asumiendo que minimo es el que tiene prioridad
+      if (heap.get(index) < heap.get(parent)) {
+  	swap(index, parent);
+  	index = parent;
+      } else {
+  	break;
+      }
+  }
+#+end_src
+
+** Heapify down
+
+Se usa despues de la eliminacion de la raiz
+
+Algoritmo:
+1. Se compara el padre con ambos hijos.
+2. En caso de algun hijo tener mayor prioridad, subir intercambiar al padre con el hijo de mayor prioridad
+3. Continuar hasta que no se rompa mas la propiedad
+
+La implementacion se ve de la siguiente manera:
+#+begin_src java
+  while (true) {
+      int left = 2 * index + 1;
+      int right = 2 * index + 2;
+      int smallest = index;
+      // hijo izquierdo tiene mas prioridad que el padre
+      if (left < size && heap.get(left) < heap.get(smallest)) {
+  	smallest = left;
+      }
+      // derecho tiene mas prioridad que el padre o izquierdo
+      if (right < size && heap.get(right) < heap.get(smallest)) {
+  	smallest = right;
+      }
+      //hay que intercambiar
+      if (smallest != index) {
+  	swap(index, smallest);
+  	index = smallest;
+      } else {
+  	break;
+      }
+  }
+#+end_src
+
+* Complejidad
+| operacion | complejidad |
+|-----------+-------------|
+| insert    | O(log n)    |
+| remove    | O(log n)    |
+| peek      | O(1)        |
+| buildHeap | O(n)        |
+
+* Aplicaciones
+Algunas aplicaciones comunes de estas heaps son:
+- Algoritmos de dijkstra
+- Algoritmo de prim
+- Planificacion de procesos
+- Algoritmo de huffman
+
+Algunos errores comunes al implementar heaps son:
+- No mantener la propiedad del arbol binario completo
+- No hacer el heapify despues de modificar los elementos del heap
+- Confundir la relacion entre los indices
+
+Algo final por aclarar, no debemos asumir que el arreglo en el cual esta implementado el heap esta ordenado, de hecho solo garantiza que el elemento de mayor prioridad esta en la raiz.
+  
