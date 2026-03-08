@@ -1,12 +1,11 @@
 export const Utils = {
-    // Generador de array aleatorio
     generateArray: (size, type = 'random', min = 5, max = 200) => {
         let arr = [];
         if (type === 'random') {
             arr = Array.from({ length: size }, () => Math.floor(Math.random() * (max - min + 1) + min));
         } else if (type === 'nearly_sorted') {
             arr = Array.from({ length: size }, (_, i) => Math.floor(min + (i / size) * (max - min)));
-            const swaps = Math.max(1, Math.floor(size * 0.05));
+            const swaps = Math.max(1, Math.floor(size * 0.6));
             for (let i = 0; i < swaps; i++) {
                 const idx1 = Math.floor(Math.random() * size);
                 const idx2 = Math.floor(Math.random() * size);
@@ -21,12 +20,10 @@ export const Utils = {
         return arr;
     },
 
-    // Sleep dinámico que lee el valor actual del slider
     sleep: (msFn) => {
         return new Promise(resolve => setTimeout(resolve, msFn()));
     },
 
-    // Renderizado OPTIMIZADO: Solo toca el DOM si es necesario
     render: (containerId, array, highlights = {}) => {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -34,7 +31,6 @@ export const Utils = {
         const bars = container.children;
         const maxVal = Math.max(...array, 1);
 
-        // Si el tamaño cambió, reconstruimos todo (Layout Thrashing inevitable aquí, pero solo ocurre al cambiar size)
         if (bars.length !== array.length) {
             container.innerHTML = '';
             const fragment = document.createDocumentFragment();
@@ -50,20 +46,16 @@ export const Utils = {
             return;
         }
 
-        // Actualización eficiente (solo atributos)
         for (let i = 0; i < array.length; i++) {
             const bar = bars[i];
             const newHeight = `${(array[i] / maxVal) * 100}%`;
-
-            // Solo tocar style si cambió
             if (bar.style.height !== newHeight) {
                 bar.style.height = newHeight;
             }
 
-            // Gestión de colores (State class)
-            bar.className = 'bar'; // Reset clases base
+            bar.className = 'bar';
             if (highlights[i]) {
-                bar.classList.add(highlights[i]); // 'compare', 'swap', 'overwrite'
+                bar.classList.add(highlights[i]);
             }
         }
     }
