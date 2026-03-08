@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Heaps (Min/Max)</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main class="container">
+        <header>
+            <h1>Simulador de Heaps</h1>
+            <p class="subtitle">Min-Heap · Max-Heap</p>
+            <div class="speed-control-header">
+                <label for="speedSlider">Velocidad:</label>
+                <input type="range" id="speedSlider" min="0.2" max="2" step="0.1" value="1">
+                <span id="speedValue">1.0x</span>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-type="min">Min Heap</button>
+            <button class="tab-btn" data-type="max">Max Heap</button>
+        </div>
+
+        <section id="heap-simulator" class="section active">
+            <div class="glass-panel controls-grid">
+                <div class="input-group">
+                    <input type="number" id="heapValue" placeholder="Valor" min="1" max="999">
+                    <button id="btnInsert" class="btn-primary">Insertar</button>
+                </div>
+                <button id="btnDelete" class="btn-danger">Eliminar Raíz</button>
+                <button id="btnRandom" class="btn-info">Aleatorio</button>
+                <button id="btnReset" class="btn-warning">Reiniciar</button>
+            </div>
+
+            <div class="glass-panel visualizer-container">
+                <div class="canvas-wrapper">
+                    <svg id="heapCanvas" class="canvas-container"></svg>
+                </div>
+                <div id="arrayRepresentation" class="array-container glass-panel">
+                </div>
+            </div>
+
+            <div class="glass-panel explanation-box">
+                <div id="explanationText">Listo para comenzar</div>
+                <div id="stepInfo" class="step-info">Escoge una operación</div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="js/heap.js"></script>
+</body>
+
+</html>
