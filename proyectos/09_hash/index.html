@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Tablas Hash</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main class="container">
+        <header>
+            <h1>Simulador de Tablas Hash</h1>
+            <p class="subtitle">Visualización de Colisiones y Funciones Hash</p>
+            <div class="hash-calc-display glass-panel">
+                <span id="hashFormula">h(x) = ?</span>
+                <span id="hashOutput"></span>
+            </div>
+        </header>
+
+        <div class="simulator-layout">
+            <aside class="sidebar">
+                <section class="controls glass-panel">
+                    <div class="control-group">
+                        <label>Estrategia de Colisión:</label>
+                        <div class="tabs" id="strategyTabs">
+                            <button class="tab-btn active" data-strategy="chaining">Encadenamiento</button>
+                            <button class="tab-btn" data-strategy="linear">Lineal</button>
+                            <button class="tab-btn" data-strategy="quadratic">Cuadrático</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Función Hash:</label>
+                        <div class="tabs" id="hashTabs">
+                            <button class="tab-btn active" data-hash="simple">Simple (mod)</button>
+                            <button class="tab-btn" data-hash="complex">Compleja</button>
+                        </div>
+                    </div>
+
+                    <div class="actions-grid">
+                        <div class="input-group">
+                            <input type="number" id="hashValue" placeholder="Valor" min="0" max="9999">
+                            <button id="btnInsert" class="btn-primary">Insertar</button>
+                        </div>
+                        <button id="btnResize" class="btn-info">Aumentar Tamaño (+5)</button>
+                        <button id="btnReset" class="btn-warning">Reiniciar</button>
+                    </div>
+                </section>
+
+                <section class="stats-panel glass-panel">
+                    <div class="stat-item">
+                        <span class="stat-label">Tamaño actual (m):</span>
+                        <span id="tableSize" class="stat-value">10</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Elementos (n):</span>
+                        <span id="elementCount" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Factor de Carga (λ):</span>
+                        <span id="loadFactor" class="stat-value">0.00</span>
+                    </div>
+                </section>
+
+                <div class="glass-panel log-box">
+                    <div id="logText">Listo para simular</div>
+                </div>
+            </aside>
+
+            <div class="main-content">
+                <div class="visualizer-container">
+                    <div id="hashTableDisplay" class="hash-table-grid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/hash-table.js"></script>
+</body>
+
+</html>
