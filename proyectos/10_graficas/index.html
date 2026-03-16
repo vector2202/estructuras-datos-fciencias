@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de graficas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main class="container">
+        <header>
+            <h1>Simulador de graficas</h1>
+        </header>
+
+        <div class="simulator-layout">
+            <aside class="sidebar">
+                <section class="controls glass-panel">
+                    <div class="control-group">
+                        <label>Tipo de grafica:</label>
+                        <div class="tabs" id="graphTypeTabs">
+                            <button class="tab-btn active" data-type="undirected">No Dirigido</button>
+                            <button class="tab-btn" data-type="directed">Dirigido</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Ponderación:</label>
+                        <div class="tabs" id="weightTabs">
+                            <button class="tab-btn active" data-weight="unweighted">Sin Peso</button>
+                            <button class="tab-btn" data-weight="weighted">Con Peso</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Algoritmo:</label>
+                        <select id="algorithmSelect" class="styled-select">
+                            <option value="bfs">Búsqueda en Anchura (BFS)</option>
+                            <option value="dfs">Búsqueda en Profundidad (DFS)</option>
+                            <option value="dijkstra" disabled>Dijkstra (Requiere Pesos)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Nodo Inicial:</label>
+                        <select id="startNodeSelect" class="styled-select">
+                            <!-- Llenado dinámicamente -->
+                        </select>
+                    </div>
+
+                    <div class="control-group" id="endNodeGroup" style="display: none;">
+                        <label>Nodo Destino (Opcional):</label>
+                        <select id="endNodeSelect" class="styled-select">
+                            <option value="none">Todos (Recorrido Completo)</option>
+                            <!-- Llenado dinámicamente -->
+                        </select>
+                    </div>
+
+                    <div class="actions-grid">
+                        <button id="btnAddNode" class="btn-primary">Añadir Nodo</button>
+                        <button id="btnDeleteNode" class="btn-danger" disabled>Eliminar Nodo Seleccionado</button>
+                        <button id="btnClear" class="btn-warning">Limpiar Grafo</button>
+                    </div>
+                </section>
+
+                <section class="matrix-panel glass-panel">
+                    <div class="panel-header">
+                        <h3>Matriz de Adyacencia</h3>
+                        <span class="info-icon"
+                            title="Abre una ventana para editar y ver la matriz cómodamente">ℹ️</span>
+                    </div>
+                    <div class="table-container" style="margin-bottom: 10px;">
+                        <table id="adjacencyMatrix">
+                            <!-- Llenado dinámicamente -->
+                        </table>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button id="btnOpenMatrixModal" class="btn-primary" style="width: 100%;">Editar Matriz</button>
+                    </div>
+                </section>
+
+                <section class="list-panel glass-panel" id="adjacencyListPanel">
+                    <div class="panel-header">
+                        <h3>Lista de Adyacencia</h3>
+                    </div>
+                    <div class="list-container" id="adjacencyList">
+                        <!-- Llenado dinámicamente -->
+                    </div>
+                </section>
+
+                <section class="distances-panel glass-panel" id="distancesPanel" style="display: none;">
+                    <div class="panel-header">
+                        <h3>Distancias (Dijkstra)</h3>
+                    </div>
+                    <div class="table-container" style="max-height: 150px;">
+                        <table id="distancesTable">
+                            <thead>
+                                <tr>
+                                    <th>Nodo</th>
+                                    <th>Distancia</th>
+                                    <th>Anterior</th>
+                                </tr>
+                            </thead>
+                            <tbody id="distancesTableBody">
+                                <!-- Llenado dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <div class="glass-panel log-box">
+                    <div id="logText">Crea un grafo para comenzar.</div>
+                </div>
+
+                <section class="playback-controls glass-panel">
+                    <button id="btnCycle" class="btn-info" style="width: 100%; margin-bottom: 10px;">Detectar
+                        Ciclos</button>
+                    <div class="playback-buttons">
+                        <button id="btnPrev" class="btn-icon" disabled>⏮</button>
+                        <button id="btnPlay" class="btn-icon">▶️</button>
+                        <button id="btnPause" class="btn-icon" style="display:none;">⏸</button>
+                        <button id="btnNext" class="btn-icon" disabled>⏭</button>
+                        <button id="btnReset" class="btn-icon">🔄</button>
+                    </div>
+                </section>
+            </aside>
+
+            <div class="main-content">
+                <div class="visualizer-container glass-panel" id="canvasContainer">
+                    <canvas id="graphCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Matriz -->
+        <div id="matrixModal" class="modal-overlay">
+            <div class="modal-content glass-panel">
+                <div class="modal-header">
+                    <h2>Editar Matriz de Adyacencia</h2>
+                    <button id="btnCloseModal" class="btn-icon">&times;</button>
+                </div>
+                <div class="table-container modal-table">
+                    <table id="modalAdjacencyMatrix">
+                        <!-- Llenado dinámicamente -->
+                    </table>
+                </div>
+                <div class="modal-actions">
+                    <button id="btnSaveMatrix" class="btn-primary">Listo</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
