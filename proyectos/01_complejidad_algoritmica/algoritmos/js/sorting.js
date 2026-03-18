@@ -13,6 +13,8 @@ const typeButtons = document.querySelectorAll('.type-btn');
 let baseArray = [];
 let currentInputType = 'random';
 const algos = ['bubble', 'insertion', 'selection', 'merge', 'quick', 'radix'];
+let isSorting = false;
+let abortSorting = false;
 
 //Sorting algorithms
 //Bubble sort
@@ -192,6 +194,7 @@ async function runAlgo(id, steps) {
     let ops = 0;
 
     for (let i = 0; i < totalSteps; i++) {
+        if (abortSorting) return;
         const step = steps[i];
         const highlights = {};
 
@@ -245,6 +248,10 @@ function init() {
 
 typeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
+        if (isSorting) {
+            abortSorting = true;
+            isSorting = false;
+        }
         typeButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentInputType = btn.dataset.type;
@@ -252,7 +259,11 @@ typeButtons.forEach(btn => {
     });
 });
 
-btnStart.addEventListener('click', () => {
+btnStart.addEventListener('click', async () => {
+    if (isSorting) return;
+    isSorting = true;
+    abortSorting = false;
+
     const tasks = [
         runAlgo('bubble', bubbleSort(baseArray)),
         runAlgo('insertion', insertionSort(baseArray)),
@@ -261,12 +272,23 @@ btnStart.addEventListener('click', () => {
         runAlgo('quick', quickSort(baseArray)),
         runAlgo('radix', radixSort(baseArray))
     ];
+    
+    await Promise.all(tasks);
+    isSorting = false;
 });
 
-btnReset.addEventListener('click', init);
+btnReset.addEventListener('click', () => {
+    abortSorting = true;
+    isSorting = false;
+    init();
+});
 
 // Sliders events
 sizeSlider.addEventListener('input', (e) => {
+    if (isSorting) {
+        abortSorting = true;
+        isSorting = false;
+    }
     sizeVal.textContent = e.target.value;
     init();
 });
