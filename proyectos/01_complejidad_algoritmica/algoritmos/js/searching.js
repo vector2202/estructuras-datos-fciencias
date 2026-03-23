@@ -114,7 +114,7 @@ async function runSearch(id, steps) {
 function init() {
     const size = Number(sizeSlider.value);
     
-    const rawArr = Utils.generateArray(size, 10, 300);
+    const rawArr = Utils.generateArray(size, 'random', 10, 300);
     baseArray = rawArr.sort((a, b) => a - b);
     
     const randomIndex = Math.floor(Math.random() * baseArray.length);

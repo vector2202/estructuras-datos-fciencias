@@ -21,6 +21,25 @@ export default function initList() {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("class", "connector-svg");
         canvas.appendChild(svg);
+        
+        function redrawArrows() {
+            svg.innerHTML = "";
+            const nodes = container.querySelectorAll(".node");
+            for (let j = 1; j < nodes.length; j++) {
+                const prevNode = nodes[j - 1];
+                const currNode = nodes[j];
+                const arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                arrow.setAttribute("class", "arrow-path");
+
+                const startX = prevNode.offsetLeft + prevNode.offsetWidth;
+                const startY = prevNode.offsetTop + (prevNode.offsetHeight / 2);
+                const endX = currNode.offsetLeft;
+                const endY = currNode.offsetTop + (currNode.offsetHeight / 2);
+
+                arrow.setAttribute("d", `M ${startX} ${startY} L ${endX} ${endY}`);
+                svg.appendChild(arrow);
+            }
+        }
 
         for (let i = 0; i < songs.length; i++) {
             await new Promise(r => setTimeout(r, 800));
@@ -34,18 +53,7 @@ export default function initList() {
             explain.textContent = `Añadiendo '${songs[i]}'. El nodo anterior ahora apunta a este nuevo nodo.`;
 
             if (i > 0) {
-                const prevNode = container.children[i - 1];
-                const arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                arrow.setAttribute("class", "arrow-path");
-
-                const startX = prevNode.offsetLeft + prevNode.offsetWidth;
-                const startY = prevNode.offsetTop + (prevNode.offsetHeight / 2);
-                const endX = node.offsetLeft;
-                const endY = node.offsetTop + (node.offsetHeight / 2);
-
-                arrow.setAttribute("d", `M ${startX} ${startY} L ${endX} ${endY}`);
-                arrow.style.stroke = "var(--primary)";
-                svg.appendChild(arrow);
+                redrawArrows();
             }
         }
 

@@ -4,13 +4,20 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../global.css" />
     <title>Simulador de Arboles</title>
     <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
+    <a href="../index.html" class="btn-home-global"><i class="fas fa-home"></i> Volver al Inicio</a>
+
     <main class="container">
         <header>
             <h1>Estructuras de Árboles</h1>
@@ -40,17 +47,17 @@
                         onkeypress="if(event.key === 'Enter') document.getElementById('insertBST').click()">
                 </div>
                 <div class="btn-group">
-                    <button id="insertBST" class="btn-primary"><i class="fas fa-plus"></i> Insertar</button>
+                    <button id="insertBST" class="btn-success"><i class="fas fa-plus"></i> Insertar</button>
                     <button id="deleteBST" class="btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
                     <button id="searchBST" class="btn-info"><i class="fas fa-search"></i> Buscar</button>
                 </div>
                 <div class="btn-group-secondary">
-                    <button id="inorderBST" class="btn-outline">Inorden</button>
-                    <button id="preorderBST" class="btn-outline">Preorden</button>
-                    <button id="postorderBST" class="btn-outline">Postorden</button>
+                    <button id="inorderBST" class="btn-info"><i class="fas fa-route"></i> Inorden</button>
+                    <button id="preorderBST" class="btn-info"><i class="fas fa-route"></i> Preorden</button>
+                    <button id="postorderBST" class="btn-info"><i class="fas fa-route"></i> Postorden</button>
                 </div>
                 <button id="randomBST" class="btn-accent"><i class="fas fa-random"></i> Aleatorio</button>
-                <button id="clearBST" class="btn-warning"><i class="fas fa-eraser"></i> Limpiar</button>
+                <button id="clearBST" class="secondary"><i class="fas fa-redo"></i> Reset</button>
             </div>
 
             <div class="glass-panel canvas-wrapper">
@@ -70,17 +77,17 @@
                         onkeypress="if(event.key === 'Enter') document.getElementById('insertAVL').click()">
                 </div>
                 <div class="btn-group">
-                    <button id="insertAVL" class="btn-primary"><i class="fas fa-plus"></i> Insertar</button>
+                    <button id="insertAVL" class="btn-success"><i class="fas fa-plus"></i> Insertar</button>
                     <button id="deleteAVL" class="btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
                     <button id="searchAVL" class="btn-info"><i class="fas fa-search"></i> Buscar</button>
                 </div>
                 <div class="btn-group-secondary">
-                    <button id="inorderAVL" class="btn-outline">Inorden</button>
-                    <button id="preorderAVL" class="btn-outline">Preorden</button>
-                    <button id="postorderAVL" class="btn-outline">Postorden</button>
+                    <button id="inorderAVL" class="btn-info"><i class="fas fa-route"></i> Inorden</button>
+                    <button id="preorderAVL" class="btn-info"><i class="fas fa-route"></i> Preorden</button>
+                    <button id="postorderAVL" class="btn-info"><i class="fas fa-route"></i> Postorden</button>
                 </div>
                 <button id="randomAVL" class="btn-accent"><i class="fas fa-random"></i> Aleatorio</button>
-                <button id="clearAVL" class="btn-warning"><i class="fas fa-eraser"></i> Limpiar</button>
+                <button id="clearAVL" class="secondary"><i class="fas fa-redo"></i> Reset</button>
             </div>
 
             <div class="glass-panel canvas-wrapper">

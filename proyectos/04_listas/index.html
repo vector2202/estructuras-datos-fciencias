@@ -4,14 +4,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Estructuras de Datos — Listas</title>
+  <link rel="stylesheet" href="../global.css" />
+    <title>Estructuras de Datos — Listas</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
 </head>
 
 <body>
+  <a href="../index.html" class="btn-home-global"><i class="fas fa-home"></i> Volver al Inicio</a>
+
 
   <main class="container">
     <header>
@@ -42,15 +49,15 @@
           <div class="input-wrapper">
             <input type="number" id="indexInput" placeholder="Índice i" />
           </div>
-          <button id="insertStart">Insertar Inicio</button>
-          <button id="insertEnd">Insertar Final</button>
-          <button id="insertAtBtn">Insertar en i</button>
+          <button id="insertStart" class="btn-success"><i class="fas fa-plus"></i> Insertar Inicio</button>
+          <button id="insertEnd" class="btn-success"><i class="fas fa-plus"></i> Insertar Final</button>
+          <button id="insertAtBtn" class="btn-success"><i class="fas fa-plus"></i> Insertar en i</button>
         </div>
 
         <div class="controls-group">
-          <button id="searchBtn">Buscar</button>
-          <button id="removeBtn" class="danger">Eliminar</button>
-          <button id="traverse">Recorrer Todo ▶</button>
+          <button id="searchBtn" class="btn-info"><i class="fas fa-search"></i> Buscar</button>
+          <button id="removeBtn" class="btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
+          <button id="traverse" class="btn-info"><i class="fas fa-route"></i> Recorrer Todo ▶</button>
         </div>
 
       </div>
@@ -72,15 +79,15 @@
         <div class="controls-group">
           <input id="valueInputDL" type="number" placeholder="Valor" />
           <input id="indexInputDL" type="number" placeholder="Índice i" />
-          <button id="insertBeginDL">Insertar Inicio</button>
-          <button id="insertEndDL">Insertar Final</button>
-          <button id="insertAtDL">Insertar en i</button>
+          <button id="insertBeginDL" class="btn-success"><i class="fas fa-plus"></i> Insertar Inicio</button>
+          <button id="insertEndDL" class="btn-success"><i class="fas fa-plus"></i> Insertar Final</button>
+          <button id="insertAtDL" class="btn-success"><i class="fas fa-plus"></i> Insertar en i</button>
         </div>
         <div class="controls-group">
-          <button id="searchDL">Buscar</button>
-          <button id="removeDL" class="danger">Eliminar</button>
-          <button id="forward">Recorrer →</button>
-          <button id="backward">Recorrer ←</button>
+          <button id="searchDL" class="btn-info"><i class="fas fa-search"></i> Buscar</button>
+          <button id="removeDL" class="btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
+          <button id="forward" class="btn-info"><i class="fas fa-route"></i> Recorrer →</button>
+          <button id="backward" class="btn-info"><i class="fas fa-route"></i> Recorrer ←</button>
         </div>
       </div>
 
@@ -98,14 +105,14 @@
         <div class="controls-group">
           <input id="valueCircular" type="number" placeholder="Valor" />
           <input id="indexCircular" type="number" placeholder="Índice i" />
-          <button id="insertStartCircular">Insertar Inicio</button>
-          <button id="insertEndCircular">Insertar Final</button>
-          <button id="insertAtCircular">Insertar en i</button>
+          <button id="insertStartCircular" class="btn-success"><i class="fas fa-plus"></i> Insertar Inicio</button>
+          <button id="insertEndCircular" class="btn-success"><i class="fas fa-plus"></i> Insertar Final</button>
+          <button id="insertAtCircular" class="btn-success"><i class="fas fa-plus"></i> Insertar en i</button>
         </div>
         <div class="controls-group">
-          <button id="searchCircular">Buscar</button>
-          <button id="removeCircular" class="danger">Eliminar</button>
-          <button id="nextTurn">Simular Turnos</button>
+          <button id="searchCircular" class="btn-info"><i class="fas fa-search"></i> Buscar</button>
+          <button id="removeCircular" class="btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
+          <button id="nextTurn" class="btn-primary"><i class="fas fa-play"></i> Simular Turnos</button>
         </div>
       </div>
 

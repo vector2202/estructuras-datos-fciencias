@@ -1,26 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
 
 :root {
-    --bg: #0f172a;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-blur: 12px;
-
+    --glass-blur: 16px;
     --accent-blue: #38bdf8;
     --accent-emerald: #34d399;
-    --accent-amber: #fbbf24;
     --accent-rose: #f43f5e;
 
-    --wall: #0f172a;
-    /* Darker navy */
-    --free: rgba(255, 255, 255, 0.01);
-    /* Much more subtle */
-    --start: var(--accent-blue);
-    --end: var(--accent-rose);
-    --visited: var(--accent-emerald);
-    --backtrack: var(--accent-amber);
-
-    --cell-size: 45px;
+    --cell-size: 50px;
+    --wall: rgba(255, 255, 255, 0.1);
+    --free: rgba(0, 0, 0, 0.2);
+    --start: #38bdf8;
+    --end: #f43f5e;
+    --visited: #34d399;
+    --backtrack: #fbbf24;
 }
 
 * {
@@ -29,19 +21,7 @@
     box-sizing: border-box;
 }
 
-body {
-    background: var(--bg);
-    background-image:
-        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.15) 0, transparent 50%);
-    color: #f8fafc;
-    font-family: 'Outfit', sans-serif;
-    min-height: 100vh;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+
 
 .glass-panel {
     background: var(--glass-bg);
@@ -313,4 +293,10 @@ button#startBtn:hover {
     50% {
         opacity: 0.4;
     }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

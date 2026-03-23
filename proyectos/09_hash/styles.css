@@ -1,17 +1,4 @@
-:root {
-    --bg-main: #030712;
-    --primary: #38bdf8;
-    --success: #22c55e;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-    --info: #06b6d4;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --bucket-bg: rgba(30, 41, 59, 0.5);
-    --collision-highlight: rgba(239, 68, 68, 0.3);
-}
+
 
 * {
     box-sizing: border-box;
@@ -19,15 +6,7 @@
     padding: 0;
 }
 
-body {
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--bg-main);
-    background-image:
-        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
-    color: var(--text-primary);
-    min-height: 100vh;
-}
+
 
 .container {
     max-width: 1300px;
@@ -125,6 +104,7 @@ h1 {
 
 .tabs {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 

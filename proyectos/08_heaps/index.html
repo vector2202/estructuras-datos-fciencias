@@ -4,12 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../global.css" />
     <title>Simulador de Heaps (Min/Max)</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
+    <a href="../index.html" class="btn-home-global"><i class="fas fa-home"></i> Volver al Inicio</a>
+
     <main class="container">
         <header>
             <h1>Simulador de Heaps</h1>
@@ -30,11 +37,11 @@
             <div class="glass-panel controls-grid">
                 <div class="input-group">
                     <input type="number" id="heapValue" placeholder="Valor" min="1" max="999">
-                    <button id="btnInsert" class="btn-primary">Insertar</button>
+                    <button id="btnInsert" class="btn-success"><i class="fas fa-plus"></i> Insertar</button>
                 </div>
-                <button id="btnDelete" class="btn-danger">Eliminar Raíz</button>
-                <button id="btnRandom" class="btn-info">Aleatorio</button>
-                <button id="btnReset" class="btn-warning">Reiniciar</button>
+                <button id="btnDelete" class="btn-danger"><i class="fas fa-trash"></i> Eliminar Raíz</button>
+                <button id="btnRandom" class="btn-accent"><i class="fas fa-random"></i> Aleatorio</button>
+                <button id="btnReset" class="secondary"><i class="fas fa-redo"></i> Reset</button>
             </div>
 
             <div class="glass-panel visualizer-container">

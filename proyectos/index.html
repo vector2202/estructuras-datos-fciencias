@@ -4,107 +4,148 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Indice de proyectos</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+  <title>Estructuras de Datos | Simuladores</title>
+  <link rel="stylesheet" href="global.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
+  <div class="background-effects">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+  </div>
+
   <main class="container">
-    <header>
-      <h1>Estructura de datos</h1>
-      <p>Simuladores y material didactico</p>
+    <header class="hero">
+      <h1 class="title">Estructura de Datos</h1>
+      <p class="subtitle">Simuladores interactivos y material didáctico avanzado</p>
     </header>
 
-    <section class="topic-group">
-      <h2><span class="icon"></span> Complejidad Algorítmica</h2>
-      <div class="grid">
-        <a href="01_complejidad_algoritmica/complejidades/index.html" class="card">
-          <h3>Simulador visual de Big O</h3>
-        </a>
-        <a href="01_complejidad_algoritmica/calculo_complejidades/index.html" class="card">
-          <h3>Calculo de complejidades</h3>
-        </a>
-        <a href="01_complejidad_algoritmica/algoritmos/sorting.html" class="card">
-          <h3>Algoritmos de ordenamiento</h3>
-        </a>
-        <a href="01_complejidad_algoritmica/algoritmos/searching.html" class="card">
-          <h3>Algoritmos de busqueda</h3>
-        </a>
-      </div>
-    </section>
-    <section class="topic-group">
-      <h2><span class="icon"></span> Arreglos</h2>
-      <div class="grid">
-        <a href="03_arreglos/index.html" class="card">
-          <h3>Simulador visual de arreglos</h3>
-        </a>
-      </div>
-    </section>
-    <section class="topic-group">
-      <h2><span class="icon"></span> Listas</h2>
-      <div class="grid">
-        <a href="04_listas/index.html" class="card">
-          <h3>Simulador visual de listas</h3>
-        </a>
-      </div>
-    </section>
-    <section class="topic-group">
-      <h2><span class="icon"></span> Pilas</h2>
-      <div class="grid">
-        <a href="05_pilas/index.html" class="card">
-          <h3>Simulador visual de pilas</h3>
-        </a>
-      </div>
-    </section>
-    <section class="topic-group">
-      <h2><span class="icon"></span> Colas</h2>
-      <div class="grid">
-        <a href="06_colas/index.html" class="card">
-          <h3>Simulador visual de colas</h3>
-        </a>
-      </div>
-    </section>
-    <section class="topic-group">
-      <h2><span class="icon"></span> Arboles</h2>
-      <div class="grid">
-        <a href="07_arboles/index.html" class="card">
-          <h3>Simulador visual de arboles</h3>
-        </a>
-      </div>
-    </section>
-    <section class="topic-group">
-      <h2><span class="icon"></span> Heaps</h2>
-      <div class="grid">
-        <a href="08_heaps/index.html" class="card">
-          <h3>Simulador visual de heaps</h3>
-        </a>
-      </div>
-    </section>
-    <section class="topic-group">
-      <h2><span class="icon"></span> Hash Tables</h2>
-      <div class="grid">
-        <a href="09_hash_tables/index.html" class="card">
-          <h3>Simulador visual de hash tables</h3>
-        </a>
-      </div>
-    </section>
-    <section class="topic-group">
-      <h2><span class="icon"></span> Backtracking</h2>
-      <div class="grid">
-        <a href="simulador_backtracking/index.html" class="card">
-          <h3>Simulador visual de backtracking</h3>
-        </a>
-        <section class="topic-group">
-          <h2><span class="icon"></span> Graficas</h2>
-          <div class="grid">
-            <a href="10_graficas/index.html" class="card">
-              <h3>Simulador visual de graficas</h3>
-            </a>
-          </div>
-        </section>
+    <div class="projects-layout">
+
+      <section class="topic-group glass-panel">
+        <h2><i class="fas fa-chart-line"></i> Fundamentos</h2>
+        <div class="grid">
+          <a href="01_complejidad_algoritmica/complejidades/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-chart-area"></i></div>
+            <div class="card-content">
+              <h3>Simulador visual de Big O</h3>
+              <p>Visualiza el crecimiento de funciones</p>
+            </div>
+          </a>
+          <a href="01_complejidad_algoritmica/calculo_complejidades/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-calculator"></i></div>
+            <div class="card-content">
+              <h3>Cálculo de complejidades</h3>
+              <p>Evalúa costo en tiempo y espacio</p>
+            </div>
+          </a>
+          <a href="01_complejidad_algoritmica/algoritmos/sorting.html" class="card">
+            <div class="card-icon"><i class="fas fa-sort-amount-down"></i></div>
+            <div class="card-content">
+              <h3>Algoritmos de ordenamiento</h3>
+              <p>Burbuja, Selección, Inserción y más</p>
+            </div>
+          </a>
+          <a href="01_complejidad_algoritmica/algoritmos/searching.html" class="card">
+            <div class="card-icon"><i class="fas fa-search"></i></div>
+            <div class="card-content">
+              <h3>Algoritmos de búsqueda</h3>
+              <p>Lineal vs Binaria</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="topic-group glass-panel">
+        <h2><i class="fas fa-layer-group"></i> Estructuras Lineales</h2>
+        <div class="grid">
+          <a href="03_arreglos/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-th"></i></div>
+            <div class="card-content">
+              <h3>Arreglos</h3>
+              <p>Manejo de memoria contigua</p>
+            </div>
+          </a>
+          <a href="04_listas/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-link"></i></div>
+            <div class="card-content">
+              <h3>Listas Enlazadas</h3>
+              <p>Nodos y referencias dinámicas</p>
+            </div>
+          </a>
+          <a href="05_pilas/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-bars"></i></div>
+            <div class="card-content">
+              <h3>Pilas (Stacks)</h3>
+              <p>Estructura LIFO interactiva</p>
+            </div>
+          </a>
+          <a href="06_colas/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-people-arrows"></i></div>
+            <div class="card-content">
+              <h3>Colas (Queues)</h3>
+              <p>Estructura FIFO interactiva</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="topic-group glass-panel">
+        <h2><i class="fas fa-project-diagram"></i> Estructuras No Lineales</h2>
+        <div class="grid">
+          <a href="07_arboles/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-tree"></i></div>
+            <div class="card-content">
+              <h3>Árboles (BST & AVL)</h3>
+              <p>Jerarquías y balanceo dinámico</p>
+            </div>
+          </a>
+          <a href="08_heaps/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-sort-numeric-up-alt"></i></div>
+            <div class="card-content">
+              <h3>Heaps (Montículos)</h3>
+              <p>Árboles binarios completos</p>
+            </div>
+          </a>
+          <a href="09_hash/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-hashtag"></i></div>
+            <div class="card-content">
+              <h3>Tablas Hash</h3>
+              <p>Diccionarios y manejo de colisiones</p>
+            </div>
+          </a>
+          <a href="10_graficas/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-draw-polygon"></i></div>
+            <div class="card-content">
+              <h3>Gráficas</h3>
+              <p>Vértices, aristas y algoritmos</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="topic-group glass-panel">
+        <h2><i class="fas fa-cogs"></i> Algoritmos Avanzados</h2>
+        <div class="grid">
+          <a href="simulador_backtracking/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-undo-alt"></i></div>
+            <div class="card-content">
+              <h3>Backtracking</h3>
+              <p>Búsqueda exhaustiva visualizada</p>
+            </div>
+          </a>
+          <a href="ejemplos_estructuras_lineales/index.html" class="card">
+            <div class="card-icon"><i class="fas fa-undo-alt"></i></div>
+            <div class="card-content">
+              <h3>Ejemplos de estructuras lineales</h3>
+              <p>Ejemplos de estructuras lineales</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+    </div>
   </main>
 </body>
 

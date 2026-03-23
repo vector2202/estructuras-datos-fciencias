@@ -2,14 +2,21 @@
 <html lang="es">
 
 <head>
+    <link rel="stylesheet" href="../global.css" />
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
 </head>
 
 <body>
+  <a href="../index.html" class="btn-home-global"><i class="fas fa-home"></i> Volver al Inicio</a>
+
 
   <h1>Visualizador de Arreglos</h1>
 
@@ -17,12 +24,12 @@
     <input type="number" id="valueInput" placeholder="Valor" />
     <input type="number" id="indexInput" placeholder="Índice" />
 
-    <button onclick="accessElement()">Acceder</button>
-    <button onclick="insertElement()">Insertar</button>
-    <button onclick="removeElement()">Eliminar</button>
-    <button onclick="linearSearch()">Buscar</button>
-    <button onclick="traverseArray()">Recorrer</button>
-    <button onclick="resetArray()">Reset</button>
+    <button onclick="accessElement()" class="btn-info"><i class="fas fa-hand-pointer"></i> Acceder</button>
+    <button onclick="insertElement()" class="btn-success"><i class="fas fa-plus"></i> Insertar</button>
+    <button onclick="removeElement()" class="btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
+    <button onclick="linearSearch()" class="btn-info"><i class="fas fa-search"></i> Buscar</button>
+    <button onclick="traverseArray()" class="btn-info"><i class="fas fa-route"></i> Recorrer</button>
+    <button onclick="resetArray()" class="secondary"><i class="fas fa-redo"></i> Reset</button>
   </div>
 
   <div class="info-panel">

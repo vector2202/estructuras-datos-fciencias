@@ -43,18 +43,26 @@ export default function initCircular() {
             await new Promise(r => setTimeout(r, 400));
         }
 
+        // Add Circular track background
+        const track = document.createElement("div");
+        track.className = "circular-track";
+        track.style.width = `${radius * 2}px`;
+        track.style.height = `${radius * 2}px`;
+        track.style.left = `${centerX - radius}px`;
+        track.style.top = `${centerY - radius}px`;
+        container.appendChild(track);
+
         // SVG for circular connections
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("class", "connector-svg");
         svg.style.width = "300px";
         svg.style.height = "300px";
-        canvas.appendChild(svg);
+        container.appendChild(svg);
 
         for (let i = 0; i < nodes.length; i++) {
             const nextIdx = (i + 1) % nodes.length;
             const arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
             arrow.setAttribute("class", "arrow-path");
-            arrow.style.stroke = "rgba(255,255,255,0.1)";
 
             const x1 = nodes[i].offsetLeft + 40;
             const y1 = nodes[i].offsetTop + 40;

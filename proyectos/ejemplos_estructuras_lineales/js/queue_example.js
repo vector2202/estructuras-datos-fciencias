@@ -17,6 +17,30 @@ export default function initQueue() {
         container.className = "layout-linear";
         canvas.appendChild(container);
 
+        // SVG for arrows
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("class", "connector-svg");
+        canvas.appendChild(svg);
+        
+        function redrawArrows() {
+            svg.innerHTML = "";
+            const nodes = container.querySelectorAll(".node:not([style*='opacity: 0'])");
+            for (let j = 1; j < nodes.length; j++) {
+                const prevNode = nodes[j - 1];
+                const currNode = nodes[j];
+                const arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                arrow.setAttribute("class", "arrow-path");
+
+                const startX = prevNode.offsetLeft + prevNode.offsetWidth;
+                const startY = prevNode.offsetTop + (prevNode.offsetHeight / 2);
+                const endX = currNode.offsetLeft;
+                const endY = currNode.offsetTop + (currNode.offsetHeight / 2);
+
+                arrow.setAttribute("d", `M ${startX} ${startY} L ${endX} ${endY}`);
+                svg.appendChild(arrow);
+            }
+        }
+
         for (let i = 0; i < documents.length; i++) {
             await new Promise(r => setTimeout(r, 800));
             const node = document.createElement("div");
@@ -27,6 +51,7 @@ export default function initQueue() {
             `;
             container.appendChild(node);
             explain.textContent = `Enviando '${documents[i]}' a la cola. Haciendo ENQUEUE al final.`;
+            if (i > 0) redrawArrows();
         }
 
         await new Promise(r => setTimeout(r, 1500));
@@ -43,6 +68,7 @@ export default function initQueue() {
             firstNode.style.opacity = "0";
             await new Promise(r => setTimeout(r, 500));
             firstNode.remove();
+            redrawArrows();
 
             if (container.firstChild) {
                 explain.textContent = "Siguiente documento avanzando al frente de la cola.";

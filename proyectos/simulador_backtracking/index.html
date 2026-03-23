@@ -4,11 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../global.css" />
     <title>Simulador de laberintos</title>
     <link rel="stylesheet" href="styles.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
+    <a href="../index.html" class="btn-home-global"><i class="fas fa-home"></i> Volver al Inicio</a>
+
 
     <h1>Simulador de Backtracking</h1>
     <p class="desc">
@@ -28,19 +35,19 @@
         </div>
 
         <div class="control-group" id="randomControls" style="display: none;">
-            <button id="generateBtn" class="accent-btn">Generar laberinto</button>
+            <button id="generateBtn" class="btn-accent"><i class="fas fa-random"></i> Generar laberinto</button>
         </div>
 
         <div class="control-group">
             <label>Archivo (5x5):</label>
             <input type="file" id="fileInput" accept=".txt" style="display: none;">
-            <button id="uploadBtn">Subir .txt</button>
+            <button id="uploadBtn" class="btn-success"><i class="fas fa-upload"></i> Subir .txt</button>
         </div>
 
         <div class="button-group">
-            <button id="stepBtn">Paso a Paso</button>
-            <button id="autoBtn">Simulación Automática</button>
-            <button id="resetBtn">Reiniciar</button>
+            <button id="stepBtn" class="btn-info"><i class="fas fa-route"></i> Paso a Paso</button>
+            <button id="autoBtn" class="btn-primary"><i class="fas fa-play"></i> Simulación Automática</button>
+            <button id="resetBtn" class="secondary"><i class="fas fa-redo"></i> Reset</button>
         </div>
     </div>
 

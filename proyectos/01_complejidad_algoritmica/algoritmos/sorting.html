@@ -2,15 +2,22 @@
 <html lang="es">
 
 <head>
+    <link rel="stylesheet" href="../../global.css" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
 </head>
 
 <body>
+  <a href="../../index.html" class="btn-home-global"><i class="fas fa-home"></i> Volver al Inicio</a>
+
 
   <div class="app-container">
     <header>
@@ -29,10 +36,10 @@
         <div class="card">
           <label>Arreglo de entrada</label>
           <div class="input-type-grid">
-            <button class="type-btn active" data-type="random">Random</button>
-            <button class="type-btn" data-type="nearly_sorted">Casi Ordenado</button>
-            <button class="type-btn" data-type="reversed">Invertido</button>
-            <button class="type-btn" data-type="few_unique">Pocos Unicos</button>
+            <button class="btn-accent" data-type="random"><i class="fas fa-random"></i> Random</button>
+            <button class="btn-accent" data-type="nearly_sorted"><i class="fas fa-random"></i> Casi Ordenado</button>
+            <button class="btn-accent" data-type="reversed"><i class="fas fa-random"></i> Invertido</button>
+            <button class="btn-accent" data-type="few_unique"><i class="fas fa-random"></i> Pocos Unicos</button>
           </div>
         </div>
 
@@ -51,8 +58,8 @@
           </div>
           <input id="speedSlider" type="range" min="0" max="200" value="20" />
           <div style="margin-top: 20px;">
-            <button id="btnStart">Sort</button>
-            <button id="btnReset" class="secondary">Reset</button>
+            <button id="btnStart" class="btn-primary"><i class="fas fa-play"></i> Sort</button>
+            <button id="btnReset" class="secondary"><i class="fas fa-redo"></i> Reset</button>
           </div>
         </div>
 

@@ -1,37 +1,6 @@
-:root {
-    --bg-main: #0f172a;
-    --primary: #38bdf8;
-    --primary-hover: #0ea5e9;
-    --secondary: #818cf8;
-    --accent: #f472b6;
-    --success: #34d399;
-    --warning: #fbbf24;
-    --danger: #ef4444;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
 
-    --glass-bg: rgba(30, 41, 59, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
-    --node-size: 40px;
-    --node-bg: #1e293b;
-    --node-border: #38bdf8;
-    --node-text: #fff;
-    --animation-speed: 0.5s;
-}
 
-body {
-    margin: 0;
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--bg-main);
-    background-image:
-        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
-    color: var(--text-main);
-    min-height: 100vh;
-    overflow-x: hidden;
-}
 
 .container {
     max-width: 1200px;

@@ -4,14 +4,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../global.css" />
     <title>Estructuras Lineales | Simulador Interactivo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
 </head>
 
 <body>
+  <a href="../index.html" class="btn-home-global"><i class="fas fa-home"></i> Volver al Inicio</a>
+
     <div class="container">
         <header>
             <h1>Estructuras Lineales</h1>
@@ -32,7 +39,7 @@
                 <div class="glass-panel">
                     <div class="section-header">
                         <h2>Buffer de Imagen (Arreglo)</h2>
-                        <button id="array-start" class="btn-primary">Iniciar Simulación</button>
+                        <button id="array-start" class="btn-primary"><i class="fas fa-play"></i> Iniciar Simulación</button>
                     </div>
                     <p class="description">Los arreglos son fundamentales para el manejo de memoria contigua, como en
                         los buffers de video donde cada celda representa un canal de color.</p>
@@ -46,7 +53,7 @@
                 <div class="glass-panel">
                     <div class="section-header">
                         <h2>Playlist de Música (Lista Enlazada)</h2>
-                        <button id="list-start" class="btn-primary">Iniciar Simulación</button>
+                        <button id="list-start" class="btn-primary"><i class="fas fa-play"></i> Iniciar Simulación</button>
                     </div>
                     <p class="description">Cada canción es un nodo que apunta a la siguiente, permitiendo inserciones y
                         eliminaciones dinámicas sin reordenar toda la memoria.</p>
@@ -60,7 +67,7 @@
                 <div class="glass-panel">
                     <div class="section-header">
                         <h2>Historial de Navegación (Pila)</h2>
-                        <button id="stack-start" class="btn-primary">Iniciar Simulación</button>
+                        <button id="stack-start" class="btn-primary"><i class="fas fa-play"></i> Iniciar Simulación</button>
                     </div>
                     <p class="description">El botón "Atrás" de un navegador funciona como una pila LIFO (Last-In,
                         First-Out), sacando la última URL visitada.</p>
@@ -74,7 +81,7 @@
                 <div class="glass-panel">
                     <div class="section-header">
                         <h2>Cola de Tareas / Impresión (Cola)</h2>
-                        <button id="queue-start" class="btn-primary">Iniciar Simulación</button>
+                        <button id="queue-start" class="btn-primary"><i class="fas fa-play"></i> Iniciar Simulación</button>
                     </div>
                     <p class="description">Las tareas se procesan en el orden en que llegan (FIFO: First-In, First-Out),
                         garantizando equidad en el procesamiento.</p>
@@ -88,7 +95,7 @@
                 <div class="glass-panel">
                     <div class="section-header">
                         <h2>Round Robin Scheduler (Lista Circular)</h2>
-                        <button id="circular-start" class="btn-primary">Iniciar Simulación</button>
+                        <button id="circular-start" class="btn-primary"><i class="fas fa-play"></i> Iniciar Simulación</button>
                     </div>
                     <p class="description">Los sistemas operativos utilizan listas circulares para repartir tiempo de
                         CPU entre procesos de manera equitativa.</p>
