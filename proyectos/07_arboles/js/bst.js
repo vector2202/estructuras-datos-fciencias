@@ -164,4 +164,19 @@ export class BST {
         await this.visualizer.highlightNode(node.value, "visiting-node");
         await this.visualizer.sleep();
     }
+
+    getTraversalPath(type) {
+        let path = [];
+        this._getTraversalPathRecursive(this.root, type, path);
+        return path;
+    }
+
+    _getTraversalPathRecursive(node, type, path) {
+        if (!node) return;
+        if (type === "pre") path.push(node.value);
+        this._getTraversalPathRecursive(node.left, type, path);
+        if (type === "in") path.push(node.value);
+        this._getTraversalPathRecursive(node.right, type, path);
+        if (type === "post") path.push(node.value);
+    }
 }

@@ -18,7 +18,7 @@ const bst = new BST(bstVisualizer);
 const avl = new AVL(avlVisualizer);
 
 function setControlsDisabled(type, disabled) {
-    document.querySelectorAll(`#${type.toLowerCase()} button`).forEach(btn => {
+    document.querySelectorAll(`#controls${type} button`).forEach(btn => {
         btn.disabled = disabled;
     });
     document.getElementById(`value${type}`).disabled = disabled;
@@ -101,9 +101,130 @@ function setup(type, tree, visualizer) {
         visualizer.showMessage("Árbol limpiado.");
     };
 
-    if (inorderBtn) inorderBtn.onclick = () => handleAction(() => tree.traverse("in"));
-    if (preorderBtn) preorderBtn.onclick = () => handleAction(() => tree.traverse("pre"));
-    if (postorderBtn) postorderBtn.onclick = () => handleAction(() => tree.traverse("post"));
+    // Playback Controls
+    const playbackPanel = document.getElementById(`playback${type}`);
+    const controlsPanel = document.getElementById(`controls${type}`);
+    const btnPrev = document.getElementById(`btnPrev${type}`);
+    const btnPlay = document.getElementById(`btnPlay${type}`);
+    const btnPause = document.getElementById(`btnPause${type}`);
+    const btnNext = document.getElementById(`btnNext${type}`);
+    const btnReset = document.getElementById(`btnReset${type}`);
+    const playbackStatus = document.getElementById(`playbackStatus${type}`);
+
+    let pathArray = [];
+    let currentIndex = -1;
+    let isPlaying = false;
+
+    function updatePlaybackUI() {
+        btnPrev.disabled = currentIndex <= 0;
+        btnNext.disabled = currentIndex >= pathArray.length;
+        
+        if (isPlaying) {
+            btnPlay.style.display = 'none';
+            btnPause.style.display = 'inline-block';
+        } else {
+            btnPlay.style.display = 'inline-block';
+            btnPause.style.display = 'none';
+        }
+    }
+
+    async function applyStep() {
+        if (currentIndex >= 0 && currentIndex < pathArray.length) {
+            const val = pathArray[currentIndex];
+            playbackStatus.innerText = `Visitando: ${val}`;
+            await visualizer.clearHighlights();
+            for(let i=0; i<currentIndex; i++) {
+                visualizer.highlightNode(pathArray[i], "found-node");
+            }
+            visualizer.highlightNode(val, "visiting-node");
+        } else if (currentIndex >= pathArray.length) {
+            playbackStatus.innerText = `Recorrido Completado.`;
+            isPlaying = false;
+            await visualizer.clearHighlights();
+            for(let i=0; i<pathArray.length; i++) {
+                visualizer.highlightNode(pathArray[i], "found-node");
+            }
+        }
+        updatePlaybackUI();
+    }
+
+    function stepForward() {
+        if (currentIndex < pathArray.length) {
+            currentIndex++;
+            applyStep();
+        }
+    }
+
+    function stepBackward() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            applyStep();
+        }
+    }
+
+    async function playPlayback() {
+        if (isPlaying) return;
+        isPlaying = true;
+        updatePlaybackUI();
+
+        if (currentIndex >= pathArray.length) currentIndex = 0;
+        if (currentIndex === -1) currentIndex = 0;
+        await applyStep();
+
+        while (isPlaying && currentIndex < pathArray.length) {
+            await visualizer.sleep();
+            if (!isPlaying) break;
+            currentIndex++;
+            await applyStep();
+        }
+        updatePlaybackUI();
+    }
+
+    function pausePlayback() {
+        isPlaying = false;
+        updatePlaybackUI();
+    }
+
+    async function resetPlayback() {
+        pausePlayback();
+        playbackPanel.style.display = "none";
+        controlsPanel.style.display = "flex";
+        pathArray = [];
+        currentIndex = -1;
+        await visualizer.clearHighlights();
+        visualizer.showMessage("Esperando acción...");
+        setControlsDisabled(type, false);
+    }
+
+    if (btnPlay) {
+        btnPlay.onclick = playPlayback;
+        btnPause.onclick = pausePlayback;
+        btnNext.onclick = () => { pausePlayback(); stepForward(); };
+        btnPrev.onclick = () => { pausePlayback(); stepBackward(); };
+        btnReset.onclick = resetPlayback;
+    }
+
+    async function startTraversal(traversalType, name) {
+        if (!tree.root) {
+            visualizer.showMessage("El árbol está vacío.");
+            return;
+        }
+        
+        setControlsDisabled(type, true);
+        pathArray = tree.getTraversalPath(traversalType);
+        currentIndex = -1;
+        
+        controlsPanel.style.display = 'none';
+        playbackPanel.style.display = 'block';
+        playbackStatus.innerText = `Recorrido ${name} iniciado...`;
+        
+        visualizer.showMessage(`Recorrido ${name}. Controles activos.`);
+        updatePlaybackUI();
+    }
+
+    if (inorderBtn) inorderBtn.onclick = () => startTraversal("in", "Inorden");
+    if (preorderBtn) preorderBtn.onclick = () => startTraversal("pre", "Preorden");
+    if (postorderBtn) postorderBtn.onclick = () => startTraversal("post", "Postorden");
 }
 
 setup("BST", bst, bstVisualizer);

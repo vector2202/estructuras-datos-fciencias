@@ -41,7 +41,7 @@
 
         <!-- BST Section -->
         <section id="bst" class="section active">
-            <div class="glass-panel controls-grid">
+            <div class="glass-panel controls-grid" id="controlsBST">
                 <div class="input-group">
                     <input type="number" id="valueBST" placeholder="Valor"
                         onkeypress="if(event.key === 'Enter') document.getElementById('insertBST').click()">
@@ -60,6 +60,17 @@
                 <button id="clearBST" class="secondary"><i class="fas fa-redo"></i> Reset</button>
             </div>
 
+            <div class="glass-panel playback-controls" id="playbackBST">
+                <div class="playback-buttons">
+                    <button id="btnPrevBST" class="btn-icon" disabled><i class="fas fa-step-backward"></i></button>
+                    <button id="btnPlayBST" class="btn-icon"><i class="fas fa-play"></i></button>
+                    <button id="btnPauseBST" class="btn-icon" style="display:none;"><i class="fas fa-pause"></i></button>
+                    <button id="btnNextBST" class="btn-icon" disabled><i class="fas fa-step-forward"></i></button>
+                    <button id="btnResetBST" class="btn-icon"><i class="fas fa-redo"></i></button>
+                </div>
+                <div style="margin-top: 10px; font-weight: bold; color: var(--primary);" id="playbackStatusBST"></div>
+            </div>
+
             <div class="glass-panel canvas-wrapper">
                 <div id="canvasBST" class="canvas-container"></div>
             </div>
@@ -71,7 +82,7 @@
 
         <!-- AVL Section -->
         <section id="avl" class="section">
-            <div class="glass-panel controls-grid">
+            <div class="glass-panel controls-grid" id="controlsAVL">
                 <div class="input-group">
                     <input type="number" id="valueAVL" placeholder="Valor"
                         onkeypress="if(event.key === 'Enter') document.getElementById('insertAVL').click()">
@@ -88,6 +99,17 @@
                 </div>
                 <button id="randomAVL" class="btn-accent"><i class="fas fa-random"></i> Aleatorio</button>
                 <button id="clearAVL" class="secondary"><i class="fas fa-redo"></i> Reset</button>
+            </div>
+
+            <div class="glass-panel playback-controls" id="playbackAVL">
+                <div class="playback-buttons">
+                    <button id="btnPrevAVL" class="btn-icon" disabled><i class="fas fa-step-backward"></i></button>
+                    <button id="btnPlayAVL" class="btn-icon"><i class="fas fa-play"></i></button>
+                    <button id="btnPauseAVL" class="btn-icon" style="display:none;"><i class="fas fa-pause"></i></button>
+                    <button id="btnNextAVL" class="btn-icon" disabled><i class="fas fa-step-forward"></i></button>
+                    <button id="btnResetAVL" class="btn-icon"><i class="fas fa-redo"></i></button>
+                </div>
+                <div style="margin-top: 10px; font-weight: bold; color: var(--primary);" id="playbackStatusAVL"></div>
             </div>
 
             <div class="glass-panel canvas-wrapper">
