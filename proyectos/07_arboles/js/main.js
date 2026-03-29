@@ -39,7 +39,7 @@ function setup(type, tree, visualizer) {
 
     async function handleAction(actionFn) {
         setControlsDisabled(type, true);
-        await visualizer.clearHighlights(); // Clear previous highlights BEFORE starting
+        await visualizer.clearHighlights();
         try {
             await actionFn();
         } catch (e) {
@@ -101,7 +101,6 @@ function setup(type, tree, visualizer) {
         visualizer.showMessage("Árbol limpiado.");
     };
 
-    // Playback Controls
     const playbackPanel = document.getElementById(`playback${type}`);
     const controlsPanel = document.getElementById(`controls${type}`);
     const btnPrev = document.getElementById(`btnPrev${type}`);
@@ -118,7 +117,7 @@ function setup(type, tree, visualizer) {
     function updatePlaybackUI() {
         btnPrev.disabled = currentIndex <= 0;
         btnNext.disabled = currentIndex >= pathArray.length;
-        
+
         if (isPlaying) {
             btnPlay.style.display = 'none';
             btnPause.style.display = 'inline-block';
@@ -133,7 +132,7 @@ function setup(type, tree, visualizer) {
             const val = pathArray[currentIndex];
             playbackStatus.innerText = `Visitando: ${val}`;
             await visualizer.clearHighlights();
-            for(let i=0; i<currentIndex; i++) {
+            for (let i = 0; i < currentIndex; i++) {
                 visualizer.highlightNode(pathArray[i], "found-node");
             }
             visualizer.highlightNode(val, "visiting-node");
@@ -141,7 +140,7 @@ function setup(type, tree, visualizer) {
             playbackStatus.innerText = `Recorrido Completado.`;
             isPlaying = false;
             await visualizer.clearHighlights();
-            for(let i=0; i<pathArray.length; i++) {
+            for (let i = 0; i < pathArray.length; i++) {
                 visualizer.highlightNode(pathArray[i], "found-node");
             }
         }
@@ -209,15 +208,15 @@ function setup(type, tree, visualizer) {
             visualizer.showMessage("El árbol está vacío.");
             return;
         }
-        
+
         setControlsDisabled(type, true);
         pathArray = tree.getTraversalPath(traversalType);
         currentIndex = -1;
-        
+
         controlsPanel.style.display = 'none';
         playbackPanel.style.display = 'block';
         playbackStatus.innerText = `Recorrido ${name} iniciado...`;
-        
+
         visualizer.showMessage(`Recorrido ${name}. Controles activos.`);
         updatePlaybackUI();
     }
