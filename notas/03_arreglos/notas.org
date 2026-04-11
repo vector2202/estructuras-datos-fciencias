@@ -1,0 +1,94 @@
+#+Title: Arreglos
+
+* Introduccion
+Iniciamos las estructuras de datos lineales con los arreglos, los arreglos son unas de las estructuras de datos mas basicas en programacion. Entenderlos nos va a ayudar a entender mas facil las siguientes estructuras que vienen. Un arreglo permite *almacenar multiples elementos* en posiciones *contiguas* de memoria a las cuales vamos a acceder por medio de algo llamado *indice*.
+
+* Definicion
+Un arreglo es una estructura de datos *lineal, estatica y homogenea* que almacena una coleccion de elementos del mismo tipo de datos, diferenciados o identificados por un *indice*. Entonces repasemos lo mas importante:
+- Mismo tipo de dato en todos sus elementos
+- Acceso por indice
+- Tamaño fijo
+- Almacenamiento contiguo en memoria.
+
+Ejemplo:
+| valor  | 10 | 20 | 30 | 40 | 50 |
+| indice |  0 |  1 |  2 |  3 | 4  |
+
+Notese que siempre en un arreglo vamos a iniciar desde la posicion 0.
+
+* Caracteristicas principales
+- Acceso en tiempo constante O(1)
+  Si recordamos esta era la mejor complejidad, por lo que si sabemos el indice del elemento, podemos obtener el valor en tiempo constante, esto muchas veces hace al arreglo una solucion a ciertos problemas, ya que el acceso es muy rapido
+- Estructura estatica
+  Definimos su tamaño en cuanto lo creamos y no se puede cambiar, una desventaja cuando necesitamos aumentar el tamaño.
+- Todos los elementos son del mismo tipo de dato
+- Memoria contigua
+  Todos los elementos se almacenan uno tras otro, esto tanto en recorrido es muy eficiente como en implementacion, hay cierta memoria que utiliza el programa, que el que esten contiguos estos elementos optimiza el uso de esta memoria.
+
+* Delcaracion
+#+begin_src java
+  int[] array = new int[10];//sin inicializar pero con el tamaño definido
+  int[] array = {1, 2, 3, 4, 5};//con estos valores ya inicializado
+  int[] array;//sin tamaño ni valores definidos aun
+#+end_src
+* Operaciones
+** Acceso
+Obtener el valor de una posicion especifica, complejidad O(1)
+#+begin_src java
+int value = array[2];
+#+end_src
+
+** Recorrido
+Visitar todos los elementos de un arreglo, como tenemos que acceder a todas las posiciones 1 vez, en un arreglo de tamaño /n/. La complejidad es *O(n)*.
+#+begin_src java
+  for(int i = 0; i < n; i++){
+      System.out.println(array[i]);
+  }
+#+end_src
+
+** Insercion
+Si hay espacio disponible y queremos ponerlo al final, o si queremos sobreescribir un valor, entonces es O(1) ya que ya sabemos donde va sin importanos lo demas
+#+begin_src java
+  array[i] = value;
+#+end_src
+
+Ahora tambien esta el caso de que queramos colocar por ejemplo el nuevo elemento al inicio y recorrer todo, entonces esto seria O(n) ya que asumimos que vamos a recorrer cada elemento del arreglo de tamaño n.
+
+** Eliminacion
+Eliminar un elemento implica recorrer todos los demas elementos que hay despues, por lo que asumimos el peor caso, eliminar el primer elemento y tener que recorrer todos los demas elementos, si decimos que el arreglo tiene tamaño n, entonces es O(n)
+
+** Busqueda
+Buscar un elemento en el arreglo implica ir 1 por 1 y asumiendo el peor caso, que es que el elemento no este en el arreglo tendriamos que buscar en todo el arreglo para terminar, por lo que en un arreglo de tamaño n nos tomaria O(n)
+#+begin_src java
+  for(int i = 0; i < n; i++){
+      if (array[i] == target){return true;}
+  }
+  return false;
+#+end_src
+* Ventajas y desventajas
+Veamos rapido algunas ventajas y desventajas:
+- Por un lado tenemos que podemos acceder muy rapido a los valores
+- Son muy simples de implementar
+- No tenemos problemas de memoria del programa.
+
+  Por otro lado:
+- Tamaño fijo, no podemos agrandarlo
+- Insertar en una posicion y eliminar es muy tardado
+- No sirve para tamaños dinamicos
+
+Algo que cabe aclarar, no hay mejor ni peor estructura de datos, solo existe mas o menos adecuada para el problema en cuestion, por ejemplo hay veces que nos importa mas que el acceso sea rapido ya que las inserciones no son muchas, pero hay veces que constantemente estamos eliminando e insertando entonces ahi priorizamos una insercion/eliminacion mas rapida, todo depende del problema en cuestion.
+
+Los arreglos los vamos a preferir cuando almacenemos datos simples, o como tablas de valores ya definida, buffers, o para matrices y vectores y tambien sirven para un algoritmo de ordenamiento muy rapido que se mencionara mas adelante. Los arreglos son la base de la implementacion de otra estructura muy utilizada que veremos mas adelante en el curso, por lo que es util recordarlos.
+
+  
+
+* Ejercicio propuesto
+Como ejercicio se propone crear una clase, la cual tenga como metodos:
+#+begin_src java
+  public void insert(T value);
+  public void delete(T value);
+  public boolean search(T target);
+  public void print();//imprime todo el arreglo
+  public void insert(T value, int index); //inserta en posicion index
+#+end_src
+Usando un atributo array y nada mas, T se puede remplazar por el tipo de dato deseado (int, float, string, char)
