@@ -1,0 +1,199 @@
+#+Title: Graficas
+#+Author:Victor Torres
+* Introduccion
+Las graficas son estructuras de datos que permiten representar relaciones entre diferentes elementos. A diferencia de las estructuras lineales como listas pilas colas, las graficas permiten modelar conexiones mas complejas en los datos, los arboles que vimos es un tipo de grafica, las graficas van a ser muy utiles para modelar problemas, ya que vamos a tener nodos por separados conectados mediante lineas, a su vez las graficas tienen variaciones, pero el hecho que podamos conectarlas como queramos nos permitira modelar una variedad de problemas que no podriamos con las estructuras vistas, por ejemplo digamos que tienes un mapa y un punto de ciudades conectadas por caminos, una grafica es la manera de representarlo computacionalmente para despues poder escribir metodos para que se puedan resolver los problemas que se deseen. Por ejemplo una red de computadoras tambien puede representarse con una grafica.
+
+Algo ya mas en la vida real del software existen cosas llamadas dependencias, es decir esta clase depende de esta y su salida va a esta otra clase, esto se representa a traves de graficas para saber si al momento de la ejecucion todo va a funcionar o hace falta una configuracion mas.
+
+
+* Definicion
+Una grafica esta compuesta de dos elementos principales:
+
+- Vertices: representan las entidades o elementos, que son los contenidos en los nodos.
+- Artistas: representan la conexion entre los vcertices
+
+Asi que formalmente una grafica se define como:
+
+G=(V, E)
+
+donde:
+- V es el conjunto de vertices
+- E es el conjunto de aristas que conectan los vertices
+
+Las graficas aparecen con frecuencia en muchos problemas del mundo real y debido a su complejidad son de las estructuras mas importantes en el mundo de la computacion.
+
+* Tipos de graficas
+
+Existen varios tipos de graficas dependiendo de como se representen las conexiones entre los vertices:
+** Grafica no dirigida
+En una grafica no dirigida las aristas no tienen direccion, esto significa que la conexion entre 2 vertices funciona en ambos sentidos, por ejemplo si existe una arista entre A y B, entonces existe una entre B y A.
+
+
+Este tipo de graficas se usa para representar relaciones bidireccionales.
+** Grafica dirigida
+En este tipo de grafica las aristas tienen direccion.
+
+Esto significa que una arista puede ir de un vertice A a un vertice B pero no puede ir de un vertice B a un A.
+
+Las graficas dirigidas se usan para representar relaciones donde el orden importa, por ejemplo dependencias entre clases, flujo de informacion, pipelines.
+** Grafica ponderada
+Una grafica ponderada cada arista tiene un valor asociado o un peso vamos a llamarle, este peso puede representar distintas situaciones:
+
+- distancia entre ciudades
+- tiempo de viaje
+- costo
+- capacidad de una conexion
+
+Las graficas ponderadas son muy usadas en problemas de ruta y optimizacion
+
+* Representacion de graficas
+Para poder pasar esos dibujos de graficas, de vertices y aristas a un programa, es necesario definir como los vamos a almacenar en memoria, las dos representaciones mas comunes son:
+
+** Matriz de adyacencia
+La matriz de adyacencia es una matriz de tamano n x n donde n es el numero de vertices del arreglo, cada posicion de la matriz indica si existe una conexion entre ambos vertices, por ejempo:
+
+|   | A | B | C |
+| A | 0 | 1 | 0 |
+| B | 1 | 0 | 1 |
+| C | 0 | 1 | 0 |
+
+Donde el valor de 1 indica que existe una arisdta entre ambos vertices.
+
+La ventaja de esta implementacion es que permite verificar rapidamente la existencia o no de aristas, y sus accesos son O(1)
+
+La desventaja de estas implementaciones es que usa mucha memoria cuando el numero de vertices es muy grande y cuando el numero de aristas es poco, ya que pues estamos usando una matriz de n x n para guardar pocas aristas.
+
+
+Esta matriz tiene una complejidad de O(V^2)
+
+** Lista de adyacencia
+La lista de adyacencia es una representacion mas eficiente en graficas dispersas.
+
+En esta estructura cada vertice tiene una lista con los vertices a los cuales esta conectado, por ejemplo:
+A -> B
+B -> A, C
+C -> B
+
+Esto nos da como ventaja usamos poca memoria cuando hay graficas con pocas aristas y es la representacion mas comun en la vida real
+
+Las desventajas que esto trae es que verificar si una arista existe o no, puede ser lineal ya que tenemos que recorrer la lista de dicho vertice.
+
+Esta lista tiene una complejidad de O(V+E) ya que tendremos tantos elementos por lista como aristas tenemos, entonces basicamente lo que tengamos mas es la complejidad.
+* Recorrido en graficas
+
+Una de las operaciones mas importantes en graficas es poder recorrer sus vertices para explorarlos o encontrar informacion acerca de ellos o de sus conexiones. Los dos algoritmos por excelencia para recorrer graficas son:
+
+- Depth first search (DFS)
+- Breadth first search (BFS)
+
+Basicamente uno es vamos lo mas profundo posible y el otro es vamonos por niveles.
+
+** Depht first search
+
+El algoritmo DFS explora la grafica profundizando lo mas posible antes de retroceder.
+
+La idea principal es:
+1. Visito un vertice
+2. Visito uno de sus vecinos no visitados
+3. Repetir el proceso hasta que ya no haya mas vecinos disponibles
+4. Retroceder y continuar otros caminos.
+
+Este algoritmo puede implementarse usando recursion o una pila.
+
+Basicamente este es como en palabras informales, estoy en un nodo, tengo vecinos ? elijo uno y repito el mismo proceso hasta que ya no haya vecinos a donde irme, entonces retrocedo un paso y me voy al siguiente vecino. Es por ello que la pila aqui es la implementacion ideal.
+
+DFS es util para:
+- detectar ciclos
+- encontrar componentes conectados
+- explorar completamente la grafica
+   
+** Breadth first search
+
+En lugar de irnos a lo mas profundo primero, aqui vamos a visitar a todos los vecinos del primer nodo, y luego vamos con los vecinos de los vecinos, es por eso que le llame por niveles.
+
+El proceso es:
+1. Visitas el vertice inicial
+2. agregas a sus vecinos a la cola
+3. procesas los vertices en la cola
+4. repites hasta que no haya vertices por visitar
+
+Este algoritmo es util para:
+- encontrar caminos mas cortos en graficas no ponderadas
+- explorar niveles de una red
+- sencillos de implementar
+
+Aqui basicamente es por ejemplo si estuvieras preguntando algo y primero le preguntas a tus conocidos, es decir visitas a los vecinos, y ahora vas con los conocidos de tus conocidos, vecinos de los vecinos y asi vas expandiendo hasta que ya no te queda nadie por preguntar.
+
+
+** Implementacion
+Ambos metodos tienen complejidad O(V+E), veamos una implementacion sencilla
+#+begin_src java
+  public void BFS(int start) {
+      boolean[] visited = new boolean[vertices];// control para no repetir nodos
+      Queue<Integer> queue = new LinkedList<>();// control de como visitaremos los nodos
+
+      visited[start] = true;// el de inicio ya lo visitamos
+      queue.add(start);//agregamos
+      //mientras haya nodos por visitar
+      while (!queue.isEmpty()) {
+          int vertex = queue.dequeue();
+          System.out.print(vertex + " ");
+          for (int neighbor : adjList.get(vertex)) {
+  	    //vecinos no visitados agregalos a la cola
+              if (!visited[neighbor]) {
+                  visited[neighbor] = true;
+                  queue.add(neighbor);
+              }
+
+          }
+      }
+  }
+
+  public void DFS(int start) {
+      //control de vertices visitados
+      boolean[] visited = new boolean[vertices];
+      DFSUtil(start, visited);
+
+  }
+  //approach recursivo
+  private void DFSUtil(int vertex, boolean[] visited) {
+      visited[vertex] = true;//marcamos el vertice actual
+      System.out.print(vertex + " ");
+      for (int neighbor : adjList.get(vertex)) {
+  	//mientras haya un vecino no visitado, hacemos recursion para explorar ese vecino
+          if (!visited[neighbor]) {
+              DFSUtil(neighbor, visited);
+          }
+      }
+  }
+#+end_src
+
+* Complejidades
+| Operación        | Matriz de adyacencia | Lista de adyacencia |
+| ---------------- | -------------------- | ------------------- |
+| Espacio          | O(V²)                | O(V + E)            |
+| Verificar arista | O(1)                 | O(deg(v))           |
+| BFS              | O(V + E)             | O(V + E)            |
+| DFS              | O(V + E)             | O(V + E)            |
+
+deg(v) es el numero de vecinos de un vertice.
+
+* Aplicaciones
+
+Las graficas se usan mucho en sistemas y algoritmos importantes por ejemplo vamos a ver casos reales:
+- redes sociales para modelar conexiones o amistades entre usuarios
+- sistemas de navegacion GPS para rutas
+- redes de computadoras
+- analisis de dependencias en compilacion
+
+Dado a su flexibilidad permiten representar problemas donde existen relaciones.
+
+Ventajas:
+- permiten modelar relaciones entre datos complejas.
+- son ampliamente usados en muchas areas
+- existen muchos algoritmos eficientes para trabajar con graficas
+
+Desventajas:
+- algunas representaciones pueden consumir mucha memoria
+- los algoritmos en graficas pueden volverse mas complicados dependiendo de la memoria
+- la implementacion puede ser mas dificil que en otras estructuras vistas en el curso
