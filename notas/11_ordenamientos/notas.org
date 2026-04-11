@@ -1,0 +1,59 @@
+#+Title: Algoritmos de Ordenamiento
+#+Author:Victor Torres
+
+* Introduccion
+Una de las operaciones fundamentales en la ciencia de la computacion es el ordenamiento de los datos. Frecuentemente nos encontramos en situaciones en las que necesitamos acomodar una coleccion de elementos bajo un criterio especifico (ya sea de menor a mayor, alfabeticamente, etc.). Contar con datos ordenados permite, entre otras cosas, realizar busquedas mucho mas eficientes (como la Busqueda Binaria).
+
+Los algoritmos de ordenamiento toman una estructura (comunmente un arreglo o una lista) y reacomodan sus elementos. Existen diversas aproximaciones computacionales para resolver esto; algunos metodos son triviales y faciles de implementar pero poco eficientes con grandes cantidades de datos, mientras que otros son mas complejos pero escalan de maravilla.
+
+* Algoritmos elementales (Cuadraticos)
+Estos algoritmos suelen tener una complejidad de $O(n^2)$ en el peor de los casos, dado que implementan bucles anidados para la comparacion de los elementos. Estos algoritmos tienen la manera de ordenar mas facil de entender pero son los peores en ejecucion.
+
+** Bubble Sort (Ordenamiento Burbuja)
+El algoritmo compara elementos adyacentes de la coleccion. Si el elemento izquierdo es mayor que el derecho, los intercambia. Este proceso se repite, simulando que los valores mas grandes flotan como "burbujas" hasta el final del arreglo.
+- **Ventaja**: Muy facil de implementar y estabilizar.
+- **Desventaja**: Ineficiente; es considerado principalmente con fines académicos.
+
+** Selection Sort (Ordenamiento por Selección)
+La idea es dividir logicamente el arreglo en dos partes: una ordenada y una desordenada. En cada iteracion de la parte desordenada, se busca con un recorrido el elemento mas pequeño y se coloca al inicio pasandolo a la sub-lista ordenada.
+- **Ventaja**: Realiza una pequeña cantidad de intercambios (swaps) comparado con Bubble Sort.
+- **Desventaja**: La comparación de elementos sigue obligando a escanear toda la sub-lista restante, conservando la complejidad temporal de $O(n^2)$.
+
+** Insertion Sort (Ordenamiento por Inserción)
+Funciona de manera similar a como ordenariamos cartas en nuestra mano. Toma un elemento, lo compara con los anteriores y lo "inserta" en su posición correcta recorriendo los mayores a la derecha. 
+- **Ventaja**: Muy eficiente para arreglos pequeños o aquellos que ya estan casi ordenados.
+
+* Algoritmos eficientes (Divide y Venceras)
+Aprovechan la tecnica computacional "Divide y Venceras", rompiendo el problema en sub-problemas mas pequeños para reducir el trabajo total. Alcanzan complejidades de $O(n \log n)$.
+
+** Merge Sort (Ordenamiento por Mezcla)
+Divide la lista original repetidamente a la mitad de forma recursiva hasta llegar a sub-listas de 1 elemento. Posteriormente, combina o "mezcla" estas sub-listas comparando los elementos para formar estructuras ya ordenadas.
+- **Ventaja**: Complejidad garantizada de $O(n \log n)$ en la mejor, peor y metrica promedio. Es estable.
+- **Desventaja**: Requiere una complejidad espacial extra $O(n)$ porque no puede operar *in-place* sin estructuras auxiliares para la mezcla.
+
+** Quick Sort (Ordenamiento Rapido)
+Selecciona un elemento llamado pivote y particiona el arreglo en dos mitades: aquellos menores al pivote y aquellos mayores. Luego repite recursivamente el proceso en las sub-mitades.
+- **Ventaja**: Extremadamente rapido en la practica y opera casi *in-place* (sin exigir demasiada memoria adicional para copias como Merge Sort).
+- **Desventaja**: En el peor de los casos (ej. arreglos ya ordenados y con una mala seleccion del pivote), la recursion cae a $O(n^2)$.
+
+* Algoritmos basados en otras estructuras
+** Heap Sort (Ordenamiento por Montones)
+Aprovecha la estructura de datos llamada Heap (un arbol binario completo donde el nodo padre cumple la propiedad del monticulo con respecto a sus hijos). Si se utiliza un Max-Heap, el elemento mas grande siempre queda en la raiz. Heap Sort remueve secuencialmente la raiz del monton y lo re-ensambla, logrando que los elementos extraidos formen un arreglo ordenado.
+- **Mejor, peor y promedio**: $O(n \log n)$. No requiere la memoria extra que consume Merge Sort, aunque en la practica debido a sus multiples saltos intermedios suele ser un poco mas lento que Quick Sort frente a hardware moderno.
+
+* Complejidades Computacionales
+
+| Algoritmo       | Mejor caso    | Caso Promedio | Peor Caso   | Espacio Adicional |
+|-----------------|---------------|---------------|-------------|-------------------|
+| Bubble Sort     | $O(n)$        | $O(n^2)$      | $O(n^2)$    | $O(1)$            |
+| Selection Sort  | $O(n^2)$      | $O(n^2)$      | $O(n^2)$    | $O(1)$            |
+| Insertion Sort  | $O(n)$        | $O(n^2)$      | $O(n^2)$    | $O(1)$            |
+| Merge Sort      | $O(n \log n)$ | $O(n \log n)$ | $O(n \log n)$ | $O(n)$          |
+| Quick Sort      | $O(n \log n)$ | $O(n \log n)$ | $O(n^2)$    | $O(\log n)$       |
+| Heap Sort       | $O(n \log n)$ | $O(n \log n)$ | $O(n \log n)$ | $O(1)$          |
+
+* Conclusion y Aplicaciones
+A la hora de programar, la eleccion de un metodo de ordenamiento dependera de la naturaleza de los datos y de las limitantes del sistema:
+- Cuando la cantidad de memoria es un problema, ordenamientos *in-place* como Quick Sort o Heap Sort son mandatorios (evitando Merge Sort).
+- Para listas con pocos elementos y que usualmente sufren ligeras modificaciones en tiempo real, Insertion Sort brilla y puede superar a los metodos avanzados gracias a su nula recursion y simples evaluaciones iterativas.
+- Multiples lenguajes de programacion usan algoritmos hibridos de ordenamiento subyacente. Por ejemplo Timsort (usado en Python o en la version estandar de Java Object sorting), el cual es un hibrido entre Merge Sort e Insertion Sort optimizado para adaptarse a data en la vida real.
