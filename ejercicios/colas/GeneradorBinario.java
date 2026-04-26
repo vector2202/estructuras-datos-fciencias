@@ -10,7 +10,7 @@ public class GeneradorBinario {
         if (n <= 0)
             return resultado;
 
-        // La cola ahora es dinámica, no requiere capacidad inicial
+        // La cola ahora es dinamica, no requiere capacidad inicial
         Cola<String> cola = new Cola<>();
         cola.enqueue("1");
 

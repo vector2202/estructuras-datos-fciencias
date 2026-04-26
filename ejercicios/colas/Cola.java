@@ -34,7 +34,7 @@ public class Cola<T> {
 
     public T dequeue() {
         if (isEmpty()) {
-            throw new IllegalStateException("La cola está vacía");
+            throw new IllegalStateException("La cola esta vacia");
         }
         T valor = frente.valor;
         frente = frente.siguiente;
@@ -47,7 +47,7 @@ public class Cola<T> {
 
     public T peek() {
         if (isEmpty()) {
-            throw new IllegalStateException("La cola está vacía");
+            throw new IllegalStateException("La cola esta vacia");
         }
         return frente.valor;
     }
