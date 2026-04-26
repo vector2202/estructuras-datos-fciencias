@@ -25,3 +25,20 @@ Un arreglo desordenado con 1 millon de elementos. Debes realizar 100,000 busqued
 Justifica tu respuesta usando complejidad temporal.
 
 ------------------------------------------------------------------------
+
+## Ejercicio ilustrativo
+
+### Busqueda binaria
+
+Arreglo ordenado:
+
+    [2, 5, 8, 12, 16, 23]
+
+Busqueda: 12
+
+1.  Elemento central: 8 → 12 es mayor.
+2.  Se descarta la mitad izquierda.
+3.  Nuevo centro: 12 → encontrado.
+
+**Complejidad en el peor caso:**\
+O(log n)
