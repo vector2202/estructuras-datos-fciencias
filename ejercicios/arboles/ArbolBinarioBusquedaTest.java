@@ -54,4 +54,17 @@ public class ArbolBinarioBusquedaTest {
         arbol.insertar(15);
         assertTrue(arbol.esBST());
     }
+
+    @Test
+    void testContarHojas() {
+        ArbolBinarioBusqueda arbol = new ArbolBinarioBusqueda();
+        assertEquals(0, arbol.contarHojas());
+        arbol.insertar(10);
+        assertEquals(1, arbol.contarHojas());
+        arbol.insertar(5);
+        arbol.insertar(15);
+        assertEquals(2, arbol.contarHojas()); // 5 y 15 son hojas
+        arbol.insertar(2);
+        assertEquals(2, arbol.contarHojas()); // 2 y 15 son hojas
+    }
 }

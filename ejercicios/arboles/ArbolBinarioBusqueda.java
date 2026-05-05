@@ -3,8 +3,14 @@ package arboles;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementacion de un BST.
+ */
 public class ArbolBinarioBusqueda {
 
+    /**
+     * Clase interna para representar un nodo.
+     */
     private class Nodo {
         int valor;
         Nodo izquierdo, derecho;
@@ -22,9 +28,12 @@ public class ArbolBinarioBusqueda {
     }
 
     /**
-     * Inserta un valor en el arbol.
+     * Inserta un valor en el bst.
+     * 
+     * @param valor el valor a insertar.
      */
     public void insertar(int valor) {
+        // TODO: Implementar inserción recursiva
         raiz = insertarRecursivo(raiz, valor);
     }
 
@@ -41,9 +50,13 @@ public class ArbolBinarioBusqueda {
     }
 
     /**
-     * Determina si el arbol contiene un valor.
+     * Determina si el bst contiene un valor.
+     * 
+     * @param valor el valor a buscar.
+     * @return true si se encuentra, false en caso contrario.
      */
     public boolean contiene(int valor) {
+        // TODO: Implementar búsqueda recursiva
         return contieneRecursivo(raiz, valor);
     }
 
@@ -58,7 +71,9 @@ public class ArbolBinarioBusqueda {
     }
 
     /**
-     * Retorna la altura del arbol.
+     * Calcula la altura del bst.
+     * 
+     * @return la altura del bst, o -1 si esta vacio.
      */
     public int obtenerAltura() {
         return obtenerAlturaRecursivo(raiz);
@@ -71,7 +86,27 @@ public class ArbolBinarioBusqueda {
     }
 
     /**
-     * Retorna el recorrido inorden.
+     * Cuenta las hojas del bst.
+     * 
+     * @return el número total de hojas.
+     */
+    public int contarHojas() {
+        // TODO: Implementar conteo de hojas
+        return contarHojasRecursivo(raiz);
+    }
+
+    private int contarHojasRecursivo(Nodo nodo) {
+        if (nodo == null)
+            return 0;
+        if (nodo.izquierdo == null && nodo.derecho == null)
+            return 1;
+        return contarHojasRecursivo(nodo.izquierdo) + contarHojasRecursivo(nodo.derecho);
+    }
+
+    /**
+     * Retorna una lista con los elementos del bst en recorrido inorden.
+     * 
+     * @return lista de valores ordenados.
      */
     public List<Integer> inorden() {
         List<Integer> resultado = new ArrayList<>();
@@ -88,7 +123,9 @@ public class ArbolBinarioBusqueda {
     }
 
     /**
-     * Valida si el arbol es un BST valido.
+     * Valida si el arbol es un bst
+     * 
+     * @return true si es un BST, false de lo contrario.
      */
     public boolean esBST() {
         return esBSTUtil(raiz, Integer.MIN_VALUE, Integer.MAX_VALUE);
