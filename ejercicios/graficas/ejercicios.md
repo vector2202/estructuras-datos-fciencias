@@ -1,11 +1,11 @@
-# 🕸️ Gráficas
+# Graficas
 
-Las **Gráficas** son estructuras de datos que representan relaciones (aristas) entre un conjunto de objetos (vértices). A diferencia de los árboles, las gráficas pueden tener ciclos y múltiples conexiones entre nodos.
+Las **Graficas** son estructuras de datos que representan relaciones (aristas) entre un conjunto de objetos (vertices). A diferencia de los arboles, las graficas pueden tener ciclos y multiples conexiones entre nodos.
 
 ## Ejercicios propuestos
 
 **Ejercicio 1.**\
-Explica la diferencia entre una **Matriz de Adyacencia** y una **Lista de Adyacencia**. ¿Cuándo es mejor usar una sobre la otra?
+Explica la diferencia entre una **Matriz de Adyacencia** y una **Lista de Adyacencia**. ¿Cuando es mejor usar una sobre la otra?
 
 **Ejercicio 2.**\
 Define qué es un **Grafo Dirigido** y un **Grafo No Dirigido**. 

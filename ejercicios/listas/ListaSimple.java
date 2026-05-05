@@ -31,16 +31,6 @@ public class ListaSimple<T> {
      */
     public void add(T valor) {
         // TODO: Implementar agregado al final
-        /* SOLUCIÓN:
-        Nodo nuevo = new Nodo(valor);
-        if (cabeza == null) cabeza = nuevo;
-        else {
-            Nodo actual = cabeza;
-            while (actual.siguiente != null) actual = actual.siguiente;
-            actual.siguiente = nuevo;
-        }
-        tamano++;
-        */
         Nodo nuevo = new Nodo(valor);
         if (cabeza == null) {
             cabeza = nuevo;
@@ -87,16 +77,6 @@ public class ListaSimple<T> {
      */
     public void reverse() {
         // TODO: Implementar inversión de la lista (in-place)
-        /* SOLUCIÓN:
-        Nodo anterior = null, actual = cabeza, siguiente = null;
-        while (actual != null) {
-            siguiente = actual.siguiente;
-            actual.siguiente = anterior;
-            anterior = actual;
-            actual = siguiente;
-        }
-        cabeza = anterior;
-        */
         Nodo anterior = null;
         Nodo actual = cabeza;
         Nodo siguiente = null;

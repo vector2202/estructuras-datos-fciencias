@@ -15,14 +15,14 @@ Las **Tablas Hash** son estructuras que permiten almacenar pares clave-valor pro
 ¿Qué es una **colision** en una tabla hash y por que ocurre? Explica el concepto de "Factor de Carga" (`load factor`).
 
 **Ejercicio 2.**\
-Si usamos una tabla hash de tamaño 10 y nuestra función hash es `h(k) = k % 10`, ¿dónde se insertarían las claves 12, 22 y 32? ¿Qué técnica de resolución de colisiones preferirías en este caso?
+Explica la diferencia entre resolver colisiones mediante **encadenamiento** y mediante **direccionamiento abierto** y cual es la desventaja de cada uno.
 
 ---
 
 ## Retos de Programación
 
 ### 1. Implementación Básica
-Completa los métodos `put`, `get` y `remove` en `TablaHash.java`. Asegúrate de manejar correctamente las colisiones usando la lista ligada proporcionada en cada cubeta.
+Completa los metodos `put`, `get` y `remove` en `TablaHash.java`. Asegurate de manejar correctamente las colisiones usando la lista ligada proporcionada en cada cubeta.
 
 ### 2. Aplicaciones Prácticas (NUEVO)
 En el archivo `EjerciciosHash.java`, resuelve los siguientes problemas:

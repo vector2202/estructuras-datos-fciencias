@@ -3,15 +3,11 @@ package sorting;
 import java.util.Arrays;
 import java.util.Random;
 
-/**
- * Clase para analizar el rendimiento de los algoritmos de ordenamiento 
- * bajo diferentes escenarios.
- */
 public class AnalisisSorting {
 
     public static void main(String[] args) {
         int tamano = 10000;
-        
+
         System.out.println("Escenario 1: Arreglo Inverso (Peor caso para Bubble/Insertion)");
         int[] inverso = generarArregloInverso(tamano);
         probarAlgoritmos(inverso);
@@ -53,20 +49,23 @@ public class AnalisisSorting {
 
     private static int[] generarArregloInverso(int n) {
         int[] arr = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = n - i;
+        for (int i = 0; i < n; i++)
+            arr[i] = n - i;
         return arr;
     }
 
     private static int[] generarArregloAleatorio(int n) {
         Random rand = new Random();
         int[] arr = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = rand.nextInt(n);
+        for (int i = 0; i < n; i++)
+            arr[i] = rand.nextInt(n);
         return arr;
     }
 
     private static int[] generarArregloRepetidos(int n) {
         int[] arr = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = i % 10; // Solo 10 valores distintos
+        for (int i = 0; i < n; i++)
+            arr[i] = i % 10; // Solo 10 valores distintos
         return arr;
     }
 }
