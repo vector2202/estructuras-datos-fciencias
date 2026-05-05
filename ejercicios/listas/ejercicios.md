@@ -1,4 +1,4 @@
-# 📚 Listas Enlazadas
+# Listas Enlazadas
 
 ## Ejercicios propuestos
 
@@ -7,25 +7,19 @@ Dada una lista enlazada simple con los elementos:
 
     4 → 7 → 9 → 12
 
-Describe cómo insertar el número 8 después del 7.
+Describe como insertar el numero 8 despues del 7.
 
 ------------------------------------------------------------------------
 
 **Ejercicio 2.**\
-Explica la diferencia entre una lista enlazada simple y una lista
-doblemente enlazada.
-
-------------------------------------------------------------------------
-
-**Ejercicio 3.**\
-Describe el procedimiento para eliminar un nodo con valor específico en
+Describe el procedimiento para eliminar un nodo con valor especifico en
 una lista enlazada simple.
 
 ------------------------------------------------------------------------
 
 ## Ejercicio ilustrativo (resuelto)
 
-### Inserción en lista enlazada
+### Insercion en lista enlazada
 
 Lista inicial:
 

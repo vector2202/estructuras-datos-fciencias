@@ -1,5 +1,10 @@
 package listas;
 
+/**
+ * Implementación de una Lista Simplemente Ligada.
+ * 
+ * @param <T> el tipo de elementos en la lista.
+ */
 public class ListaSimple<T> {
     private class Nodo {
         T valor;
@@ -19,7 +24,23 @@ public class ListaSimple<T> {
         this.tamano = 0;
     }
 
+    /**
+     * Agrega un elemento al final de la lista.
+     * 
+     * @param valor el elemento a agregar.
+     */
     public void add(T valor) {
+        // TODO: Implementar agregado al final
+        /* SOLUCIÓN:
+        Nodo nuevo = new Nodo(valor);
+        if (cabeza == null) cabeza = nuevo;
+        else {
+            Nodo actual = cabeza;
+            while (actual.siguiente != null) actual = actual.siguiente;
+            actual.siguiente = nuevo;
+        }
+        tamano++;
+        */
         Nodo nuevo = new Nodo(valor);
         if (cabeza == null) {
             cabeza = nuevo;
@@ -33,6 +54,13 @@ public class ListaSimple<T> {
         tamano++;
     }
 
+    /**
+     * Obtiene el elemento en la posición especificada.
+     * 
+     * @param indice posición del elemento.
+     * @return el elemento en esa posición.
+     * @throws IndexOutOfBoundsException si el índice es inválido.
+     */
     public T get(int indice) {
         if (indice < 0 || indice >= tamano) {
             throw new IndexOutOfBoundsException("Índice fuera de rango");
@@ -44,11 +72,31 @@ public class ListaSimple<T> {
         return actual.valor;
     }
 
+    /**
+     * Retorna el número de elementos en la lista.
+     * 
+     * @return tamaño de la lista.
+     */
     public int size() {
         return tamano;
     }
 
+    /**
+     * Invierte el orden de los elementos en la lista.
+     * Complejidad: O(n)
+     */
     public void reverse() {
+        // TODO: Implementar inversión de la lista (in-place)
+        /* SOLUCIÓN:
+        Nodo anterior = null, actual = cabeza, siguiente = null;
+        while (actual != null) {
+            siguiente = actual.siguiente;
+            actual.siguiente = anterior;
+            anterior = actual;
+            actual = siguiente;
+        }
+        cabeza = anterior;
+        */
         Nodo anterior = null;
         Nodo actual = cabeza;
         Nodo siguiente = null;
