@@ -80,7 +80,20 @@ Ahora como ya vimos el concepto de notacion asintotica veamos distintos tipos de
 - O($2^n$): si la anterior no la queriamos, menos esta, es la complejidad exponencial, por lo regular problemas de fuerza bruta igual tienen esta complejidad, si tu algoritmo tiene esta complejidad, probablemente hay algo a mejorar.
 - O(n!): la peor de todas, la factorial, basicamente es cuando tienes que combinar todos contra todos, no usarla.
 
-  
+* Recurrencias
+Cuando un algoritmo es recursivo (se llama a si mismo), no podemos contar las operaciones de forma lineal tan facil. Para eso usamos *Ecuaciones de Recurrencia*.
+
+Una recurrencia es una funcion definida en terminos de si misma con valores mas pequeños. Por ejemplo, para la busqueda binaria:
+$T(n) = T(n/2) + O(1)$
+
+Esto nos dice que el tiempo para resolver un problema de tamaño $n$ es igual al tiempo de resolver la mitad del problema ($n/2$) mas una operacion constante (comparar el punto medio).
+
+** Metodos para resolver recurrencias
+Existen varios metodos para encontrar la complejidad final ($O$) de una recurrencia:
+1. *Metodo de Sustitucion*: Adivinar la forma de la solucion y usar induccion matematica para demostrarla.
+2. *Arbol de Recurrencia*: Dibujar las llamadas como un arbol, donde cada nodo representa el trabajo en ese nivel, y luego sumarlos todos.
+3. *Teorema Maestro*: Es una formula directa para resolver recurrencias de la forma $T(n) = aT(n/b) + f(n)$. Es el metodo mas rapido para los algoritmos clasicos como MergeSort o Busqueda Binaria.
+
 * Comparación de Crecimientos
 
 | n         | log n |    n | n log n | $n^2$ | $2^n$      |
