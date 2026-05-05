@@ -2,8 +2,14 @@ package pilas;
 
 public class BalanceadorParentesis {
 
+    /**
+     * Verifica si una expresion tiene parentesis balanceados.
+     * 
+     * @param expresion la expresion a verificar.
+     * @return true si la expresion tiene parentesis balanceados, false en caso
+     *         contrario.
+     */
     public static boolean estaBalanceado(String expresion) {
-        // La pila ahora es dinámica, no requiere capacidad inicial
         Pila<Character> pila = new Pila<>();
 
         for (int i = 0; i < expresion.length(); i++) {

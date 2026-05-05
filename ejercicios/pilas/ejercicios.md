@@ -3,17 +3,17 @@
 ## Ejercicios propuestos
 
 **Ejercicio 1.**\
-Dada una pila inicialmente vacía, muestra el estado de la pila después
+Dada una pila inicialmente vacia, muestra el estado de la pila despues
 de ejecutar las siguientes operaciones:
 
-    push(5)
+    push(5) 
     push(8)
     push(3)
     pop()
     push(2)
     pop()
 
-Indica el contenido final de la pila y cuál elemento queda en el tope.
+Indica el contenido final de la pila y cual elemento queda en el tope.
 
 ------------------------------------------------------------------------
 
