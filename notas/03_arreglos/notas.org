@@ -25,7 +25,27 @@ Notese que siempre en un arreglo vamos a iniciar desde la posicion 0.
 - Memoria contigua
   Todos los elementos se almacenan uno tras otro, esto tanto en recorrido es muy eficiente como en implementacion, hay cierta memoria que utiliza el programa, que el que esten contiguos estos elementos optimiza el uso de esta memoria.
 
-* Delcaracion
+* Polinomios de direccionamiento
+Como vimos, los arreglos se guardan en memoria de forma contigua. Pero, ¿como sabe la computadora exactamente en que direccion de memoria esta el elemento =array[i]=? Para esto usa una formula matematica llamada *Polinomio de Direccionamiento*.
+
+** Arreglos Unidimensionales
+Para un arreglo de una sola dimension, la formula es:
+$Dir(A[i]) = Base + i \cdot w$
+
+Donde:
+- *Base*: Es la direccion de memoria donde empieza el arreglo (la posicion del indice 0).
+- *i*: Es el indice del elemento que queremos buscar.
+- *w*: Es el tamaño (en bytes) de cada elemento (por ejemplo, un =int= suele ocupar 4 bytes).
+
+Gracias a esta formula, el acceso es $O(1)$, porque no importa si buscamos el indice 0 o el millon, el calculo matematico toma el mismo tiempo.
+
+** Arreglos Multidimensionales (Matrices)
+En una matriz de $m \times n$, los elementos se guardan linealmente. La forma mas comun es por filas (*Row-major order*):
+$Dir(A[i][j]) = Base + (i \cdot n + j) \cdot w$
+
+Aqui, multiplicamos el indice de la fila $i$ por el numero total de columnas $n$ para "saltar" las filas completas, y luego sumamos $j$ para llegar a la columna exacta.
+
+* Declaracion
 #+begin_src java
   int[] array = new int[10];//sin inicializar pero con el tamaño definido
   int[] array = {1, 2, 3, 4, 5};//con estos valores ya inicializado
