@@ -1,14 +1,8 @@
-# 📚 Colas
+# Colas
 
 ## Ejercicios propuestos
 
 **Ejercicio 1.**\
-
-Simula el comportamiento de una cola al ejecutar las siguientes operaciones: enqueue(10) enqueue(20) enqueue(30) dequeue() enqueue(40) dequeue() Indica el estado final de la cola.
-
-------------------------------------------------------------------------
-
-**Ejercicio 2.**\
 Implementa una cola simplemente ligada en java con los metodos vistos en clase
 
 ------------------------------------------------------------------------
