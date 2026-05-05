@@ -19,13 +19,26 @@ public class BusquedaBinaria {
     }
 
     /**
-     * Realiza una busqueda binaria en un arreglo ordenado.
+     * Realiza una búsqueda binaria en un arreglo ordenado.
+     * Complejidad: O(log n)
      * 
      * @param arreglo  El arreglo ordenado donde buscar.
      * @param objetivo El valor a buscar.
-     * @return El indice del objetivo o -1 si no se encuentra.
+     * @return El índice del objetivo o -1 si no se encuentra.
      */
     public static int busquedaBinaria(int[] arreglo, int objetivo) {
+        // TODO: Implementar búsqueda binaria (Divide y Vencerás)
+        /* SOLUCIÓN:
+        int inicio = 0;
+        int fin = arreglo.length - 1;
+        while (inicio <= fin) {
+            int medio = inicio + (fin - inicio) / 2;
+            if (arreglo[medio] == objetivo) return medio;
+            if (arreglo[medio] < objetivo) inicio = medio + 1;
+            else fin = medio - 1;
+        }
+        return -1;
+        */
         int inicio = 0;
         int fin = arreglo.length - 1;
 
