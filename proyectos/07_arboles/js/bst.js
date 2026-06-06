@@ -21,12 +21,12 @@ export class BST {
         if (!this.root) {
             this.root = new BSTNode(value);
             this.visualizer.draw(this.root);
-            await this.visualizer.highlightNode(value, "visiting-node"); // Highlight creation
+            await this.visualizer.highlightNode(value, "visiting-node");
             await this.visualizer.sleep();
             this.visualizer.showMessage(`Raíz ${value} creada.`);
             return;
         }
-        await this.visualizer.highlightNode(this.root.value, "visiting-node"); // Start at root
+        await this.visualizer.highlightNode(this.root.value, "visiting-node");
         await this.visualizer.sleep(300);
         await this._insert(this.root, value);
         this.visualizer.draw(this.root); // Redraw to ensure correct positions

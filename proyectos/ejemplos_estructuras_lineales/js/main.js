@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabs = document.querySelectorAll(".tab-btn");
     const sections = document.querySelectorAll(".section");
 
-    // Tab switching logic
     tabs.forEach(btn => {
         btn.addEventListener("click", () => {
             tabs.forEach(b => b.classList.remove("active"));

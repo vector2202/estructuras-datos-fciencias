@@ -407,14 +407,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.type = 'number';
                 input.min = '0';
 
-                // Si es no dirigido, la mitad inferior puede ser de solo lectura pero para más fácil 
-                // hacemos que ambas actualicen ambas.
                 if (!graph.isWeighted) {
                     input.max = '1';
                 }
 
                 input.value = matrix[i][j] || '';
-                if (input.value === '0') input.value = ''; // Vacío en lugar de 0s densos
+                if (input.value === '0') input.value = '';
 
                 input.disabled = isPlaying || !isEditable;
 
@@ -431,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         resetSimulation();
-                        updateUI(); // Refrescar todo reconstruye inputs
+                        updateUI();
                     });
                 }
 
@@ -507,7 +505,6 @@ document.addEventListener('DOMContentLoaded', () => {
             simGenerator = dijkstra(graph, startNodeId, endNodeId);
         }
 
-        // Store initial empty state
         simHistory.push({
             currentNode: null,
             visitedNodes: [],
@@ -602,7 +599,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (currentStepIndex === simHistory.length - 1 && (!simGenerator || simGenerator.next().done)) {
-            // finished, restart?
             prepareSimulation();
         }
 
@@ -678,7 +674,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     });
 
-    // Add some default nodes to demonstrate
     const n0 = graph.addNode(150, 150);
     const n1 = graph.addNode(400, 120);
     const n2 = graph.addNode(280, 400);

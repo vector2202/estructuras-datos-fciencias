@@ -115,7 +115,6 @@ export class AVL {
             return new AVLNode(value);
         }
 
-        // Only highlight traversal
         this.visualizer.draw(this.root);
         await this.visualizer.highlightNode(node.value, "visiting-node");
         await this.sleep(300);

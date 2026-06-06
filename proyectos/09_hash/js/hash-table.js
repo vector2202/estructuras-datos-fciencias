@@ -3,8 +3,8 @@ class HashTableSimulator {
         this.size = size;
         this.table = new Array(size).fill(null).map(() => []);
         this.elementCount = 0;
-        this.strategy = 'chaining'; // chaining, linear, quadratic
-        this.hashFunctionType = 'simple'; // simple, complex
+        this.strategy = 'chaining';
+        this.hashFunctionType = 'simple';
 
         this.initUI();
         this.render();
@@ -59,7 +59,6 @@ class HashTableSimulator {
         const str = x.toString();
         let sum = 0;
         for (let i = 0; i < str.length; i++) {
-            // Multiply each digit by its position + 1 times a prime
             sum += parseInt(str[i]) * (i + 1) * 31;
         }
         return sum % this.size;

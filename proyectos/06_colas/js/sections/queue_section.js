@@ -3,7 +3,7 @@ import CircularQueue from "../core/CircularQueue.js";
 import { renderQueue, renderCircular, renderFloatingNode } from "../render/queueRenderer.js";
 import { Visualizer } from "../utils/Visualizer.js";
 
-/* CIRCULAR QUEUE (Hoisted for scope access) */
+/* CIRCULAR QUEUE */
 const cq = new CircularQueue(6);
 const vizC = new Visualizer("explanationCircular", "stepsCircular");
 
@@ -23,9 +23,8 @@ if (speedSlider) {
         const factor = parseFloat(speedSlider.value);
         if (speedValue) speedValue.textContent = `${factor.toFixed(1)}x`;
         vizS.setSpeed(factor);
-        if (vizC) vizC.setSpeed(factor); // Check existence carefully
+        if (vizC) vizC.setSpeed(factor);
     });
-    // Set initial speed
     const initFactor = parseFloat(speedSlider.value);
     vizS.setSpeed(initFactor);
     if (vizC) vizC.setSpeed(initFactor);
@@ -110,7 +109,6 @@ btnPeekS.onclick = async () => {
         vizS.log(`2. El elemento al frente es: <strong>${val}</strong>`, 2);
         renderQueue("canvasSimple", q.items, 0, q.items.length - 1, 0);
 
-        // Resaltar el primer nodo (opcional, renderQueue ya pone etiqueta)
         await vizS.sleep(1500);
     } catch (e) {
         vizS.log(`<span style="color:var(--danger)">${e}</span>`);

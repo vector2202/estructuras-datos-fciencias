@@ -69,7 +69,6 @@ export default function initCircular() {
             const x2 = nodes[nextIdx].offsetLeft + 40;
             const y2 = nodes[nextIdx].offsetTop + 40;
 
-            // Arco simple entre nodos
             const midX = (x1 + x2) / 2 + (y2 - y1) * 0.2;
             const midY = (y1 + y2) / 2 + (x1 - x2) * 0.2;
 

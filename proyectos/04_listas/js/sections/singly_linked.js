@@ -24,9 +24,6 @@ if (speedSlider) {
   viz.setSpeed(parseFloat(speedSlider.value));
 }
 
-// ===============================
-// Actions
-// ===============================
 
 document.getElementById("insertStart").addEventListener("click", async () => {
   if (!viz.start()) return;

@@ -21,14 +21,13 @@ export default function initStack() {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("class", "connector-svg");
         canvas.appendChild(svg);
-        
+
         function redrawArrows() {
             svg.innerHTML = "";
-            // Select valid elements
             const nodes = Array.from(container.children).filter(el => !el.classList.contains("connector-svg") && !el.style.opacity);
             for (let j = 1; j < nodes.length; j++) {
-                const prevNode = nodes[j - 1]; // lower node
-                const currNode = nodes[j];     // upper node
+                const prevNode = nodes[j - 1];
+                const currNode = nodes[j];
 
                 const arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
                 arrow.setAttribute("class", "arrow-path");

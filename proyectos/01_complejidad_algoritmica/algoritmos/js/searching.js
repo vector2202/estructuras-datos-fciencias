@@ -34,12 +34,12 @@ function binarySearch(arr, target) {
 
     while (low <= high) {
         const mid = Math.floor((low + high) / 2);
-        
-        steps.push({ 
-            type: 'compare', 
-            index: mid, 
-            low: low, 
-            high: high 
+
+        steps.push({
+            type: 'compare',
+            index: mid,
+            low: low,
+            high: high
         });
 
         if (arr[mid] === target) {
@@ -62,7 +62,7 @@ async function runSearch(id, steps) {
     const chartId = `chart-${id}`;
     const statsId = `stats-${id}`;
     const progId = `prog-${id}`;
-    
+
     const totalSteps = steps.length;
     let ops = 0;
 
@@ -84,46 +84,42 @@ async function runSearch(id, steps) {
                 //m element is the one we compare
                 highlights[step.index] = 'compare';
             }
-        } 
+        }
         else if (step.type === 'found') {
             highlights[step.index] = 'found';
         }
 
         // Render Frame
         Utils.render(chartId, baseArray, highlights);
-        
+
         // Update Stats
         document.getElementById(statsId).textContent = `${ops} ops`;
         document.getElementById(progId).style.width = `${(i / totalSteps) * 100}%`;
 
-	//if founded mark it
+        //if founded mark it
         if (step.type === 'found') {
             document.getElementById(progId).style.background = 'var(--success)';
             await Utils.sleep(() => 1000);
-            return; 
+            return;
         }
 
         // Wait
         await Utils.sleep(() => Number(speedSlider.value));
     }
-    
-}
 
-//app
+}
 
 function init() {
     const size = Number(sizeSlider.value);
-    
+
     const rawArr = Utils.generateArray(size, 'random', 10, 300);
     baseArray = rawArr.sort((a, b) => a - b);
-    
+
     const randomIndex = Math.floor(Math.random() * baseArray.length);
     targetValue = baseArray[randomIndex];
-    
-    // Update UI Labels
+
     targetDisplay.textContent = targetValue;
-    
-    // Reset Graphs
+
     ['linear', 'binary'].forEach(id => {
         Utils.render(`chart-${id}`, baseArray);
         document.getElementById(`stats-${id}`).textContent = '0 ops';

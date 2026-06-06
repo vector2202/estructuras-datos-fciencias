@@ -18,8 +18,8 @@ export class TreeVisualizer {
         new ResizeObserver(() => {
             if (this.lastRoot) this.draw(this.lastRoot);
         }).observe(this.container);
-        this.nodesMap = new Map(); // value -> { group, circle, text, x, y }
-        this.edgesMap = new Map(); // key (val1-val2) -> line
+        this.nodesMap = new Map();
+        this.edgesMap = new Map();
     }
 
     async sleep(ms = this.animationSpeed) {
